@@ -1,6 +1,6 @@
 import { FormInput } from '../UI';
 import FoodBg from '../assests/FoodBg.png'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
 import { useFormik } from 'formik'
 import { registrationSchema } from '../schema';
@@ -8,6 +8,9 @@ import { motion } from 'framer-motion';
 import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+const apiUrl = process.env.REACT_APP_API_URL
 
 
 const initialValues = { email: '', password: '', userName: '', confirmPassword: '' };
@@ -17,18 +20,39 @@ const initialValues = { email: '', password: '', userName: '', confirmPassword: 
 
 const Register = () => {
 
+
+    const [res, setRes] = useState({})
+    const [disabled, setDisabled] = useState(false)
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
         validationSchema: registrationSchema,
         onSubmit: async (values, action) => {
             // console.log(values);
+            console.log(1);
+
+            try {
+                const { confirmPassword, ...others } = values
+                console.log(others);
+                const res = await axios.post(`${apiUrl}/auth/register`, others)
+
+                console.log(res);
+                console.log(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+
+            // setTimeout(() => {
+            //     setDisabled(true)
+
+            // }, 1000);
 
         }
 
     });
 
     useEffect(() => {
-        console.log(values);
+        // console.log(values);
 
     }, [values])
 
@@ -81,7 +105,7 @@ const Register = () => {
 
                     {/* button section */}
 
-                    <motion.button type='submit' className='w-full px-4 py-2 rounded-md bg-red-600 cursor-pointer text-white text-xl hover:bg-red-500 transition-all'>Signup</motion.button>
+                    <motion.button type='submit' disabled={disabled} className='w-full px-4 py-2 rounded-md bg-red-600 cursor-pointer text-white text-xl hover:bg-red-500 transition-all'>Signup</motion.button>
 
 
                     {/* link section */}

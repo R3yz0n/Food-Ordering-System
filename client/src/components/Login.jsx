@@ -1,34 +1,57 @@
 import { FormInput } from '../UI';
 import FoodBg from '../assests/FoodBg.png'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
 import { useFormik } from 'formik'
 import { loginSchmea, registrationSchema } from '../schema';
 import { motion } from 'framer-motion';
 import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { APIURL } from '../APIURL';
+import { useDispatch } from 'react-redux'
+import { addToken } from '../store/slices/userSlice';
 
-
-const initialValues = { email: '', password: '', userName: '', confirmPassword: '' };
-
+const initialValues = { email: '', password: '' };
 
 
 
 const Login = () => {
+    const navigate = useNavigate('')
+    const dispatch = useDispatch()
+
+    const [response, setResponse] = useState('')
 
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
-        validationSchema: loginSchmea,
+        // validationSchema: loginSchmea,
         onSubmit: async (values, action) => {
             // console.log(values);
+
+            try {
+
+                const res = await axios.post(`${APIURL}/auth/login`, values)
+                console.log(res);
+                dispatch(addToken(res.data.token))
+                // console.log(res.data.token);
+                setResponse(res.data.message)
+                // navigate('/', { replace: true })
+
+            }
+            catch (error) {
+                // console.log(error);
+                // setResponse(error.response.data.message)
+
+            }
 
         }
 
     });
 
     useEffect(() => {
-        console.log(values);
+        // console.log(values);
+        setResponse('')
 
     }, [values])
 
@@ -36,7 +59,7 @@ const Login = () => {
         <section className='w-screen  min-h-screen relative overflow-hidden flex  py-10 sm:py-8'>
 
             {/* background Image */}
-            <img src={FoodBg} alt='Food Background Imgg' className='w-full h-full object-fit  absolute top-0 left-0 border-black' />
+            <img src={FoodBg} alt='Food Background Imgg' className='w-full h-full object-fit  absolute top-0 left-0 border-black blur-[2px]' />
             <img src={FoodService} alt="Food Servie" className='hidden lg:flex w-80 absolute z-50 top-16 left-[40%]' />
 
             <aside className='sm:ml-10 flex flex-col bg-yellow-400 shadow-md items-center w-[90%] backdrop-filter min-h-full z-10 sm:w-460 backdrop-blur-xl p-4 px-4 bg-opacity-20 lg:bg-opacity-100 '>
@@ -70,7 +93,14 @@ const Login = () => {
                         errors={errors.password} touched={touched.password}
                     />
 
+
                     {/* button section */}
+
+                    {response.length > 1 &&
+                        <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                            {response}
+                        </motion.div>
+                    }
 
                     <motion.button type='submit' className='w-full px-4 py-2 rounded-md bg-red-600 cursor-pointer text-white text-xl hover:bg-red-500 transition-all'>Login</motion.button>
 
