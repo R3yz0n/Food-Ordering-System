@@ -10,8 +10,6 @@ app.use(bodyParser.json())
 
 
 
-console.log(1);
-
 
 
 
