@@ -39,7 +39,7 @@ const Register = () => {
             <img src={FoodBg} alt='Food Background Imgg' className='w-full h-full object-fit  absolute top-0 left-0 border-black' />
             <img src={FoodService} alt="Food Servie" className='hidden lg:flex w-80 absolute z-50 top-16 left-[40%]' />
 
-            <aside className='sm:ml-10 flex flex-col bg-yellow-400 shadow-md items-center w-[90%] backdrop-filter min-h-full z-10 sm:w-460 backdrop-blur-3xl p-4 px-4  bg-opacity-20 lg:bg-opacity-100 '>
+            <aside className=' sm:ml-10 flex flex-col bg-yellow-400 shadow-md items-center w-[90%] backdrop-filter min-h-full z-10 sm:w-460 backdrop-blur-3xl p-4 px-4  bg-opacity-20 lg:bg-opacity-100 '>
 
                 {/* //top section */}
                 <div className='flex items-center justify-start gap-4 w-full'>
