@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Login, Main, Register } from './components'
+import { useDispatch } from 'react-redux'
 
 const App = () => {
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    const temp = localStorage.getItem('token')
+    // dispatch(getUser(temp))
+
+
+  }, [])
 
   return (
 

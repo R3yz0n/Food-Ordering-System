@@ -10,16 +10,20 @@ import FoodService from '../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { APIURL } from '../APIURL';
-import { useDispatch } from 'react-redux'
-import { addToken } from '../store/slices/userSlice';
+import { useDispatch, useSelector } from 'react-redux'
+import { userLogin } from '../store/user/userAction';
+// import { addToken } from '../store/slices/userSlice';
+import { setError } from '../store/user/userSlice';
 
-const initialValues = { email: '', password: '' };
+const initialValues = { email: 'admin@test.com', password: 'admin123$' };
 
 
 
 const Login = () => {
     const navigate = useNavigate('')
     const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
+    console.log(user.success);
 
     const [response, setResponse] = useState('')
 
@@ -27,23 +31,10 @@ const Login = () => {
         initialValues: initialValues,
         // validationSchema: loginSchmea,
         onSubmit: async (values, action) => {
-            // console.log(values);
+            console.log(values);
+            dispatch(userLogin(values))
 
-            try {
 
-                const res = await axios.post(`${APIURL}/auth/login`, values)
-                console.log(res);
-                dispatch(addToken(res.data.token))
-                // console.log(res.data.token);
-                setResponse(res.data.message)
-                // navigate('/', { replace: true })
-
-            }
-            catch (error) {
-                // console.log(error);
-                // setResponse(error.response.data.message)
-
-            }
 
         }
 
@@ -51,7 +42,7 @@ const Login = () => {
 
     useEffect(() => {
         // console.log(values);
-        setResponse('')
+        dispatch(setError())
 
     }, [values])
 
@@ -96,9 +87,14 @@ const Login = () => {
 
                     {/* button section */}
 
-                    {response.length > 1 &&
+                    {user.error?.length > 1 &&
                         <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
-                            {response}
+                            {user.error}
+                        </motion.div>
+                    }
+                    {user.success?.length > 1 &&
+                        <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                            {user.success}
                         </motion.div>
                     }
 
