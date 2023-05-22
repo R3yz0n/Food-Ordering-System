@@ -9,6 +9,7 @@ import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { btnClick } from '../animations';
 
 const apiUrl = process.env.REACT_APP_API_URL
 
@@ -113,7 +114,7 @@ const Register = () => {
                     <p className='flex gap-2 text-lg'>Already have an account?:
                         <Link to='/login' className='font-semibold'>
 
-                            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                            <motion.button {...btnClick}
                                 className='text-red-700 underline cursor-pointer bg-transparent' >Login</motion.button>
 
                         </Link>

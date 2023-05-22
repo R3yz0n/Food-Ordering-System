@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Login, Main, Register } from './components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
+import { fadeInOut } from './animations/index'
 
 const App = () => {
   const dispatch = useDispatch()
+  const { loading } = useSelector(state => state.user)
 
 
   useEffect(() => {
@@ -17,6 +20,7 @@ const App = () => {
   return (
 
     <main className='w-screen min-h-screen h-auto flex flex-col items-center justify-center'>
+
       <Routes>
         <Route path='/*' element={<Main />} />
         <Route path='/login' element={<Login />} />

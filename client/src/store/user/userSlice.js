@@ -2,12 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import jwt from "jwt-decode";
 import { userLogin } from "./userAction";
 
+
+// initialize userToken from local storage
+const userToken = localStorage.getItem("userToken")
+    ? localStorage.getItem("userToken")
+    : null;
+
+const userData = userToken ? jwt(userToken) : null;
+
 const initialState = {
     loading: false,
     error: null,
     success: false,
-    userToken: null,
-    user: null,
+    userToken,
+    userData,
 };
 
 const userSlice = createSlice({
@@ -32,12 +40,19 @@ const userSlice = createSlice({
             state.error = null;
             state.userToken = payload.token
             state.loading = false
+            localStorage.setItem("userToken", payload.token);
+            const userData = jwt(payload.token);
+            state.userData = userData
+
 
 
 
 
         },
         [userLogin.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false
 
 
         },
