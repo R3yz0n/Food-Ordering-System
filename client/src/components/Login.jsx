@@ -1,16 +1,16 @@
 import { FormInput } from '../UI';
 import FoodBg from '../assests/FoodBg.png'
-import React, { useEffect, useState } from 'react';
-import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
+import React, { useEffect, } from 'react';
+import { FaLock, FaEnvelope } from 'react-icons/fa'
 import { useFormik } from 'formik'
-import { loginSchmea, registrationSchema } from '../schema';
+import { loginSchmea } from '../schema';
 import { motion } from 'framer-motion';
 import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../store/user/userAction';
-import { clearFields, setError } from '../store/user/userSlice';
+import { clearFields } from '../store/user/userSlice';
 import MainLoader from '../UI/MainLoader';
 import { btnClick } from '../animations';
 
@@ -20,10 +20,10 @@ const initialValues = { email: 'admin@test.com', password: 'admin123$' };
 
 
 const Login = () => {
+
     const navigate = useNavigate('')
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    // console.log(user);
     const { loading } = useSelector(state => state.user)
 
 
@@ -33,6 +33,7 @@ const Login = () => {
         onSubmit: async (values, action) => {
             // console.log(values);  
             const a = await dispatch(userLogin(values)).unwrap()
+            console.log(a);
 
 
         }
@@ -56,7 +57,7 @@ const Login = () => {
 
 
 
-    }, [user.userToken !== null, dispatch])
+    }, [dispatch, user.userToken, navigate])
 
 
 
@@ -84,7 +85,7 @@ const Login = () => {
 
             {/* background Image */}
             <img src={FoodBg} alt='Food Background Imgg' className='w-full h-full object-fit  absolute top-0 left-0 border-black blur-[2px]' />
-            <img src={FoodService} alt="Food Servie" className='hidden lg:flex w-80 absolute z-50 top-16 left-[40%]' />
+            <img src={FoodService} alt="Food Servie" className='hidden lg:flex w-80 absolute z-40 top-16 left-[40%]' />
 
             <aside className='sm:ml-10 flex flex-col bg-yellow-400 shadow-md items-center w-[90%] backdrop-filter min-h-full z-10 sm:w-460 backdrop-blur-xl p-4 px-4 bg-opacity-20 lg:bg-opacity-100 '>
 

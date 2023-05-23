@@ -1,6 +1,6 @@
-import { FormInput } from '../UI';
+import { FormInput, MainLoader } from '../UI';
 import FoodBg from '../assests/FoodBg.png'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
 import { useFormik } from 'formik'
 import { registrationSchema } from '../schema';
@@ -8,13 +8,11 @@ import { motion } from 'framer-motion';
 import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { btnClick } from '../animations';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from '../store/user/userAction';
 import { clearFields } from '../store/user/userSlice';
 
-const apiUrl = process.env.REACT_APP_API_URL
 
 
 const initialValues = { email: 'admin@test.com', password: 'admin123$', userName: 'admin', confirmPassword: 'admin123$' };
@@ -28,17 +26,16 @@ const Register = () => {
 
     const dispatch = useDispatch()
 
-    const [res, setRes] = useState({})
     const navigate = useNavigate()
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
-        // validationSchema: registrationSchema,
+        validationSchema: registrationSchema,
         onSubmit: async (values, action) => {
 
             // console.log(values);
 
             const a = await dispatch(userRegister(values)).unwrap()
-            // console.log(a);
+            console.log(a);
 
 
 
@@ -51,13 +48,13 @@ const Register = () => {
 
         setTimeout(() => {
             if (user.error === null && user.success !== false) {
-                navigate('/', { replace: true })
+                navigate('/login', { replace: true })
                 dispatch(clearFields())
             }
 
         }, 2000);
 
-    }, [user.success !== false, dispatch])
+    }, [dispatch, navigate, user.error, user.success])
 
 
 
@@ -73,6 +70,9 @@ const Register = () => {
 
     return (
         <section className='w-screen min-h-screen  relative overflow-hidden flex  sm:py-5 py-8'>
+            {
+                user.loading && <MainLoader />
+            }
 
             {/* background Image */}
             <img src={FoodBg} alt='Food Background Imgg' className='w-full h-full object-fit  absolute top-0 left-0 border-black' />
