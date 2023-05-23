@@ -10,9 +10,11 @@ import FoodService from '../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from '../store/user/userAction';
-import { setError } from '../store/user/userSlice';
+import { clearFields, setError } from '../store/user/userSlice';
 import MainLoader from '../UI/MainLoader';
 import { btnClick } from '../animations';
+
+
 
 const initialValues = { email: 'admin@test.com', password: 'admin123$' };
 
@@ -21,35 +23,49 @@ const Login = () => {
     const navigate = useNavigate('')
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
-    console.log(user);
+    // console.log(user);
     const { loading } = useSelector(state => state.user)
 
 
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
-        // validationSchema: loginSchmea,
+        validationSchema: loginSchmea,
         onSubmit: async (values, action) => {
             // console.log(values);  
             const a = await dispatch(userLogin(values)).unwrap()
-            // console.log(a);
-
-
-            // console.log(user.error === null);
 
 
         }
 
     });
 
-    useEffect(() => {
-        // if (user.userToken)
-        //     navigate('/', { replace: true })
-
-    }, [user.userToken, navigate])
 
     useEffect(() => {
-        // console.log(values);
-        dispatch(setError())
+
+        setTimeout(() => {
+            if (user.userToken) {
+                navigate('/', { replace: true })
+                dispatch(clearFields())
+
+            }
+
+        }, 2500);
+
+
+
+
+
+
+    }, [user.userToken !== null, dispatch])
+
+
+
+
+
+
+    useEffect(() => {
+        // console.log(1);
+        dispatch(clearFields())
 
     }, [values, dispatch])
 

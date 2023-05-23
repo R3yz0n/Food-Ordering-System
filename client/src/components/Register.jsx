@@ -7,55 +7,69 @@ import { registrationSchema } from '../schema';
 import { motion } from 'framer-motion';
 import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { btnClick } from '../animations';
+import { useDispatch, useSelector } from 'react-redux';
+import { userRegister } from '../store/user/userAction';
+import { clearFields } from '../store/user/userSlice';
 
 const apiUrl = process.env.REACT_APP_API_URL
 
 
-const initialValues = { email: '', password: '', userName: '', confirmPassword: '' };
+const initialValues = { email: 'admin@test.com', password: 'admin123$', userName: 'admin', confirmPassword: 'admin123$' };
 
 
 
 
 const Register = () => {
 
+    const user = useSelector(state => state.user)
+
+    const dispatch = useDispatch()
 
     const [res, setRes] = useState({})
-    const [disabled, setDisabled] = useState(false)
+    const navigate = useNavigate()
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
-        validationSchema: registrationSchema,
+        // validationSchema: registrationSchema,
         onSubmit: async (values, action) => {
+
             // console.log(values);
-            console.log(1);
 
-            try {
-                const { confirmPassword, ...others } = values
-                console.log(others);
-                const res = await axios.post(`${apiUrl}/auth/register`, others)
+            const a = await dispatch(userRegister(values)).unwrap()
+            // console.log(a);
 
-                console.log(res);
-                console.log(res.data);
-            }
-            catch (error) {
-                console.log(error);
-            }
 
-            // setTimeout(() => {
-            //     setDisabled(true)
 
-            // }, 1000);
 
         }
 
     });
 
     useEffect(() => {
-        // console.log(values);
 
-    }, [values])
+        setTimeout(() => {
+            if (user.error === null && user.success !== false) {
+                navigate('/', { replace: true })
+                dispatch(clearFields())
+            }
+
+        }, 2000);
+
+    }, [user.success !== false, dispatch])
+
+
+
+
+
+
+    useEffect(() => {
+        // console.log(values);
+        // dispatch(setError())
+        dispatch(clearFields())
+
+    }, [values, dispatch])
 
     return (
         <section className='w-screen min-h-screen  relative overflow-hidden flex  sm:py-5 py-8'>
@@ -72,10 +86,10 @@ const Register = () => {
                     <img src={FoodZone} alt="Foodie" className='w-24' />
                     <p className='border-b-2 border-green-700 w-3/4' ></p>
 
-
-
                 </div>
-                {/* <p className="text-black font-semibold text-3xl -mt-4">Welcome Back</p> */}
+
+
+
                 <p className='text-3xl text-black mb-4 font-semibold'>Sign up with following</p>
 
                 {/* input section */}
@@ -104,9 +118,21 @@ const Register = () => {
                         errors={errors.confirmPassword} touched={touched.confirmPassword}
                     />
 
+                    {user.error?.length > 1 &&
+                        <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                            {user.error}
+                        </motion.div>
+                    }
+                    {user.success?.length > 1 &&
+                        <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                            {user.success}
+                        </motion.div>
+                    }
+
+
                     {/* button section */}
 
-                    <motion.button type='submit' disabled={disabled} className='w-full px-4 py-2 rounded-md bg-red-600 cursor-pointer text-white text-xl hover:bg-red-500 transition-all'>Signup</motion.button>
+                    <motion.button type='submit' className='w-full px-4 py-2 rounded-md bg-red-600 cursor-pointer text-white text-xl hover:bg-red-500 transition-all'>Signup</motion.button>
 
 
                     {/* link section */}

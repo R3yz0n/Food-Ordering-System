@@ -7,7 +7,13 @@ export const fadeInOut = {
 }
 
 export const btnClick = {
-    whileHover: { scale: 1.1 },
+    // whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 }
 
+}
+
+export const slideTop = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 30 }
 }
