@@ -7,10 +7,12 @@ import { btnClick, slideTop } from '../animations'
 import { MdLogout, MdShoppingCart } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../assests/Avatar.png'
-import { logout } from '../store/user/userSlice'
+import { logout } from '../store/user/authSlice'
+
 const Header = () => {
+
     const [isMenu, setIsMenu] = useState(false)
-    const { userData } = useSelector(state => state.user)
+    const { userData } = useSelector(state => state.auth)
     // console.log(userData);
     const dispatch = useDispatch()
 

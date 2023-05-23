@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import jwt from "jwt-decode";
-import { userLogin, userRegister } from "./userAction";
+import { userLogin, userRegister } from "./authAction";
 
 
 // backend api /user/id token frontend ma decode garera id pathani ni get user
-
+//aashish ko jastai  page not found rakhnaxa
 //skeleton
 //lazy loading in map
+
 
 // initialize userToken from local storage
 const userToken = localStorage.getItem("userToken")
@@ -16,6 +17,7 @@ const userToken = localStorage.getItem("userToken")
 const userData = userToken ? jwt(userToken) : null;
 
 const initialState = {
+
     loading: false,
     error: null,
     success: false,
@@ -23,15 +25,15 @@ const initialState = {
     userData,
 };
 
-const userSlice = createSlice({
-    name: "user",
+const authSlice = createSlice({
+    name: "user-auth",
     initialState: initialState,
 
     reducers: {
-        setError: (state) => {
-            state.error = null
+        // setError: (state) => {
+        //     state.error = null
 
-        },
+        // },
         logout: (state, { payload }) => {
             localStorage.removeItem("userToken");
             state.loading = false;
@@ -63,7 +65,7 @@ const userSlice = createSlice({
             state.loading = false
             localStorage.setItem("userToken", payload.token);
             const userData = jwt(payload.token);
-            state.userData = userData
+            state.userData = userData;
 
 
 
@@ -71,6 +73,7 @@ const userSlice = createSlice({
 
         },
         [userLogin.pending]: (state) => {
+
             state.loading = true;
             state.error = null;
             state.success = false
@@ -111,5 +114,5 @@ const userSlice = createSlice({
 })
 
 // export const {}
-export default userSlice.reducer;
-export const { setError, logout, clearFields } = userSlice.actions;
+export default authSlice.reducer;
+export const { setError, logout, clearFields } = authSlice.actions;

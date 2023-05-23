@@ -5,18 +5,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 import { btnClick } from '../animations'
 import Avatar from '../assests/Avatar.png'
-import { logout } from '../store/user/userSlice'
+import { logout } from '../store/user/authSlice'
 
 const DBHeader = () => {
-    const user = useSelector(state => state.user)
-    const { userData } = user
+    const auth = useSelector(state => state.auth)
+    const { userData } = auth
     const dispatch = useDispatch()
     return (
         <section className='w-full flex items-center justify-between gap-3'>
 
             {/* left */}
             <p className='text-2xl text-headingColor' >Welcome to FoodZone
-                {user?.userData && <span className='block text-base text-black'>Hello {user?.userData?.userName}.</span>}
+                {auth?.userData && <span className='block text-base text-black'>Hello {auth?.userData?.userName}.</span>}
             </p>
 
             {/* right */}

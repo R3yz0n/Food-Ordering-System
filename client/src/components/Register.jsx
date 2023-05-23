@@ -10,8 +10,8 @@ import FoodService from '../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { btnClick } from '../animations';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister } from '../store/user/userAction';
-import { clearFields } from '../store/user/userSlice';
+import { userRegister } from '../store/user/authAction';
+import { clearFields } from '../store/user/authSlice';
 
 
 
@@ -22,7 +22,7 @@ const initialValues = { email: 'admin@test.com', password: 'admin123$', userName
 
 const Register = () => {
 
-    const user = useSelector(state => state.user)
+    const auth = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
@@ -47,14 +47,14 @@ const Register = () => {
     useEffect(() => {
 
         setTimeout(() => {
-            if (user.error === null && user.success !== false) {
+            if (auth.error === null && auth.success !== false) {
                 navigate('/login', { replace: true })
                 dispatch(clearFields())
             }
 
         }, 2000);
 
-    }, [dispatch, navigate, user.error, user.success])
+    }, [dispatch, navigate, auth.error, auth.success])
 
 
 
@@ -71,7 +71,7 @@ const Register = () => {
     return (
         <section className='w-screen min-h-screen  relative overflow-hidden flex  sm:py-5 py-8'>
             {
-                user.loading && <MainLoader />
+                auth.loading && <MainLoader />
             }
 
             {/* background Image */}
@@ -118,14 +118,14 @@ const Register = () => {
                         errors={errors.confirmPassword} touched={touched.confirmPassword}
                     />
 
-                    {user.error?.length > 1 &&
+                    {auth.error?.length > 1 &&
                         <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
-                            {user.error}
+                            {auth.error}
                         </motion.div>
                     }
-                    {user.success?.length > 1 &&
+                    {auth.success?.length > 1 &&
                         <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
-                            {user.success}
+                            {auth.success}
                         </motion.div>
                     }
 

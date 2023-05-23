@@ -5,7 +5,7 @@ import MainLoader from './MainLoader'
 
 const ProtectedRoute = ({ children }) => {
 
-    const { userData } = useSelector(state => state.user)
+    const { userData } = useSelector(state => state.auth)
     const navigate = useNavigate('/')
 
 

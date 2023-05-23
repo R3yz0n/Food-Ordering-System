@@ -9,8 +9,8 @@ import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { userLogin } from '../store/user/userAction';
-import { clearFields } from '../store/user/userSlice';
+import { userLogin } from '../store/user/authAction';
+import { clearFields } from '../store/user/authSlice';
 import MainLoader from '../UI/MainLoader';
 import { btnClick } from '../animations';
 
@@ -23,8 +23,8 @@ const Login = () => {
 
     const navigate = useNavigate('')
     const dispatch = useDispatch()
-    const user = useSelector(state => state.user)
-    const { loading } = useSelector(state => state.user)
+    const auth = useSelector(state => state.auth)
+    const { loading } = useSelector(state => state.auth)
 
 
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
@@ -44,7 +44,7 @@ const Login = () => {
     useEffect(() => {
 
         setTimeout(() => {
-            if (user.userToken) {
+            if (auth.userToken) {
                 navigate('/', { replace: true })
                 dispatch(clearFields())
 
@@ -57,7 +57,7 @@ const Login = () => {
 
 
 
-    }, [dispatch, user.userToken, navigate])
+    }, [dispatch, auth.userToken, navigate])
 
 
 
@@ -121,14 +121,14 @@ const Login = () => {
 
                     {/* button section */}
 
-                    {user.error?.length > 1 &&
+                    {auth.error?.length > 1 &&
                         <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
-                            {user.error}
+                            {auth.error}
                         </motion.div>
                     }
-                    {user.success?.length > 1 &&
+                    {auth.success?.length > 1 &&
                         <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
-                            {user.success}
+                            {auth.success}
                         </motion.div>
                     }
 
