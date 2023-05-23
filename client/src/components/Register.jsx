@@ -1,4 +1,4 @@
-import { FormInput } from '../UI';
+import { FormInput, MainLoader } from '../UI';
 import FoodBg from '../assests/FoodBg.png'
 import React, { useEffect } from 'react';
 import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
@@ -7,33 +7,72 @@ import { registrationSchema } from '../schema';
 import { motion } from 'framer-motion';
 import FoodZone from '../assests/FoodZone.png'
 import FoodService from '../assests/FoodService.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { btnClick } from '../animations';
+import { useDispatch, useSelector } from 'react-redux';
+import { userRegister } from '../store/user/authAction';
+import { clearFields } from '../store/user/authSlice';
 
 
-const initialValues = { email: '', password: '', userName: '', confirmPassword: '' };
+
+const initialValues = { email: 'admin@test.com', password: 'admin123$', userName: 'admin', confirmPassword: 'admin123$' };
 
 
 
 
 const Register = () => {
 
+    const auth = useSelector(state => state.auth)
+
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
         validationSchema: registrationSchema,
         onSubmit: async (values, action) => {
+
             // console.log(values);
+
+            const a = await dispatch(userRegister(values)).unwrap()
+            console.log(a);
+
+
+
 
         }
 
     });
 
     useEffect(() => {
-        console.log(values);
 
-    }, [values])
+        setTimeout(() => {
+            if (auth.error === null && auth.success !== false) {
+                navigate('/login', { replace: true })
+                dispatch(clearFields())
+            }
+
+        }, 2000);
+
+    }, [dispatch, navigate, auth.error, auth.success])
+
+
+
+
+
+
+    useEffect(() => {
+        // console.log(values);
+        // dispatch(setError())
+        dispatch(clearFields())
+
+    }, [values, dispatch])
 
     return (
         <section className='w-screen min-h-screen  relative overflow-hidden flex  sm:py-5 py-8'>
+            {
+                auth.loading && <MainLoader />
+            }
 
             {/* background Image */}
             <img src={FoodBg} alt='Food Background Imgg' className='w-full h-full object-fit  absolute top-0 left-0 border-black' />
@@ -47,10 +86,10 @@ const Register = () => {
                     <img src={FoodZone} alt="Foodie" className='w-24' />
                     <p className='border-b-2 border-green-700 w-3/4' ></p>
 
-
-
                 </div>
-                {/* <p className="text-black font-semibold text-3xl -mt-4">Welcome Back</p> */}
+
+
+
                 <p className='text-3xl text-black mb-4 font-semibold'>Sign up with following</p>
 
                 {/* input section */}
@@ -79,6 +118,18 @@ const Register = () => {
                         errors={errors.confirmPassword} touched={touched.confirmPassword}
                     />
 
+                    {auth.error?.length > 1 &&
+                        <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                            {auth.error}
+                        </motion.div>
+                    }
+                    {auth.success?.length > 1 &&
+                        <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                            {auth.success}
+                        </motion.div>
+                    }
+
+
                     {/* button section */}
 
                     <motion.button type='submit' className='w-full px-4 py-2 rounded-md bg-red-600 cursor-pointer text-white text-xl hover:bg-red-500 transition-all'>Signup</motion.button>
@@ -89,7 +140,7 @@ const Register = () => {
                     <p className='flex gap-2 text-lg'>Already have an account?:
                         <Link to='/login' className='font-semibold'>
 
-                            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+                            <motion.button {...btnClick}
                                 className='text-red-700 underline cursor-pointer bg-transparent' >Login</motion.button>
 
                         </Link>
