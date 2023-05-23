@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import jwt from "jwt-decode";
-import { userLogin } from "./userAction";
+import { userLogin, userRegister } from "./userAction";
 
+
+// backend api /user/id token frontend ma decode garera id pathani ni get user
+
+//skeleton
+//lazy loading in map
 
 // initialize userToken from local storage
 const userToken = localStorage.getItem("userToken")
@@ -27,6 +32,20 @@ const userSlice = createSlice({
             state.error = null
 
         },
+        logout: (state, { payload }) => {
+            localStorage.removeItem("userToken");
+            state.loading = false;
+            state.userToken = null;
+            state.error = null;
+            state.userData = null
+
+        },
+        clearFields: (state, { payload }) => {
+            state.success = false;
+            state.loading = false;
+            state.error = null;
+        },
+
 
     },
 
@@ -34,8 +53,10 @@ const userSlice = createSlice({
 
 
     extraReducers: {
+
+        //user Login
         [userLogin.fulfilled]: (state, { payload }) => {
-            console.log(state);
+            // console.log(state);
             state.success = payload.message;
             state.error = null;
             state.userToken = payload.token
@@ -60,11 +81,30 @@ const userSlice = createSlice({
             console.log(payload);
             state.error = payload
             state.loading = false
-            console.log(state);
+            // console.log(state);
             state.success = false;
 
 
-        }
+        },
+
+        //user Signup
+        [userRegister.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false
+        },
+        [userRegister.fulfilled]: (state, { payload }) => {
+            state.loading = false;
+            state.error = null
+            state.success = payload.message;
+
+
+        },
+        [userRegister.rejected]: (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
+            state.success = false
+        },
 
     }
 
@@ -72,4 +112,4 @@ const userSlice = createSlice({
 
 // export const {}
 export default userSlice.reducer;
-export const { setError } = userSlice.actions;
+export const { setError, logout, clearFields } = userSlice.actions;
