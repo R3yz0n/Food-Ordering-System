@@ -17,6 +17,26 @@ body {
     'Open Sans', 'Helvetica Neue', sans-serif
 }
 
+.file-input {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Optional: Add custom styling to make it visually appealing */
+.file-input-label {
+  cursor: pointer
+    /* padding: 10px;
+  background-color: #fffefe;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  color: transparent;
+  border: none */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* kranendonk */

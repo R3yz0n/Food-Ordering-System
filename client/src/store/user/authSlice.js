@@ -8,6 +8,14 @@ import { userLogin, userRegister } from "./authAction";
 //skeleton
 //lazy loading in map
 
+//sujan ko ma forgot password 
+
+// dashboard ra invetory ra accounts customers (cutomers details)
+
+// inventory vitra 
+
+//purchase order sales order category
+
 
 // initialize userToken from local storage
 const userToken = localStorage.getItem("userToken")

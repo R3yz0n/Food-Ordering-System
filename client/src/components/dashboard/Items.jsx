@@ -12,15 +12,21 @@ const Items = () => {
         { id: 4, name: 'Item 4', category: 'Category 3', price: 9.99, image: 'image4.jpg' },
         { id: 5, name: 'Item 5', category: 'Category 2', price: 12.99, image: 'image5.jpg' },
         { id: 1, name: 'Item 1', category: 'Category 1', price: 10.99, image: 'image1.jpg' },
+        { id: 1, name: 'Item 1', category: 'Category 1', price: 10.99, image: 'image1.jpg' },
+        { id: 2, name: 'Item 2', category: 'Category 2', price: 19.99, image: 'image2.jpg' },
+        { id: 3, name: 'Item 3', category: 'Category 1', price: 14.99, image: 'image3.jpg' },
+        { id: 4, name: 'Item 4', category: 'Category 3', price: 9.99, image: 'image4.jpg' },
+        { id: 5, name: 'Item 5', category: 'Category 2', price: 12.99, image: 'image5.jpg' },
+        { id: 1, name: 'Item 1', category: 'Category 1', price: 10.99, image: 'image1.jpg' },
 
 
     ];
 
     return (
-        <section className='py-10 overflow-y-auto max-h-[82vh]'>
+        <section className='py-10'>
 
             <table className="w-full h-full">
-                <thead className="bg-white">
+                <thead className="bg-white">e
                     <tr>
                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit/Delete</th>
                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>

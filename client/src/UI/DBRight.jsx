@@ -10,7 +10,7 @@ import Items from '../components/dashboard/Items'
 const DBRight = () => {
     return (
 
-        <section className='h-full py-10 px-12 flex-1'>
+        <section className=' py-5 px-12 flex-1 border-2 border-black overflow-y-auto'>
             <DBHeader />
 
             <div className='flex flex-col flex-1 overflow-y-scroll scrollbar-none'>

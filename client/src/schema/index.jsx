@@ -48,7 +48,7 @@ export const addItemSchema = Yup.object().shape({
     name: Yup.string().required('Item name is required'),
     category: Yup.string().required('Category selection is required'),
     price: Yup.number().required('Price is required'),
-    file: Yup.mixed().required('File selection is required'),
+    file: Yup.mixed().required('Image selection is required'),
 });
 
 
