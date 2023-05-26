@@ -12,7 +12,7 @@ const DBLeft = () => {
                 <img src={FoodZone} className='w-20' alt="FoodZone" />
                 <p className='font-semibold text-xl '>Foodie.</p>
             </NavLink>
-            <hr className='border-gray-100' />
+            <hr className='border-gray-400' />
 
 
             <ul className='flex flex-col gap-4' >

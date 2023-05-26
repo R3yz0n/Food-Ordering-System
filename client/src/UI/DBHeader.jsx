@@ -12,7 +12,7 @@ const DBHeader = () => {
     const { userData } = auth
     const dispatch = useDispatch()
     return (
-        <section className='w-full flex items-center justify-between gap-3'>
+        <section className='w-full flex items-center justify-between gap-3 border-[1px] px-3'>
 
             {/* left */}
             <p className='text-2xl text-headingColor' >Welcome to FoodZone
