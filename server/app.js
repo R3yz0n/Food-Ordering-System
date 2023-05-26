@@ -5,6 +5,7 @@ const app = express();
 const { sequelize } = require('./models');
 
 const authRoutes = require('./routes/auth')
+const itemRoutes = require('./routes/item')
 
 app.use(cors())
 app.use(express.json())
@@ -16,7 +17,7 @@ app.use(bodyParser.json())
 
 app.use('/auth', authRoutes);
 
-app.use('/dashboard')
+app.use('/item', itemRoutes)
 
 
 

@@ -96,7 +96,7 @@ const AddNewItem = () => {
                                 values.file &&
                                 <>
                                     {/* <button className='absolute right-0 top-0'>here</button> */}
-                                    <ImCross className='right-1 top-1 z-30 absolute text-xl' onClick={() => { values.file = null }} />
+                                    <ImCross className='right-1 top-1 z-30 absolute text-xl text-red-700' onClick={() => { setFieldValue('file', null) }} />
                                     <motion.img src={URL.createObjectURL(values.file)} alt="Selected" {...fadeInOut} className="w-full h-full object-cover rounded-md border-[1px] border-black " />
 
                                 </>
