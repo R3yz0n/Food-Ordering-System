@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
     if (userData?.role !== 'admin')
         return (
 
-            <div className='w-screen h-screen bg-gradient-to-b from-gray-400  to-gray-500 '>
+            <div className='w-screen h-screen bg-gradient-to-b from-purple-100  to-gray-50 '>
                 <MainLoader />
             </div>
 
