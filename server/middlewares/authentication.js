@@ -5,10 +5,12 @@ env.config();
 
 
 const checkAuthentication = async (req, res, next) => {
-    console.log(req.headers.authorization);
+    // console.log(req.headers);
     console.log(req.headers.authorization.split(" ")[1]);
-    if (!req.headers.authorization)
+    if (!req.headers.authorization) {
+        console.log('----------------');
         return res.status(403).json({ message: "Unauthorized user." })
+    }
 
 
 
