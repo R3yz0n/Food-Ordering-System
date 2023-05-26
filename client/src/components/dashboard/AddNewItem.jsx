@@ -5,21 +5,40 @@ import { motion } from 'framer-motion';
 import { btnClick, fadeInOut } from '../../animations';
 import DragDrop from '../../utils/DragDrop'
 import { ImCross } from 'react-icons/im'
+import { useDispatch, useSelector } from 'react-redux'
+import { createItem } from '../../store/product/productAction';
+import { clearFields } from '../../store/product/productSlice';
+import { MainLoader } from '../../UI';
+
 
 
 
 const initialValues = { name: '', category: '', price: '', file: null };
 // I did a very challanging thing here i mapped a p tag and used it with formik thank to stackoverflow
 const AddNewItem = () => {
+    const dispatch = useDispatch()
+    const product = useSelector(state => state.product)
+    console.log(product);
 
-    const { values, errors, handleBlur, touched, handleChange, handleSubmit, setFieldValue } = useFormik({
+    const { values, errors, handleBlur, touched, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
         initialValues: initialValues,
         validationSchema: addItemSchema,
         onSubmit: async (values, action) => {
+            console.log(values);
+            dispatch(createItem(values))
+
 
         }
 
     });
+
+
+    useEffect(() => {
+        // console.log(1);
+        dispatch(clearFields())
+
+    }, [values, dispatch])
+
 
     useEffect(() => {
 
@@ -27,11 +46,24 @@ const AddNewItem = () => {
         // console.log(errors);
     }, [values, errors])
 
+    useEffect(() => {
+        setTimeout(() => {
+            console.log('hi');
+            dispatch(clearFields())
+
+            resetForm()
+
+        }, 2500);
+
+    }, [product.success, dispatch])
+
     return (
 
         <form className='flex items-center justify-center flex-col pt-6 max-w-screen-md mx-auto w-full px-4' onSubmit={handleSubmit} >
 
             <aside className='border border-gray-300 rounded-md p-4 w-full flex flex-col items-center  justify-center gap-4 py-6 pb-10'>
+
+                {product.loading && <MainLoader />}
 
                 {/* name and price  */}
                 <div className='w-full flex gap-4'>
@@ -107,11 +139,23 @@ const AddNewItem = () => {
                         {/* errors */}
                         {touched.file && errors.file && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500  mx-auto'>{errors.file}</motion.div>}
 
+                        {product.error?.length > 1 &&
+                            <motion.div className=' text-red-600 px-2 mt-2' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                                {product.error}
+                            </motion.div>
+                        }
+                        {product.success?.length > 1 &&
+                            <motion.div className=' text-red-600 px-2 mt-2' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                                {product.success}
+                            </motion.div>
+                        }
+
 
                         {/* button */}
                         <motion.div className='flex'>
 
                             <motion.button {...fadeInOut} {...btnClick} className='bg-red-500 mt-5 rounded-md  py-1 w-2/3  mx-auto text-white' type='submit'>Upload now</motion.button>
+
 
                         </motion.div>
 
