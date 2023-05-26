@@ -47,7 +47,7 @@ export const loginSchmea = Yup.object({
 export const addItemSchema = Yup.object().shape({
     name: Yup.string().required('Item name is required'),
     category: Yup.string().required('Category selection is required'),
-    price: Yup.number().required('Price is required'),
+    price: Yup.number().required('Price is required').min(50, 'Price must be above 50'),
     file: Yup.mixed().required('Image selection is required'),
 });
 
