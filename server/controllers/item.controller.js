@@ -1,5 +1,5 @@
 const express = require('express')
-const { users } = require('../models')
+const { users, items } = require('../models')
 
 const addItem = (req, res) => {
     // console.log(req.body);
@@ -8,17 +8,17 @@ const addItem = (req, res) => {
         image: req.body.image,
         price: req.body.description,
         category: req.body.category,
-        uid: req.body.uid,
+        userId: req.body.userId,
     }
     console.log(1);
     // console.log(user);
-    console.log(postToCreate);
+    console.log(itemToCreate);
 
-    posts.create(postToCreate).then(result => {
+    items.create(itemToCreate).then(result => {
         res.status(201).json(
             {
-                message: 'Post created sucessfully',
-                post: result
+                message: 'Item uploaded sucessfully',
+                // item: result
             }
         );
         console.log(result);
@@ -38,6 +38,28 @@ const addItem = (req, res) => {
 
 }
 
+const getAllItems = async (req, res) => {
+
+    try {
+
+        // const query = req.query.category ? { where: { category: req.query.category } } : {};
+        console.log('----------');
+        // console.log(query);
+
+        const allItems = await items.findAll();
+        res.json(allItems);
+
+    } catch (err) {
+        if (err.name === 'SequelizeDatabaseError') {
+            res.status(400).json({ message: 'Invalid query parameter' });
+        }
+        res.status(500).json({ message: 'Something went wrong.' });
+    }
+
+
+}
+
 module.exports = {
-    addItem: addItem
+    addItem: addItem,
+    getAllItems: getAllItems
 }
