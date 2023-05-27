@@ -6,7 +6,7 @@ const Dashboard = () => {
 
     return (
 
-        <div className='w-screen h-screen flex bg-purple-100'>
+        <div className='w-screen h-screen flex bg-[rgb(55,65,81)]'>
 
             <DBLeft />
             <DBRight />

@@ -1,19 +1,19 @@
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react'
-import { addItemSchema } from '../../schema/index'
+import { addItemSchema } from '../../../schema/index'
 import { motion } from 'framer-motion';
-import { btnClick, fadeInOut } from '../../animations';
-import DragDrop from '../../utils/DragDrop'
+import { btnClick, fadeInOut, pop } from '../../../animations';
+import DragDrop from '../../../utils/DragDrop'
 import { ImCross } from 'react-icons/im'
 import { useDispatch, useSelector } from 'react-redux'
-import { createItem } from '../../store/product/productAction';
-import { clearFields } from '../../store/product/productSlice';
-import { MainLoader } from '../../UI';
+import { createItem } from '../../../store/product/productAction';
+import { clearFields } from '../../../store/product/productSlice';
+import { MainLoader } from '../../../UI';
 
 
 
 
-const initialValues = { name: '', category: '', price: '', file: null };
+const initialValues = { name: 'Pizza', category: 'drinks', price: '1200', file: null };
 // I did a very challanging thing here i mapped a p tag and used it with formik thank to stackoverflow
 const AddNewItem = () => {
     const dispatch = useDispatch()
@@ -53,7 +53,7 @@ const AddNewItem = () => {
 
             resetForm()
 
-        }, 2500);
+        }, 4000);
 
     }, [product.success, dispatch])
 
@@ -61,7 +61,7 @@ const AddNewItem = () => {
 
         <form className='flex items-center justify-center flex-col pt-6 max-w-screen-md mx-auto w-full px-4' onSubmit={handleSubmit} >
 
-            <aside className='border border-gray-300 rounded-md p-4 w-full flex flex-col items-center  justify-center gap-4 py-6 pb-10'>
+            <aside className='border border-purple-200 shadow-xl rounded-md p-4 w-full flex flex-col items-center  justify-center gap-4 py-6 pb-10'>
 
                 {product.loading && <MainLoader />}
 
@@ -69,12 +69,12 @@ const AddNewItem = () => {
                 <div className='w-full flex gap-4'>
 
                     <aside className='w-2/3'>
-                        <input type="text" placeholder='Enter Item name' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='name' value={values.name} />
+                        <input type="text" placeholder='Enter Item name' className='w-full px-4 py-3 bg-gray-100 font-semibold   shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='name' value={values.name} />
                         {touched.name && errors.name && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500'>{errors.name}</motion.div>}
                     </aside>
 
                     <aside className='w-1/3'>
-                        <input type="number" placeholder='Enter Item Price' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='price' value={values.price} />
+                        <input type="number" placeholder='Enter Item Price' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400 font-semibold' onBlur={handleBlur} onChange={handleChange} name='price' value={values.price} />
                         {touched.price && errors.price && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500'>{errors.price}</motion.div>}
                     </aside>
                 </div>
@@ -88,7 +88,7 @@ const AddNewItem = () => {
                         <p className='text-2xl text-gray-700 font-semibold'> Categories</p>
                         {
                             foodCat.map((item) =>
-                                <p {...fadeInOut} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-400 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-300 backdrop-blur-md`} onClick={() => {
+                                <motion.p {...pop} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-300 backdrop-blur-md`} onClick={() => {
                                     console.log(values.category);
 
 
@@ -97,20 +97,20 @@ const AddNewItem = () => {
                                     onBlur={handleBlur('category')}
                                 >
                                     {item.title}
-                                </p>
+                                </motion.p>
                             )
                         }
                     </div>
 
-                    <section className='w-2/3 '>
+                    <section className='w-2/3'>
                         {/* image uploader */}
 
 
-                        <div className=' bg-card backdrop-blur-md  h-[300px] rounded-md cursor-pointer flex flex-col relative' >
+                        <div className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative' >
                             {
                                 values.file === null &&
 
-                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-[rgb(225,227,232)] dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
 
                                     <DragDrop />

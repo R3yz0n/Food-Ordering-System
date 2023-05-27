@@ -23,7 +23,7 @@ export const createItem = createAsyncThunk('create item',
             const res = await axios.post(`${APIURL}/item`, others, authHeaders)
             // console.log(res);
 
-            return res.data
+            return res.data.message
 
         }
 
