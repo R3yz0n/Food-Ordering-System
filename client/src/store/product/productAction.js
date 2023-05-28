@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { APIURL } from '../../APIURL';
+import { APIURL } from '../../utils/constants';
 const token = localStorage.getItem("userToken");
 const authHeaders = { headers: { Authorization: `Bearer ${token}` } }
 

@@ -3,9 +3,10 @@ import { MdLogout, MdSearch } from 'react-icons/md'
 import { BsFillBellFill, BsToggles2 } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
-import { btnClick } from '../animations'
-import Avatar from '../assests/Avatar.png'
-import { logout } from '../store/user/authSlice'
+import { btnClick } from '../../animations'
+import Avatar from '../../assests/Avatar.png'
+
+import { logout } from '../../store/user/authSlice'
 
 const DBHeader = () => {
     const auth = useSelector(state => state.auth)

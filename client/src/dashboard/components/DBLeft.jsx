@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import FoodZone from '../assests/FoodZone.png'
-import { isActiveStyles, isNotActiveStyles } from '../utils/nav'
+import FoodZone from '../../assests/FoodZone.png'
+import { isActiveStyles, isNotActiveStyles } from '../../utils/nav'
 
 const DBLeft = () => {
     return (

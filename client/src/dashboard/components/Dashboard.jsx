@@ -1,5 +1,6 @@
 import React from 'react'
-import { DBLeft, DBRight } from '../../UI'
+import DBLeft from './DBLeft'
+import DBRight from './DBRight'
 
 const Dashboard = () => {
 

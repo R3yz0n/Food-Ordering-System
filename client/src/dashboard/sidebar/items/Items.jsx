@@ -3,8 +3,8 @@ import { AiFillDelete } from 'react-icons/ai'
 import { AiFillEdit } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllItems } from '../../../store/product/productAction';
-import { APIURL } from '../../../APIURL';
-import { MainLoader } from '../../../UI';
+import { APIURL } from '../../../utils/constants';
+import MainLoader from '../../../animations/MainLoader';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { clearFields } from '../../../store/product/productSlice';
 import { FaEdit, FaTrash } from 'react-icons/fa'

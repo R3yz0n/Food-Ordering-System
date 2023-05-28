@@ -1,7 +1,0 @@
-export { default as FormInput } from './FormInput'
-export { default as MainLoader } from './MainLoader'
-export { default as Alert } from './Alert'
-export { default as Header } from './Header'
-export { default as AdminRoute } from './AdminRoute'
-export { default as DBRight } from './DBRight'
-export { default as DBLeft } from './DBLeft'

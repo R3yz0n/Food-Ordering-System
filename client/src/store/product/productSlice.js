@@ -74,7 +74,6 @@ const productSlice = createSlice({
 
         },
         [getAllItems.pending]: (state) => {
-            console.log('1111111111110000000000000000000000000000000000000000000000000000000000000000');
 
             state.loading = true;
             state.error = null;
@@ -86,7 +85,6 @@ const productSlice = createSlice({
             console.log(payload);
             state.error = payload
             state.loading = false
-            // console.log(state);
             state.success = false;
 
 

@@ -1,17 +1,18 @@
-import { FormInput, MainLoader } from '../UI';
-import FoodBg from '../assests/FoodBg.png'
+import FormInput from '../../common/FormInput';
+import MainLoader from '../../animations/MainLoader';
+import FoodBg from '../../assests/FoodBg.png'
 import React, { useEffect } from 'react';
 import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
 import { useFormik } from 'formik'
-import { registrationSchema } from '../schema';
+import { registrationSchema } from '../../schema';
 import { motion } from 'framer-motion';
-import FoodZone from '../assests/FoodZone.png'
-import FoodService from '../assests/FoodService.png'
+import FoodZone from '../../assests/FoodZone.png'
+import FoodService from '../../assests/FoodService.png'
 import { Link, useNavigate } from 'react-router-dom';
-import { btnClick } from '../animations';
+import { btnClick } from '../../animations';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister } from '../store/user/authAction';
-import { clearFields } from '../store/user/authSlice';
+import { userRegister } from '../../store/user/authAction';
+import { clearFields } from '../../store/user/authSlice';
 
 
 

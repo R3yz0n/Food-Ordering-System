@@ -1,7 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Dashboard, Login, Main, Register } from './components'
-import { AdminRoute } from './UI'
+import Dashboard from './dashboard/components/Dashboard'
+import Login from './components/Landing/Login'
+import Register from './components/Landing/Register'
+import Main from './components/Main'
+import AdminRoute from './helpers/AdminRoute'
 
 
 const App = () => {
@@ -19,7 +22,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/dashboard/*' element={<AdminRoute>
           <Dashboard />
-        </AdminRoute>} /> 
+        </AdminRoute>} />
 
       </Routes>
 

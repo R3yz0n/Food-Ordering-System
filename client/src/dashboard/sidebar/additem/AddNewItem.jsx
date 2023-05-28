@@ -8,7 +8,7 @@ import { ImCross } from 'react-icons/im'
 import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../store/product/productAction';
 import { clearFields } from '../../../store/product/productSlice';
-import { MainLoader } from '../../../UI';
+import MainLoader from '../../../animations/MainLoader';
 
 
 

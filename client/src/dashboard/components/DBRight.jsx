@@ -1,11 +1,11 @@
 import React from 'react'
-import DBHeader from './DBHeader'
+import DBHeader from '../navbar/DBHeader'
 import { Route, Routes } from 'react-router-dom'
-import Home from '../components/dashboard/Home'
-import Orders from '../components/dashboard/Orders'
-import AddNewItem from '../components/dashboard/addnewitem/AddNewItem'
-import Users from '../components/dashboard/Users'
-import Items from '../components/dashboard/items/Items'
+import Home from '../sidebar/home/Home'
+import Orders from '../sidebar/orders/Orders'
+import AddNewItem from '../sidebar/additem/AddNewItem'
+import Users from '../sidebar/users/Users'
+import Items from '../sidebar/items/Items'
 
 const DBRight = () => {
     return (

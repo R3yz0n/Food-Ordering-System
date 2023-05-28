@@ -1,5 +1,5 @@
 import React from 'react'
-import { fadeInOut } from '../animations'
+import { fadeInOut } from '.'
 import { motion } from 'framer-motion'
 import { RotatingLines } from 'react-loader-spinner'
 
