@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import { AiFillDelete } from 'react-icons/ai'
-import { AiFillEdit } from 'react-icons/ai'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllItems } from '../../../store/product/productAction';
 import { APIURL } from '../../../utils/constants';
@@ -11,34 +9,47 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import { HiCurrencyRupee } from 'react-icons/hi'
 import { motion } from 'framer-motion';
 import { fadeInOut, pop, slideTop } from '../../../animations';
+import toast from "react-hot-toast";
+import { useLocation } from 'react-router-dom';
+import { DeleteItem } from './DeleteItem';
+
 
 
 const Items = () => {
+    const [showModal, setShowModal] = useState(false);
+    const location = useLocation()
+    console.log(location);
     const dispatch = useDispatch()
-    const { items, success, loading } = useSelector(state => state.product)
+    const { items, success, loading, error } = useSelector(state => state.product)
     // console.log(items[0]);
-
 
 
 
     useEffect(() => {
         dispatch(getAllItems())
 
-    }, [dispatch])
+    }, [dispatch, location.pathname])
 
     useEffect(() => {
 
         setTimeout(() => {
-            dispatch(clearFields())
+            if (success === true)
+                dispatch(clearFields())
+
 
         }, 1000);
 
     }, [success, dispatch])
 
 
+
+
     return (
-        <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg ">
+        <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
+            {error && toast.error(error)}
             {loading && <MainLoader />}
+
+
             <table className="min-w-full ">
                 <thead className="  text-lg text-gray-800 bg-[rgb(229,231,235)] shadow-md font-sans ">
                     <tr>
@@ -61,13 +72,14 @@ const Items = () => {
                             <td className="py-4 px-6">
                                 <div className="flex  space-x-2 gap-3">
                                     <FaEdit className="cursor-pointer text-green-600 hover:text-green-800 text-2xl" />
-                                    <FaTrash className="cursor-pointer text-red-500 hover:text-red-700 text-xl mt-1" />
+                                    <FaTrash className="cursor-pointer text-red-500 hover:text-red-700 text-xl mt-1" onClick={() => setShowModal(true)} />
                                 </div>
                             </td>
                         </motion.tr>
                     ))}
                 </tbody>
             </table>
+            {showModal && <DeleteItem setShowModal={setShowModal} />}
         </div>
 
 
