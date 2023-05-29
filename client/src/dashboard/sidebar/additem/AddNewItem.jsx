@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../store/product/productAction';
 import { clearFields } from '../../../store/product/productSlice';
 import MainLoader from '../../../animations/MainLoader';
+import { FaEdit, FaTrash } from 'react-icons/fa'
 
 
 
@@ -69,12 +70,12 @@ const AddNewItem = () => {
                 <div className='w-full flex gap-4'>
 
                     <aside className='w-2/3'>
-                        <input type="text" placeholder='Enter Item name' className='w-full px-4 py-3 bg-gray-100 font-semibold   shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='name' value={values.name} />
+                        <motion.input type="text" {...pop} placeholder='Enter Item name' className='w-full px-4 py-3 bg-gray-100 font-semibold   shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='name' value={values.name} />
                         {touched.name && errors.name && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500'>{errors.name}</motion.div>}
                     </aside>
 
                     <aside className='w-1/3'>
-                        <input type="number" placeholder='Enter Item Price' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400 font-semibold' onBlur={handleBlur} onChange={handleChange} name='price' value={values.price} />
+                        <motion.input {...pop} type="number" placeholder='Enter Item Price' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400 font-semibold' onBlur={handleBlur} onChange={handleChange} name='price' value={values.price} />
                         {touched.price && errors.price && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500'>{errors.price}</motion.div>}
                     </aside>
                 </div>
@@ -85,7 +86,7 @@ const AddNewItem = () => {
                     {/* category */}
                     <div className='w-1/3 flex flex-col  gap-3 ' >
 
-                        <p className='text-2xl text-gray-700 font-semibold'> Categories</p>
+                        <motion.p {...pop} className='text-2xl text-gray-700 font-semibold'> Categories</motion.p>
                         {
                             foodCat.map((item) =>
                                 <motion.p {...pop} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-300 backdrop-blur-md`} onClick={() => {
@@ -102,11 +103,11 @@ const AddNewItem = () => {
                         }
                     </div>
 
-                    <section className='w-2/3'>
+                    <motion.section  {...pop} className='w-2/3 overflow-hidden '>
                         {/* image uploader */}
 
 
-                        <div className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative' >
+                        <div className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative ' >
                             {
                                 values.file === null &&
 
@@ -126,12 +127,12 @@ const AddNewItem = () => {
 
                             {
                                 values.file &&
-                                <>
-                                    {/* <button className='absolute right-0 top-0'>here</button> */}
-                                    <ImCross className='right-1 top-1 z-30 absolute text-xl text-red-700' onClick={() => { setFieldValue('file', null) }} />
-                                    <motion.img src={URL.createObjectURL(values.file)} alt="Selected" {...fadeInOut} className="w-full h-full object-cover rounded-md border-[1px] border-black " />
+                                <div className='backdrop-blur-md  w-full h-[300px] bg-black rounded-md cursor-pointer flex flex-col relative b'>
+                                    <FaTrash className='right-1 top-1 z-30 absolute p-[6px] text-3xl text-gray-200 rounded-full bg-red-600' onClick={() => { setFieldValue('file', null) }} />
 
-                                </>
+                                    <img src={URL.createObjectURL(values.file)} alt="Selected" {...fadeInOut} className="w-full mx-auto  h-full object-cover rounded-md  " />
+
+                                </div>
                             }
 
                         </div>
@@ -152,15 +153,15 @@ const AddNewItem = () => {
 
 
                         {/* button */}
-                        <motion.div className='flex'>
+                        <div className='flex  justify-center'>
 
-                            <motion.button {...fadeInOut} {...btnClick} className='bg-red-500 mt-5 rounded-md  py-1 w-2/3  mx-auto text-white' type='submit'>Upload now</motion.button>
-
-
-                        </motion.div>
+                            <button {...fadeInOut} {...btnClick} className='bg-red-500 mt-5 rounded-md  py-1 w-2/3 m-0 text-white' type='submit'>Upload now</button>
 
 
-                    </section>
+                        </div>
+
+
+                    </motion.section>
 
                 </section>
 
