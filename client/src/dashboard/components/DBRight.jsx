@@ -6,11 +6,12 @@ import Orders from '../sidebar/orders/Orders'
 import AddNewItem from '../sidebar/additem/AddNewItem'
 import Users from '../sidebar/users/Users'
 import Items from '../sidebar/items/Items'
+import { Toaster } from 'react-hot-toast';
 
 const DBRight = () => {
     return (
 
-        <section className=' py-5 px-8 flex-1 bg-[rgb(235,235,235)] overflow-y-auto  max-h-screen'>
+        <section className=' py-5 px-8 flex-1 bg-[rgb(235,235,235)] overflow-y-auto  max-h-screen relative'>
             <DBHeader />
 
             <div className='flex flex-col flex-1 overflow-y-scroll scrollbar-none'>
@@ -24,6 +25,21 @@ const DBRight = () => {
 
 
                 </Routes>
+
+                <Toaster position="top-right"
+
+                    toastOptions={{
+                        style: {
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            maxWidth: '300px',
+                            position: 'relative',
+                            top: '185px'
+
+                        },
+                    }}
+                    reverseOrder={false} />
 
             </div>
 
