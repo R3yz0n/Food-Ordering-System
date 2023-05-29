@@ -9,7 +9,7 @@ const { checkAuthentication } = require('../middlewares/authentication');
 
 router.post('/', checkAuthentication, fileUploader.upload, fileController.uploadFile);
 
-// router.delete('/:filename', checkAuthentication, fileController.deleteFile);
+router.delete('/:filename', checkAuthentication, fileController.deleteFile);
 
 router.get('/:filename', fileController.getFile)
 

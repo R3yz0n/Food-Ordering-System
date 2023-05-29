@@ -69,7 +69,7 @@ const productSlice = createSlice({
 
             state.items = payload
             state.error = null;
-            state.success = true;
+            state.success = "Successfull";
             state.loading = false
 
         },
@@ -81,7 +81,7 @@ const productSlice = createSlice({
 
 
         },
-        [createItem.rejected]: (state, { payload }) => {
+        [getAllItems.rejected]: (state, { payload }) => {
             console.log(payload);
             state.error = payload
             state.loading = false
