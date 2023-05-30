@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createItem, getAllItems } from "./productAction";
+import { createItem, deleteItem, getAllItems } from "./productAction";
 
 
 
@@ -43,10 +43,6 @@ const productSlice = createSlice({
             state.loading = false
 
 
-
-
-
-
         },
         [createItem.pending]: (state) => {
 
@@ -65,11 +61,14 @@ const productSlice = createSlice({
 
 
         },
+
+
+
         [getAllItems.fulfilled]: (state, { payload }) => {
 
             state.items = payload
             state.error = null;
-            state.success = "Successfull";
+            state.success = true;
             state.loading = false
 
         },
@@ -77,12 +76,36 @@ const productSlice = createSlice({
 
             state.loading = true;
             state.error = null;
-            state.success = false
+            state.success = false;
 
 
         },
         [getAllItems.rejected]: (state, { payload }) => {
             console.log(payload);
+            state.error = payload
+            state.loading = false
+            state.success = false;
+
+
+        },
+
+        [deleteItem.fulfilled]: (state, { payload }) => {
+
+            // state.items = payload
+            state.error = null;
+            state.success = payload.message
+            state.loading = false
+
+        },
+        [deleteItem.pending]: (state) => {
+
+            state.loading = true;
+            state.error = null;
+            state.success = false
+
+
+        },
+        [deleteItem.rejected]: (state, { payload }) => {
             state.error = payload
             state.loading = false
             state.success = false;

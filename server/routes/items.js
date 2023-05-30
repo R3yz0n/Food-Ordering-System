@@ -11,6 +11,8 @@ router.post('/', checkAuthentication, checkRole, itemController.addItem)
 
 router.get('/', itemController.getAllItems)
 
+router.delete('/:id', checkAuthentication, checkRole, itemController.deleteItem)
+
 
 
 module.exports = router;

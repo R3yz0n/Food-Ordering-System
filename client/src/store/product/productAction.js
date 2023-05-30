@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { APIURL } from '../../utils/constants';
+import { toast } from "react-hot-toast";
 const token = localStorage.getItem("userToken");
 const authHeaders = { headers: { Authorization: `Bearer ${token}` } }
 
@@ -55,9 +56,9 @@ export const getAllItems = createAsyncThunk('Get All Items',
 
         // console.log(token);
         try {
-            console.log(1);
+            // console.log(1);
             const res = await axios.get(`${APIURL}/item`)
-            console.log(res);
+            // console.log(res);
 
             return res.data
 
@@ -67,8 +68,10 @@ export const getAllItems = createAsyncThunk('Get All Items',
             // console.log(error);
 
             if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message)
                 return rejectWithValue(error.response.data.message);
             } else {
+                toast.error(error.message)
                 console.log(error);
                 return rejectWithValue(error.message);
             }
@@ -90,9 +93,14 @@ export const deleteItem = createAsyncThunk('Delete An Item',
 
         // console.log(token);
         try {
-            console.log(1);
-            const res = await axios.get(`${APIURL}/item/:id`)
-            console.log(res);
+            // console.log(1);
+
+
+            const fileRes = await axios.delete(`${APIURL}/file/${values.image}`, authHeaders)
+            // console.log(fileRes);
+
+            const res = await axios.delete(`${APIURL}/item/${values.id}`, authHeaders)
+            toast.success(res.data.message)
 
             return res.data
 
@@ -102,9 +110,11 @@ export const deleteItem = createAsyncThunk('Delete An Item',
             // console.log(error);
 
             if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message)
                 return rejectWithValue(error.response.data.message);
             } else {
                 console.log(error);
+                toast.error(error.message)
                 return rejectWithValue(error.message);
             }
 

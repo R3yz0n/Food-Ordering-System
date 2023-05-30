@@ -38,7 +38,29 @@ const addItem = (req, res) => {
 
 }
 
+const deleteItem = async (req, res) => {
 
+
+    try {
+        const itemToDelete = await items.destroy({
+            where: { id: req.params.id }
+        })
+        console.log(itemToDelete);
+        if (itemToDelete)
+            res.status(200).json({ message: "Deleted sucessfully." })
+        console.log(itemToDelete);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Something went wrong."
+        })
+
+    }
+
+
+
+}
 
 
 
@@ -65,5 +87,6 @@ const getAllItems = async (req, res) => {
 
 module.exports = {
     addItem: addItem,
-    getAllItems: getAllItems
+    getAllItems: getAllItems,
+    deleteItem: deleteItem
 }
