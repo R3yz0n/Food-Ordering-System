@@ -85,6 +85,7 @@ const productSlice = createSlice({
             state.error = payload
             state.loading = false
             state.success = false;
+            state.items = []
 
 
         },

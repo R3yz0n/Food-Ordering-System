@@ -21,14 +21,13 @@ export const DeleteItem = ({ toggleShowModal, passItem }) => {
     useEffect(() => {
         if (success !== false) {
             dispatch(clearFields())
-            // dispatch(getAllItems())
             setTimeout(() => {
-
+                console.log('deleted sucessful');
                 toggleShowModal()
-            }, [1500])
+            }, [1100])
         }
 
-    }, [success, dispatch,])
+    }, [success, dispatch])
 
 
 

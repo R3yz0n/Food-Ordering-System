@@ -23,3 +23,15 @@ export const pop = {
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     exit: { opacity: 0, y: 30, transition: { duration: 0.5 } },
 };
+
+
+export const straggerFadeInOut = (i) => {
+
+    return {
+        initial: { opacity: 0, y: 50 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: 50 },
+        transition: { duration: 0.3, delay: i * 0.15 },
+        key: { i },
+    }
+}

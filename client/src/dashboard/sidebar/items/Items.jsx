@@ -24,13 +24,16 @@ const Items = () => {
     const handleClick = (item) => {
         setShowModal(true);
         setPassItem(item)
-        console.log('fetching data again');
+        // console.log('fetching data again');
     }
 
-    const toggleShowModal = () => {
+    const toggleShowModal = async () => {
         console.log('toggleshowmodal');
         setShowModal(state => !state)
 
+
+
+        await dispatch(getAllItems())
 
 
 
@@ -43,6 +46,7 @@ const Items = () => {
         dispatch(getAllItems())
 
 
+
     }, [dispatch])
 
     useEffect(() => {
@@ -52,7 +56,7 @@ const Items = () => {
 
             if (success) {
                 console.log(success);
-                // toast.success(success);
+
                 dispatch(clearFields())
             }
 
@@ -67,8 +71,6 @@ const Items = () => {
     return (
         <>
             <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
-                {/* {error && toast.error(error)} */}
-                {/* {success.length > 0 && toast.success(success)} */}
                 {loading && <MainLoader />}
 
 
@@ -82,9 +84,9 @@ const Items = () => {
                             <th className="py-3 px-6 text-left">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black">
+                    <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black ">
 
-                        {items.length > 0 && items.map((item) => (
+                        {items.length > 0 ? items.map((item) => (
                             <motion.tr  {...fadeInOut} key={item.id} className='shadow-md border-2 font-semibold text-textColor   '>
                                 <td className="py-[10px] px-6 ">
                                     <img src={`${APIURL}/file/${item.image}`} alt="Product" className="w-[70px] object-cover h-[70px] rounded-full" />
@@ -99,7 +101,8 @@ const Items = () => {
                                     </div>
                                 </td>
                             </motion.tr>
-                        ))}
+                        )) : <tr className='text-red-700  flex w-full  p-2 text-lg'><td className=''>No Data Found.</td></tr>
+                        }
                     </tbody>
                 </table>
             </div>
