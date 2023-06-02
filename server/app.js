@@ -7,6 +7,7 @@ const { sequelize } = require('./models');
 const authRoutes = require('./routes/auth')
 const itemRoutes = require('./routes/items')
 const fileRoutes = require('./routes/files')
+const userRoutes = require('./routes/users')
 
 app.use(cors())
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use(bodyParser.json())
 app.use('/auth', authRoutes);
 app.use('/file', fileRoutes)
 app.use('/item', itemRoutes)
+app.use('/users', userRoutes)
 
 
 

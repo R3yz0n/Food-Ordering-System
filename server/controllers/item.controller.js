@@ -64,6 +64,9 @@ const deleteItem = async (req, res) => {
 
 
 
+
+
+
 const getAllItems = async (req, res) => {
 
     try {
@@ -82,6 +85,76 @@ const getAllItems = async (req, res) => {
         res.status(500).json({ message: 'Something went wrong.' });
     }
 
+
+}
+
+
+
+const updateItem = async (req, res) => {
+
+    console.log('hello');
+    // console.log(1);
+    const id = req.params.id;
+
+
+
+    try {
+        const isExists = await posts.findOne({ where: { id: req.params.id } })
+        // console.log(isExists);
+        if (!isExists)
+            return res.status(404).json({
+                message: "Post not found."
+            })
+    }
+    catch (error) {
+
+        res.status(500).json({
+            message: "Something went wrong",
+            error: error
+        })
+
+    }
+
+    const itemToUpdate = {
+        title: req.body.title,
+        image: req.body.image,
+        category: req.body.category,
+        uid: req.body.uid,
+    }
+    // console.log(postToCreate);
+
+
+    try {
+        const result = await items.update(itemToUpdate, { where: { id: id, uid: req.body.uid } })
+
+        if (!result[0]) {
+
+
+            return res.status(409).json(
+                {
+                    message: "Update unsucessful."
+                }
+            )
+
+
+        }
+
+        res.status(200).json(
+            {
+                message: "Update sucessfull.",
+                post: itemToUpdate
+            }
+        )
+
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Something went wrong.",
+            error: error
+        })
+
+
+    }
 
 }
 

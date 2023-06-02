@@ -77,7 +77,6 @@ const Home = () => {
 
 
 
-
         </motion.section>
     )
 }
