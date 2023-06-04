@@ -104,10 +104,10 @@ const AddNewItem = () => {
                     </div>
 
                     <motion.section  {...pop} className='w-2/3 overflow-hidden '>
-                        {/* image uploader */}
+                        {/* image uploader */}``
 
 
-                        <div className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative ' >
+                        <div className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative' >
                             {
                                 values.file === null &&
 

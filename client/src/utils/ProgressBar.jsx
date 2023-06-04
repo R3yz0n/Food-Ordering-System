@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+// import 'nprogress/nprogress.css';
 
 const App = () => {
-    useEffect(() => {
-        NProgress.start();
+    // useEffect(() => {
+    //     NProgress.start();
 
-        // Simulating an async operation
-        // setTimeout(() => {
-        //     NProgress.done();
-        // }, 2000);
+    //     // Simulating an async operation
+    //     // setTimeout(() => {
+    //     //     NProgress.done();
+    //     // }, 2000);
 
-        return () => {
-            NProgress.done();
-        };
-    }, []);
+    //     return () => {
+    //         NProgress.done();
+    //     };
+    // }, []);
 
     return (
         <div>

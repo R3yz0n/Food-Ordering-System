@@ -89,7 +89,7 @@ const Items = () => {
                         {items.length > 0 ? items.map((item) => (
                             <motion.tr  {...fadeInOut} key={item.id} className='shadow-md border-2 font-semibold text-textColor   '>
                                 <td className="py-[10px] px-6 ">
-                                    <img src={`${APIURL}/file/${item.image}`} alt="Product" className="w-[70px] object-cover h-[70px] rounded-full" />
+                                    <img src={`${APIURL}/file/${item.image}`} alt="Item" className="w-[70px] object-cover h-[70px] rounded-full" />
                                 </td>
                                 <td className="py-4 px-6">{item.name}</td>
                                 <td className="py-4 px-6"><HiCurrencyRupee className='inline text-2xl -mt-1 font-bold text-red-600' /> {item.price}</td>

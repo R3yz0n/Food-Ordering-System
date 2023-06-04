@@ -9,12 +9,14 @@
 }
 
 html {
-  /* overflow-y: auto; */
+  overflow-y: scroll;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+
 }
 
 .b {
-  border: 2px solid black;
+  border: 2px solid white;
 }
 
 body {
@@ -23,8 +25,6 @@ body {
 }
 
 
-
-/* Optional: Add custom styling to make it visually appealing */
 
 
 @tailwind base;
