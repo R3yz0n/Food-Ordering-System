@@ -5,6 +5,8 @@ import HeroBg from '../../assests/HeroBg.png'
 import { DummyFood } from '../../utils/constants'
 import { btnClick, straggerFadeInOut } from '../../animations/index'
 import LandingPageWrapper from '../../common/LandingPageWrapper'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 const Home = () => {
 
@@ -24,7 +26,7 @@ const Home = () => {
 
                         <div className='w-10 h-10 flex items-center justify-center rounded-full bg-primary shawo-md'>
 
-                            <img src={Delivery} className='w-full h-full object-center' alt="Delivery" />
+                            <LazyLoadImage src={Delivery} effect='opacity' className='w-full h-full object-center' alt="Delivery" />
 
                         </div>
 
@@ -50,7 +52,7 @@ const Home = () => {
                 </main>
 
                 <main className='py-2 flex-1 flex items-center justify-end relative pb-14'>
-                    <img src={HeroBg} alt="Hero Bg" className='top-0 right-5 w-full h-420 md:w-3/4 md:h-full  absolute z-0 blur-[0.8px] rounded-3xl shadow-md' loading='lazy' />
+                    <LazyLoadImage src={HeroBg} alt="Hero Bg" className='top-0 right-5 w-full h-420 md:w-3/4 md:h-full  absolute z-0 blur-[0.8px] rounded-3xl shadow-md' effect='opacity' />
 
 
 
@@ -58,7 +60,7 @@ const Home = () => {
                         {
                             DummyFood.map((food, i) =>
                                 <motion.div key={food.id} {...straggerFadeInOut(i)} className='backdrop-blur-md z-20 w-24 shadow-md h-36 md:h-auto md:w-40 pb-3 pt-3 border-gray-300 border-[1px] bg-opacity-50  bg-[rgb(241,238,238)] rounded-3xl flex flex-col items-center justify-center '>
-                                    <img src={food.image} alt="Food" className='w-12 h-12 md:w-[70px] md:h-20  md:-mt-8 object-fill' />
+                                    <LazyLoadImage src={food.image} alt="Food" className='w-12 h-12 md:w-[70px] md:h-20  md:-mt-8 object-fill' effect='opacity' />
 
                                     <p className='text-sm lg:text-lg font-semibold text-textColor'>
                                         {food.name}

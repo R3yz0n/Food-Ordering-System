@@ -55,7 +55,7 @@ const Header = () => {
                 {
                     userData?.userName ?
                         <div className='relative cursor-pointer' onMouseEnter={() => setIsMenu(true)} onMouseLeave={() => setIsMenu(false)} >
-                            <div className='w-12 h-12 rounded-full shadow-md cursor-pointer overflow-hidden bg-green-200 flex items-center justify-center'>
+                            <div className='w-14 h-14 rounded-full shadow-md cursor-pointer overflow-hidden bg-green-200 flex items-center justify-center border-[1px] border-orange-700'>
 
                                 <motion.img className='w-full h-full object-cover' src={userData?.image ? userData.image : Avatar}
                                     whileHover={{ scale: 1.1 }} referrerPolicy='no-referrers' />
@@ -65,9 +65,14 @@ const Header = () => {
                             {
                                 isMenu && <motion.div className='px-6 py-4 bg-gray-200 backdrop-blur-md rounded-md absolute top-13 right-0 flex flex-col gap-4 w-48' {...slideTop}>
 
-                                    <Link className='hover:text-red-500 text-xl text-textColor ' to='/dashboard'>
-                                        Dashboard
-                                    </Link>
+                                    {
+                                        userData.role === 'admin' &&
+
+                                        <Link className='hover:text-red-500 text-xl text-textColor ' to='/dashboard'>
+                                            Dashboard
+                                        </Link>
+
+                                    }
 
                                     <Link className='hover:text-red-500 text-xl text-textColor ' to='/profile' >
                                         My profile

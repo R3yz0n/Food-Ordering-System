@@ -6,6 +6,7 @@ import Menu from './menu/Menu'
 
 
 const Main = () => {
+
     return (
         <main className='w-full min-h-screen flex items-center justify-start flex-col bg-primary '>
             <Navbar />
@@ -16,12 +17,6 @@ const Main = () => {
 
 
             </Routes>
-
-
-
-
-
-
 
         </main>
     )

@@ -9,9 +9,10 @@ const Home = () => {
         <>
 
             <Hero />
-            <img src={Triangle} className=' h-[13px] w-full object-cover' alt="Triangle" />
+            <img src={Triangle} className=' h-[13px] w-full object-cover opacity-90' alt="Triangle" />
             <Banner />
             <Footer />
+
 
         </>
     )

@@ -26,20 +26,7 @@ const DBRight = () => {
 
                 </Routes>
 
-                <Toaster position="top-right"
-
-                    toastOptions={{
-                        style: {
-                            borderRadius: '8px',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            maxWidth: '300px',
-                            position: 'relative',
-                            top: '185px'
-
-                        },
-                    }}
-                    reverseOrder={false} />
+              
 
             </div>
 

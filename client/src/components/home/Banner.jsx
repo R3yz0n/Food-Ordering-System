@@ -4,11 +4,12 @@ import BannerRight from '../../assests/BannerRight.png'
 import { motion } from 'framer-motion'
 import { btnClick } from '../../animations'
 
+
 const Banner = () => {
 
     return (
 
-        <section className="relative w-full bg-black h-[70vh] text-white flex overflow-hidden" id='banner'>
+        <section className="relative w-full bg-black h-[70vh] text-white flex overflow-hidden" id='banner' >
 
 
             <aside className='flex mx-auto w-[80%]  z-40 h-full '>
@@ -29,7 +30,7 @@ const Banner = () => {
 
 
 
-            <img src={BannerBg} className="h-full w-full absolute top-0 right-0 z-0 backdrop-filter  opacity-40 backdrop-blur-md blur-[1px] " alt="Banner Bg" />
+            <img src={BannerBg} className="h-full w-full absolute top-0 right-0 z-0 backdrop-filter  opacity-40 blur-[1px] " alt="Banner Bg" />
         </section>
     )
 }

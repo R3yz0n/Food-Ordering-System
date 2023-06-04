@@ -12,6 +12,7 @@ export const userLogin = createAsyncThunk('user/login',
         try {
 
             const res = await axios.post(`${APIURL}/auth/login`, values)
+            
             console.log(res);
             // console.log(res.data.token);
             // setResponse(res.data.message)
