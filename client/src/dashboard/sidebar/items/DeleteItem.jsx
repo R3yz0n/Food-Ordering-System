@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import Overlay from "../../../common/Overlay";
 import { motion } from "framer-motion";
 import { btnClick } from "../../../animations";
-import { deleteItem, getAllItems } from "../../../store/product/productAction";
+import { deleteItem } from "../../../store/product/productAction";
 import { clearFields } from "../../../store/product/productSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +11,7 @@ export const DeleteItem = ({ toggleShowModal, passItem }) => {
 
 
     const dispatch = useDispatch();
-    const { success, items } = useSelector((state) => state.product);
+    const { success } = useSelector((state) => state.product);
     const navigate = useNavigate('')
 
 
@@ -27,7 +26,7 @@ export const DeleteItem = ({ toggleShowModal, passItem }) => {
             }, [1100])
         }
 
-    }, [success, dispatch])
+    }, [success, dispatch, toggleShowModal])
 
 
 
@@ -48,9 +47,9 @@ export const DeleteItem = ({ toggleShowModal, passItem }) => {
                         </div>
 
                         {/*footer*/}
-                        <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-slate-400">
+                        <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-slate-400 gap-4">
 
-                            <motion.button {...btnClick} className="px-6 py-2 mb-1 mr-1 text-sm font-bold text-red-500 uppercase transition-all duration-150 ease-linear outline-none background-transparent focus:outline-none" type="button" onClick={async () => {
+                            <motion.button {...btnClick} className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-red-500 active:bg-red-600 hover:shadow-lg focus:outline-none" type="button" onClick={async () => {
                                 await dispatch(deleteItem(passItem))
 
 

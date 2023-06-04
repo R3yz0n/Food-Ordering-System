@@ -2,14 +2,13 @@ import { useFormik } from 'formik';
 import React, { useEffect } from 'react'
 import { addItemSchema } from '../../../schema/index'
 import { motion } from 'framer-motion';
-import { btnClick, fadeInOut, pop } from '../../../animations';
+import { btnClick, fadeInOut, slideTop, straggerFadeInOut } from '../../../animations';
 import DragDrop from '../../../utils/DragDrop'
-import { ImCross } from 'react-icons/im'
 import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../store/product/productAction';
 import { clearFields } from '../../../store/product/productSlice';
 import MainLoader from '../../../animations/MainLoader';
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { FaTrash } from 'react-icons/fa'
 
 
 
@@ -70,12 +69,12 @@ const AddNewItem = () => {
                 <div className='w-full flex gap-4'>
 
                     <aside className='w-2/3'>
-                        <motion.input type="text" {...pop} placeholder='Enter Item name' className='w-full px-4 py-3 bg-gray-100 font-semibold   shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='name' value={values.name} />
+                        <motion.input type="text" {...slideTop} placeholder='Enter Item name' className='w-full px-4 py-3 bg-gray-100 font-semibold   shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400' onBlur={handleBlur} onChange={handleChange} name='name' value={values.name} />
                         {touched.name && errors.name && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500'>{errors.name}</motion.div>}
                     </aside>
 
                     <aside className='w-1/3'>
-                        <motion.input {...pop} type="number" placeholder='Enter Item Price' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400 font-semibold' onBlur={handleBlur} onChange={handleChange} name='price' value={values.price} />
+                        <motion.input {...slideTop} type="number" placeholder='Enter Item Price' className='w-full px-4 py-3 bg-gray-100  shadow-md outline-none rounded-md border border-gray-300 focus:border-red-400 font-semibold' onBlur={handleBlur} onChange={handleChange} name='price' value={values.price} />
                         {touched.price && errors.price && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500'>{errors.price}</motion.div>}
                     </aside>
                 </div>
@@ -86,10 +85,10 @@ const AddNewItem = () => {
                     {/* category */}
                     <div className='w-1/3 flex flex-col  gap-3 ' >
 
-                        <motion.p {...pop} className='text-2xl text-gray-700 font-semibold'> Categories</motion.p>
+                        <motion.p {...fadeInOut} className='text-2xl text-gray-700 font-semibold'> Categories</motion.p>
                         {
-                            foodCat.map((item) =>
-                                <motion.p {...pop} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-300 backdrop-blur-md`} onClick={() => {
+                            foodCat.map((item, i) =>
+                                <motion.p {...straggerFadeInOut(i)} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-500 backdrop-blur-md`} onClick={() => {
                                     console.log(values.category);
 
 
@@ -103,15 +102,15 @@ const AddNewItem = () => {
                         }
                     </div>
 
-                    <motion.section  {...pop} className='w-2/3 overflow-hidden '>
-                        {/* image uploader */}``
+                    <motion.section  {...fadeInOut} className='w-2/3 overflow-hidden'>
+                        {/* image uploader */}
 
 
-                        <div className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative' >
+                        <motion.div {...fadeInOut} className=' backdrop-blur-md  w-full h-[300px] rounded-md cursor-pointer flex flex-col relative' >
                             {
                                 values.file === null &&
 
-                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-[rgb(225,227,232)] dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-[rgb(225,227,232)]  hover:bg-gray-100 ">
 
 
                                     <DragDrop />
@@ -135,7 +134,7 @@ const AddNewItem = () => {
                                 </div>
                             }
 
-                        </div>
+                        </motion.div>
 
                         {/* errors */}
                         {touched.file && errors.file && <motion.div {...fadeInOut} className='pt-2 px-2 text-red-500  mx-auto'>{errors.file}</motion.div>}
@@ -155,7 +154,7 @@ const AddNewItem = () => {
                         {/* button */}
                         <div className='flex  justify-center'>
 
-                            <button {...fadeInOut} {...btnClick} className='bg-red-500 mt-5 rounded-md  py-1 w-2/3 m-0 text-white' type='submit'>Upload now</button>
+                            <motion.button {...fadeInOut} {...btnClick} className='bg-red-500 mt-5 rounded-md  py-1 w-2/3 m-0 text-white' type='submit'>Upload now</motion.button>
 
 
                         </div>
