@@ -1,5 +1,6 @@
 const express = require('express')
 const { user } = require('../models')
+const models = require('../models')
 
 
 
@@ -21,6 +22,28 @@ const getAllUsers = async (req, res) => {
 
 }
 
+
+
+const getUser = async (req, res) => {
+
+    try {
+        const user = await models.user.findOne({ where: { id: req.params.id } });
+        console.log(user);
+        if (!user)
+            return res.status(404).json({
+                message: "User not found.",
+
+            })
+
+        const { createdAt, updatedAt, password, ...others } = user.dataValues;
+        res.json(others);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong' });
+    }
+};
+
 module.exports = {
-    getAllUsers: getAllUsers
+    getAllUsers: getAllUsers,
+    getUser: getUser
 }

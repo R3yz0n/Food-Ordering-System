@@ -105,7 +105,7 @@ const login = async (req, res) => {
         console.log(user.dataValues);
         const { id, email, userName } = user;
 
-        res.status(200).json({ message: "Login sucessfull.", token: token })
+        res.status(200).json({ message: "Login sucessfull.", token: token, id: user.id })
 
 
 
