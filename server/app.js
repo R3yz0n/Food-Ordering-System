@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.use('/auth', authRoutes);
 app.use('/file', fileRoutes)
 app.use('/item', itemRoutes)
-app.use('/users', userRoutes)
+app.use('/user', userRoutes)
 
 
 
