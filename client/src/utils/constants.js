@@ -11,12 +11,12 @@ import H4 from '../assests/H4.png'
 
 
 export const DummyFood = [
-    { id: 3, image: Seafood, name: "Lobster", category: "seafood", price: 1500 },
-    { id: 1, image: Pizza, name: "Laziz pizza", category: "drinks", price: 300 },
-    { id: 5, image: Vegan, name: "Legumes", category: "burgers", price: 180 },
-    { id: 6, image: Pasta, name: "Penne pasta", category: "pasta", price: 320 },
-    { id: 2, image: Drinks, name: "Vigin mojito", category: "pizzas", price: 999 },
-    { id: 4, image: Burger, name: "Turkey burger", category: "vegan", price: 340 },
+    { id: 'f1', image: Seafood, name: "Lobster", category: "seafood", price: 1500 },
+    { id: 'f2', image: Pizza, name: "Laziz pizza", category: "drinks", price: 300 },
+    { id: 'f3', image: Vegan, name: "Legumes", category: "burgers", price: 180 },
+    { id: 'f4', image: Pasta, name: "Penne pasta", category: "pasta", price: 320 },
+    { id: 'f5', image: Drinks, name: "Vigin mojito", category: "pizzas", price: 999 },
+    { id: 'f6', image: Burger, name: "Turkey burger", category: "vegan", price: 340 },
 ];
 
 export const APIURL = process.env.REACT_APP_API_URL

@@ -31,6 +31,7 @@ const initialState = {
     success: false,
     userToken,
     userData,
+    userId: null
 };
 
 const authSlice = createSlice({
@@ -45,6 +46,7 @@ const authSlice = createSlice({
             state.userToken = null;
             state.error = null;
             state.userData = null
+            state.userId = null
 
         },
         clearFields: (state, { payload }) => {
@@ -60,6 +62,7 @@ const authSlice = createSlice({
 
 
     extraReducers: {
+        //token ni pathauni user fetch garda since it's a protected with middleware
 
         //user Login
         [userLogin.fulfilled]: (state, { payload }) => {
@@ -71,6 +74,8 @@ const authSlice = createSlice({
             localStorage.setItem("userToken", payload.token);
             const userData = jwt(payload.token);
             state.userData = userData;
+            state.userId = payload.id
+            console.log(payload);
 
 
 

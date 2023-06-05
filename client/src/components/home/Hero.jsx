@@ -59,21 +59,23 @@ const Home = () => {
                     <main className=' w-full md:w-460 ml-0 flex flex-wrap items-center  justify-center gap-6 gap-y-8  h-full '>
                         {
                             DummyFood.map((food, i) =>
-                                <motion.div key={food.id} {...straggerFadeInOut(i)} className='backdrop-blur-md z-20 w-24 shadow-md h-36 md:h-auto md:w-40 pb-3 pt-3 border-gray-300 border-[1px] bg-opacity-50  bg-[rgb(241,238,238)] rounded-3xl flex flex-col items-center justify-center '>
-                                    <LazyLoadImage src={food.image} alt="Food" className='w-12 h-12 md:w-[70px] md:h-20  md:-mt-8 object-fill' effect='opacity' />
+                                <React.Fragment key={food.id}>
+                                    <motion.div {...straggerFadeInOut(i)} className='backdrop-blur-md z-20 w-24 shadow-md h-36 md:h-auto md:w-40 pb-3 pt-3 border-gray-300 border-[1px] bg-opacity-50  bg-[rgb(241,238,238)] rounded-3xl flex flex-col items-center justify-center '>
+                                        <LazyLoadImage src={food.image} alt="Food" className='w-12 h-12 md:w-[70px] md:h-20  md:-mt-8 object-fill' effect='opacity' />
 
-                                    <p className='text-sm lg:text-lg font-semibold text-textColor'>
-                                        {food.name}
-                                    </p>
-                                    <p className='text-[12px] text-center md:text-base text-gray-400 font-semibold capitalize '>
-                                        {food.category}
-                                    </p>
-                                    <p className='text-sm text-center md:text-base text-headingColor font-semibold capitalize '>
-                                        <span className=' text-red-600'>Rs{" "}</span>
-                                        {food.price}
-                                    </p>
+                                        <p className='text-sm lg:text-lg font-semibold text-textColor'>
+                                            {food.name}
+                                        </p>
+                                        <p className='text-[12px] text-center md:text-base text-gray-400 font-semibold capitalize '>
+                                            {food.category}
+                                        </p>
+                                        <p className='text-sm text-center md:text-base text-headingColor font-semibold capitalize '>
+                                            <span className=' text-red-600'>Rs{" "}</span>
+                                            {food.price}
+                                        </p>
 
-                                </motion.div>
+                                    </motion.div>
+                                </React.Fragment>
                             )
                         }
                     </main>

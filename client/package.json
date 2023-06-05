@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@svgr/plugin-svgo": "^8.0.1",
+    "@svgr/webpack": "^8.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
+    "css-select": "^5.1.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.12",
     "jwt-decode": "^3.1.2",
@@ -22,12 +25,14 @@
     "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.9",
     "recharts": "^2.6.2",
+    "svgo": "^3.0.2",
     "swiper": "^9.3.2",
     "web-vitals": "^2.1.4",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
