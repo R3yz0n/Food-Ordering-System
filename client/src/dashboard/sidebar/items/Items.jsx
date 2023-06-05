@@ -84,7 +84,7 @@ const Items = () => {
                     </thead>
                     <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black ">
 
-                        {items.length > 0 ? items.map((item, index) => (
+                        {items?.length > 0 ? items.map((item, index) => (
 
                             <React.Fragment key={item.id}>
 

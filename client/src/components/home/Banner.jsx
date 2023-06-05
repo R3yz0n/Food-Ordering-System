@@ -13,7 +13,7 @@ const Banner = () => {
         <section className="relative w-full bg-black h-[70vh] text-white flex overflow-hidden" id='banner' >
 
 
-            <aside className='flex mx-auto w-[80%]  z-40 h-full '>
+            <aside className='flex mx-auto w-[80%]  z-30 h-full '>
 
                 <div className='flex flex-col h-full py-8 justify-center w-3/5 gap-5'>
 
@@ -24,7 +24,7 @@ const Banner = () => {
 
                 </div>
 
-                <img src={BannerRight} alt="Banner Right" className="w-96 h-96 z-40  flex my-auto mx-auto opacity-90 object-cover p-3 " />
+                <img src={BannerRight} alt="Banner Right" className="w-96 h-96 z-30  flex my-auto mx-auto opacity-90 object-cover p-3 " />
             </aside>
 
 

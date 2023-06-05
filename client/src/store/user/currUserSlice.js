@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUser } from "./currUserAction";
 
 const initialState = {
 
@@ -6,7 +7,6 @@ const initialState = {
     error: null,
     success: false,
     userData: null,
-    userId: null,
 
 };
 
@@ -15,8 +15,46 @@ const currUserSlice = createSlice({
     initialState: initialState,
 
     reducers: {
+        clearFields: (state, { payload }) => {
+            console.log('clearing fields');
+            state.success = false;
+            state.loading = false;
+            state.error = null;
+        },
+
+        clearUserData: (state) => {
+            state.userData = null;
+            state.loading = false;
+            state.success = false
+            state.error = null
+        },
+
+    },
+    extraReducers: {
+
+        //user Login
+        [getUser.fulfilled]: (state, { payload }) => {
+            console.log(payload);
+            state.success = true;
+            state.error = null;
+            state.loading = false
+            state.userData = payload
+        },
+        [getUser.pending]: (state) => {
+
+            state.loading = true;
+            state.error = null;
+            state.success = false
 
 
+        }, [getUser.rejected]: (state, { payload }) => {
+            console.log(payload);
+            state.error = payload
+            state.loading = false
+            state.success = false;
+
+
+        },
     }
 
 })
@@ -24,4 +62,4 @@ const currUserSlice = createSlice({
 
 
 export default currUserSlice.reducer;
-export const { setError, logout, clearFields } = currUserSlice.actions;
+export const { clearUserData, clearFields } = currUserSlice.actions;

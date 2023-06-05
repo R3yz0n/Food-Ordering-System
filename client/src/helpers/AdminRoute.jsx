@@ -5,24 +5,40 @@ import MainLoader from '../animations/MainLoader'
 
 const ProtectedRoute = ({ children }) => {
 
-    const { userData } = useSelector(state => state.auth)
+    const { userData } = useSelector(state => state.currUser)
     const navigate = useNavigate('/')
-
+    const token = localStorage.getItem('userToken')
+    console.log(token);
 
     useEffect(() => {
 
-        if (userData?.role !== 'admin') {
+        if (userData && userData?.role !== 'admin') {
             setTimeout(() => {
                 navigate('/')
-            }, 1000);
+            }, 200);
 
         }
+        if (!token && !userData) {
+            setTimeout(() => {
+                navigate('/')
+            }, 300);
+        }
 
-    }, [userData?.role, navigate])
+
+    }, [userData, navigate, token])
 
 
 
-    if (userData?.role !== 'admin')
+    if ((userData && userData?.role !== 'admin'))
+        return (
+
+            <div className='w-screen h-screen bg-gradient-to-b from-purple-100  to-gray-50 '>
+                <MainLoader />
+            </div>
+
+        )
+
+    if (!token && !userData)
         return (
 
             <div className='w-screen h-screen bg-gradient-to-b from-purple-100  to-gray-50 '>

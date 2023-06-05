@@ -35,7 +35,7 @@ const Login = () => {
         onSubmit: async (values, action) => {
             // console.log(values);  
             const a = await dispatch(userLogin(values)).unwrap()
-            console.log(a);
+            // console.log(a);
 
 
         }
@@ -52,7 +52,7 @@ const Login = () => {
 
             }
 
-        }, 2500);
+        }, 1000);
 
 
 
@@ -77,7 +77,7 @@ const Login = () => {
 
 
     return (
-        <section className='w-screen  min-h-screen relative overflow-hidden flex  py-10 sm:py-8'>
+        <section className='w-screen  min-h-screen relative overflow-hidden flex  py-10 sm:py-8 bg-yellow-400'>
             {
                 loading && (
                     <MainLoader />

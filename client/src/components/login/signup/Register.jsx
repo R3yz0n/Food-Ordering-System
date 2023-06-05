@@ -69,13 +69,13 @@ const Register = () => {
     }, [values, dispatch])
 
     return (
-        <section className='w-screen min-h-screen  relative overflow-hidden flex  sm:py-5 py-8'>
+        <section className='w-screen min-h-screen  relative overflow-hidden flex  sm:py-5 py-8 bg-yellow-400'>
             {
                 auth.loading && <MainLoader />
             }
 
             {/* background Image */}
-            <img src={LoginBg} alt='Login Bg' className='w-full h-full object-fit  absolute top-0 left-0 border-black' />
+            <img src={LoginBg} alt='Login Bg' className='w-full h-full object-fit  absolute top-0 left-0 border-black blur-[2px]' />
             <img src={FoodService} alt="Food Service" className='hidden lg:flex w-80 absolute z-50 top-16 left-[40%]' />
 
             <aside className=' sm:ml-10 flex flex-col bg-yellow-400 shadow-md items-center w-[90%] backdrop-filter min-h-full z-10 sm:w-460 backdrop-blur-3xl p-4 px-4  bg-opacity-20 lg:bg-opacity-100 '>

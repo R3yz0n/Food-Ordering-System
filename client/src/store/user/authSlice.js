@@ -8,13 +8,6 @@ import { userLogin, userRegister } from "./authAction";
 //skeleton
 //lazy loading in map
 
-//sujan ko ma forgot password 
-
-// dashboard ra invetory ra accounts customers (cutomers details)
-
-// inventory vitra 
-
-//purchase order sales order category
 
 
 // initialize userToken from local storage
@@ -22,7 +15,10 @@ const userToken = localStorage.getItem("userToken")
     ? localStorage.getItem("userToken")
     : null;
 
-const userData = userToken ? jwt(userToken) : null;
+const userId = localStorage.getItem("userId")
+    ? localStorage.getItem("userId")
+    : null;
+
 
 const initialState = {
 
@@ -30,8 +26,6 @@ const initialState = {
     error: null,
     success: false,
     userToken,
-    userData,
-    userId: null
 };
 
 const authSlice = createSlice({
@@ -42,11 +36,10 @@ const authSlice = createSlice({
 
         logout: (state, { payload }) => {
             localStorage.removeItem("userToken");
+            localStorage.removeItem('userId')
             state.loading = false;
             state.userToken = null;
             state.error = null;
-            state.userData = null
-            state.userId = null
 
         },
         clearFields: (state, { payload }) => {
@@ -72,10 +65,8 @@ const authSlice = createSlice({
             state.userToken = payload.token
             state.loading = false
             localStorage.setItem("userToken", payload.token);
-            const userData = jwt(payload.token);
-            state.userData = userData;
-            state.userId = payload.id
-            console.log(payload);
+            localStorage.setItem("userId", payload.id)
+
 
 
 
