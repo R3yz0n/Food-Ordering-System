@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './dashboard/components/Dashboard'
 import Main from './components/Main'
@@ -7,10 +7,23 @@ import ProgressBar from './utils/ProgressBar'
 import Login from './components/login/signup/Login'
 import Register from './components/login/signup/Register'
 import { Toaster } from 'react-hot-toast'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from './store/user/currUserAction'
 
 
 
 const App = () => {
+  const token = localStorage.getItem("userToken");
+  const dispatch = useDispatch()
+  const { userId } = useSelector(state => state.auth)
+  console.log(userId);
+
+  useEffect(() => {
+    console.log('fetching user data...');
+    if (token)
+      dispatch(getUser())
+
+  }, [])
 
 
 
