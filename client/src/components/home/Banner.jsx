@@ -6,6 +6,7 @@ import { btnClick } from '../../animations'
 
 
 const Banner = () => {
+    const styles = { backgroundImage: `url(${BannerBg})`, backgroundAttachment: 'fixed', backgroundRepeat: 'no-repeat', }
 
     return (
 
@@ -27,10 +28,9 @@ const Banner = () => {
             </aside>
 
 
-
-
-
-            <img src={BannerBg} className="h-full w-full absolute top-0 right-0 z-0 backdrop-filter  opacity-40 blur-[1px] " alt="Banner Bg" />
+            {/* background image */}
+            {/* <img src={BannerBg} className="h-full w-full absolute top-0 right-0 z-0 backdrop-filter  opacity-40 blur-[1px] " alt="Banner Bg" /> */}
+            <div className="h-full w-full absolute top-0 right-0 z-0   opacity-30" alt="Banner Bg" style={{ ...styles }} />
         </section>
     )
 }
