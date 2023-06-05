@@ -17,7 +17,7 @@ const Footer = () => {
                 <aside className='grid grid-cols-2 lg:flex w-full lg:w-4/5 mx-auto  '>
                     {
                         FooterItems.map(item =>
-                            <div className='flex-1'>
+                            <div className='flex-1' key={item.id}>
                                 <img src={item.image} className='object-cover w-24 mx-auto' alt='foodie'></img>
                                 <p className='text-center text-xl py-6 px-2'>{item.title}</p>
                             </div>)
