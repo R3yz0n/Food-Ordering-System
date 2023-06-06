@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from './store/user/currUserAction'
 import { clearFields } from './store/user/currUserSlice'
+import { logout } from './store/user/authSlice'
 
 
 
@@ -29,9 +30,6 @@ const App = () => {
     if (token && userId) {
       dispatch(getUser({ token, userId })).unwrap()
         .then(res => dispatch(clearFields()))
-
-
-
     }
 
   }, [token, userId, dispatch])

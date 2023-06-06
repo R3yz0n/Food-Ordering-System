@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 
 export const getUser = createAsyncThunk('currUser-fetch',
     async (values, { rejectWithValue }) => {
-        console.log('fetch');
 
         try {
             const authHeaders = { headers: { Authorization: `Bearer ${values.token}` } }

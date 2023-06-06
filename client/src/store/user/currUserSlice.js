@@ -16,7 +16,6 @@ const currUserSlice = createSlice({
 
     reducers: {
         clearFields: (state, { payload }) => {
-            console.log('clearing fields');
             state.success = false;
             state.loading = false;
             state.error = null;
@@ -34,7 +33,6 @@ const currUserSlice = createSlice({
 
         //user Login
         [getUser.fulfilled]: (state, { payload }) => {
-            console.log(payload);
             state.success = true;
             state.error = null;
             state.loading = false
@@ -48,7 +46,6 @@ const currUserSlice = createSlice({
 
 
         }, [getUser.rejected]: (state, { payload }) => {
-            console.log(payload);
             state.error = payload
             state.loading = false
             state.success = false;

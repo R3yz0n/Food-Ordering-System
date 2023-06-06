@@ -144,11 +144,11 @@ const AddNewItem = () => {
                                 {product.error}
                             </motion.div>
                         }
-                        {product.success?.length > 1 &&
+                        {/* {product.success?.length > 1 &&
                             <motion.div className=' text-red-600 px-2 mt-2' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
                                 {product.success}
                             </motion.div>
-                        }
+                        } */}
 
 
                         {/* button */}
