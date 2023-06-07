@@ -123,10 +123,6 @@ const updateFile = async (req, res, next) => {
 
 
 
-
-
-
-
     if (!req.file) {
         return res.status(400).json({ message: 'Image must be uploaded.' });
     }

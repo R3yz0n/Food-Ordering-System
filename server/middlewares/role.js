@@ -7,11 +7,11 @@ const checkRole = async (req, res, next) => {
 
     try {
         const token = req.headers.authorization.split(" ")[1];
-        console.log(token);
+        // console.log(token);
         const decodedUser = jwt.verify(token, process.env.JWT_SECRET);
         // console.log(decodedUser);
         // console.log('role');
-        // console.log(decodedUser.role);
+        console.log(decodedUser.role);
 
 
         try {

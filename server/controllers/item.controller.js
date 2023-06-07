@@ -4,9 +4,9 @@ const { users, items } = require('../models')
 const addItem = (req, res) => {
     // console.log(req.body);
     const itemToCreate = {
-        name: req.body.title,
+        name: req.body.name,
         image: req.body.image,
-        price: req.body.description,
+        price: req.body.price,
         category: req.body.category,
         userId: req.body.userId,
     }
@@ -93,17 +93,16 @@ const getAllItems = async (req, res) => {
 const updateItem = async (req, res) => {
 
     console.log('hello');
-    // console.log(1);
     const id = req.params.id;
 
 
 
     try {
-        const isExists = await posts.findOne({ where: { id: req.params.id } })
+        const isExists = await items.findOne({ where: { id: req.params.id } })
         // console.log(isExists);
         if (!isExists)
             return res.status(404).json({
-                message: "Post not found."
+                message: "Item not found."
             })
     }
     catch (error) {
@@ -116,23 +115,25 @@ const updateItem = async (req, res) => {
     }
 
     const itemToUpdate = {
-        title: req.body.title,
+        name: req.body.name,
         image: req.body.image,
+        price: req.body.price,
         category: req.body.category,
-        uid: req.body.uid,
+        userId: req.body.userId,
     }
     // console.log(postToCreate);
+    console.log(itemToUpdate);
 
 
     try {
-        const result = await items.update(itemToUpdate, { where: { id: id, uid: req.body.uid } })
+        const result = await items.update(itemToUpdate, { where: { id: id, userId: req.body.userId } })
 
         if (!result[0]) {
 
 
             return res.status(409).json(
                 {
-                    message: "Update unsucessful."
+                    message: "Update unsuccessful."
                 }
             )
 
@@ -141,7 +142,7 @@ const updateItem = async (req, res) => {
 
         res.status(200).json(
             {
-                message: "Update sucessfull.",
+                message: "Update successfull.",
                 post: itemToUpdate
             }
         )
@@ -161,5 +162,6 @@ const updateItem = async (req, res) => {
 module.exports = {
     addItem: addItem,
     getAllItems: getAllItems,
-    deleteItem: deleteItem
+    deleteItem: deleteItem,
+    updateItem: updateItem
 }

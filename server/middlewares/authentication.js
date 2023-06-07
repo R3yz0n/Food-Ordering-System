@@ -5,7 +5,7 @@ env.config();
 
 
 const checkAuthentication = async (req, res, next) => {
-    // console.log(req.headers);
+    console.log(req.headers.authorization);
     console.log(req.headers.authorization.split(" ")[1]);
     if (!req.headers.authorization) {
         console.log('----------------');
@@ -17,7 +17,7 @@ const checkAuthentication = async (req, res, next) => {
 
     try {
         // const decodedUser = jwt.verify(req.headers.authorization, 'secret')
-        console.log('-------');
+        console.log('------1-');
         const decodedUser = jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_SECRET)
         console.log(decodedUser);
         console.log('next auth');

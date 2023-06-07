@@ -15,7 +15,7 @@ router.get('/:filename', fileController.getFile)
 
 // suru ma delete tespaxi multer middleware
 
-// router.put('/:filename', checkAuthentication, fileUploader.update, fileController.updateFile)
+router.put('/:filename', fileUploader.update, fileController.updateFile)
 
 
 

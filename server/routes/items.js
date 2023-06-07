@@ -13,6 +13,10 @@ router.get('/', itemController.getAllItems)
 
 router.delete('/:id', checkAuthentication, checkRole, itemController.deleteItem)
 
+router.put('/:id', checkAuthentication, checkRole,
+    itemController.updateItem
+)
+
 
 
 module.exports = router;
