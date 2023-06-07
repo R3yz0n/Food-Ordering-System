@@ -1,33 +1,15 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Overlay from "../../../common/Overlay";
 import { motion } from "framer-motion";
 import { btnClick } from "../../../animations";
 import { deleteItem } from "../../../store/product/productAction";
 import { clearFields } from "../../../store/product/productSlice";
-import { useNavigate } from "react-router-dom";
 
-export const DeleteItem = ({ toggleShowModal, passItem }) => {
+export const DeleteItem = ({ hideDeleteModal, selectItem }) => {
 
 
     const dispatch = useDispatch();
-    const { success } = useSelector((state) => state.product);
-    const navigate = useNavigate('')
-
-
-
-
-    useEffect(() => {
-        if (success !== false) {
-            dispatch(clearFields())
-            setTimeout(() => {
-                console.log('deleted sucessful');
-                toggleShowModal()
-            }, [1100])
-        }
-
-    }, [success, dispatch, toggleShowModal])
-
 
 
     return (
@@ -50,11 +32,21 @@ export const DeleteItem = ({ toggleShowModal, passItem }) => {
                         <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-slate-400 gap-4">
 
                             <motion.button {...btnClick} className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-red-500 active:bg-red-600 hover:shadow-lg focus:outline-none" type="button" onClick={async () => {
-                                await dispatch(deleteItem(passItem))
+                                dispatch(deleteItem(selectItem)).then(() => {
+
+                                    setTimeout(() => {
+                                        console.log('deleted sucessful');
+                                        hideDeleteModal(true)
+                                        dispatch(clearFields())
+                                    }, [1200])
+
+                                })
+
 
 
                             }}> Yes </motion.button>
-                            <motion.button {...btnClick} className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-emerald-500 active:bg-emerald-600 hover:shadow-lg focus:outline-none" type="button" onClick={toggleShowModal} >  No </motion.button>
+
+                            <motion.button {...btnClick} className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-emerald-500 active:bg-emerald-600 hover:shadow-lg focus:outline-none" type="button" onClick={hideDeleteModal} >  No </motion.button>
 
                         </div>
                     </div>

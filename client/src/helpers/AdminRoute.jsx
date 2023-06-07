@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children }) => {
     const { userData } = useSelector(state => state.currUser)
     const navigate = useNavigate('/')
     const token = localStorage.getItem('userToken')
-    console.log(token);
 
     useEffect(() => {
 

@@ -9,6 +9,7 @@ import { createItem } from '../../../store/product/productAction';
 import { clearFields } from '../../../store/product/productSlice';
 import MainLoader from '../../../animations/MainLoader';
 import { FaTrash } from 'react-icons/fa'
+import { foodCat } from '../../../utils/constants';
 
 
 
@@ -18,6 +19,7 @@ const initialValues = { name: 'Pizza', category: 'drinks', price: '1200', file: 
 const AddNewItem = () => {
     const dispatch = useDispatch()
     const product = useSelector(state => state.product)
+    const { userData } = useSelector(state => state.currUser)
     console.log(product);
 
     const { values, errors, handleBlur, touched, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
@@ -25,6 +27,7 @@ const AddNewItem = () => {
         validationSchema: addItemSchema,
         onSubmit: async (values, action) => {
             console.log(values);
+            values.userId = userData.id
             dispatch(createItem(values))
 
 
@@ -51,7 +54,7 @@ const AddNewItem = () => {
             console.log('hi');
             dispatch(clearFields())
 
-            resetForm()
+            // resetForm()
 
         }, 4000);
 
@@ -144,11 +147,11 @@ const AddNewItem = () => {
                                 {product.error}
                             </motion.div>
                         }
-                        {/* {product.success?.length > 1 &&
+                        {product.success?.length > 1 &&
                             <motion.div className=' text-red-600 px-2 mt-2' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
                                 {product.success}
                             </motion.div>
-                        } */}
+                        }
 
 
                         {/* button */}
@@ -165,17 +168,7 @@ const AddNewItem = () => {
                 </section>
 
 
-
-
-
-
             </aside>
-
-
-
-
-
-
 
         </form>
     )
@@ -185,13 +178,3 @@ const AddNewItem = () => {
 export default AddNewItem
 
 
-export const foodCat = [
-    { id: 1, title: "Drinks", category: "drinks" },
-    { id: 2, title: "Pizzas", category: "pizzas" },
-    { id: 3, title: "Seafood", category: "seafood" },
-    { id: 4, title: "Vegan", category: "vegan" },
-    { id: 5, title: "Burgers", category: "burgers" },
-    { id: 6, title: "Pasta", category: "pasta" },
-    // { id: 7, title: "Chinese", category: "chinese" }
-
-]

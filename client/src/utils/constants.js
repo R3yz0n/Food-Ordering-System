@@ -29,3 +29,12 @@ export const FooterItems = [
     { id: "h4", image: H4, title: "TPay online or cash on delivery" }
 ];
 
+export const foodCat = [
+    { id: 1, title: "Drinks", category: "drinks" },
+    { id: 2, title: "Pizzas", category: "pizzas" },
+    { id: 3, title: "Seafood", category: "seafood" },
+    { id: 4, title: "Vegan", category: "vegan" },
+    { id: 5, title: "Burgers", category: "burgers" },
+    { id: 6, title: "Pasta", category: "pasta" },
+
+]

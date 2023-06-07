@@ -50,6 +50,7 @@ const Header = () => {
 
 
                 <motion.div {...btnClick} className='relative cursor-pointer' >
+
                     <MdShoppingCart className='text-3xl text-textColor' />
                     <div className='w-6 h-6 rounded-full bg-red-500 flex items-center justify-center absolute -top-4 -right-1'>
                         <p className='text-primary text-base font-semibold'>2</p>
@@ -97,28 +98,19 @@ const Header = () => {
 
                                     </motion.div>
 
-
-
                                 </motion.div>
                             }
-
-
                         </div>
                         :
 
                         <NavLink to='/login'>
-                            <motion.button {...btnClick} className='px-5 py-2 rounded-md shadow-md bg-gray-100 underline border-red-300 cursor-pointer' >Login</motion.button>
+                            <motion.button {...btnClick} className='px-5 py-2 rounded-md shadow-md bg-gray-200 underline border-red-300 cursor-pointer' >Login</motion.button>
 
                         </NavLink>
                 }
 
 
-
             </nav>
-
-
-
-
 
         </header >
 

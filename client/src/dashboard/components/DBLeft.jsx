@@ -5,7 +5,7 @@ import { isActiveStyles, isNotActiveStyles } from '../../utils/nav'
 
 const DBLeft = () => {
     return (
-        <section className='h-full bg-gradient-to-r from-gray-100 to-gray-300 py-12 hidden md:flex flex-col backdrop-blur-md shadow-md min-w-210 w-300 gap-3 '>
+        <section className='h-full bg-gradient-to-r from-gray-100 to-gray-300 py-12 hidden md:flex flex-col backdrop-blur-md shadow-md min-w-210 w-300 gap-3 px-[11px] '>
 
 
             <NavLink to='/' className='flex items justify-start gap-4 items-center text-2xl'>

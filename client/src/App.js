@@ -9,7 +9,7 @@ import Register from './components/login/signup/Register'
 import { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from './store/user/currUserAction'
-import { clearFields } from './store/user/currUserSlice'
+import { clearFields, clearUserData } from './store/user/currUserSlice'
 import { logout } from './store/user/authSlice'
 
 
@@ -19,17 +19,30 @@ const App = () => {
   const location = useLocation()
   const token = localStorage.getItem("userToken");
   const userId = localStorage.getItem("userId");
+  const currUser = useSelector(state => state.currUser)
 
 
 
   // console.log(currUser);
 
   useEffect(() => {
-    console.log('fetching user data...');
+    // console.log('fetching user data...');s
+
 
     if (token && userId) {
-      dispatch(getUser({ token, userId })).unwrap()
-        .then(res => dispatch(clearFields()))
+      dispatch(getUser({ token, userId }))
+        .then(res => {
+          console.log(currUser.error);
+          if (currUser.error) {
+            dispatch(logout())
+            dispatch(clearUserData())
+            // dispatch(clearFields())
+
+          }
+          console.log(currUser.error);
+
+        }
+        )
     }
 
   }, [token, userId, dispatch])

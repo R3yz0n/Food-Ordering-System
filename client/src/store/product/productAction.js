@@ -49,6 +49,7 @@ export const getAllItems = createAsyncThunk('Get All Items',
     async (values, { rejectWithValue }) => {
 
         //toastify use garna xa fetch na huda data
+        console.log('fetching data............');
 
 
         // console.log(values);
