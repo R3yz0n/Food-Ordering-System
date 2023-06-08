@@ -26,9 +26,11 @@ app.use('/user', userRoutes)
 
 
 
-// sequelize.sync({ force: true }).then((result) => {;
+// sequelize.sync({ force: true }).then((result) => {
+//     ;
 //     console.log("migration successful");
-// }).catch(err => {;
+// }).catch(err => {
+//     ;
 //     console.log(err);;
 // });
 

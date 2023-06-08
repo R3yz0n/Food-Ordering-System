@@ -18,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
   items.init({
     name: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    category: DataTypes.STRING,
+    category: {
+      type: DataTypes.ENUM,
+      values: ['drinks', 'pizzas', 'seafoods', 'vegans', 'pastas'],
+      allowNull: false
+    },
     image: DataTypes.STRING
   }, {
     sequelize,
