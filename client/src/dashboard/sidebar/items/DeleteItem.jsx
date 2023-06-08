@@ -15,7 +15,7 @@ export const DeleteItem = ({ hideDeleteModal, selectItem }) => {
     return (
         <Overlay>
 
-            <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 flex items-center justify-center z-50 w-screen h-screen">
 
                 <div className="w-1/3 ">
 
@@ -33,12 +33,11 @@ export const DeleteItem = ({ hideDeleteModal, selectItem }) => {
 
                             <motion.button {...btnClick} className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-red-500 active:bg-red-600 hover:shadow-lg focus:outline-none" type="button" onClick={async () => {
                                 dispatch(deleteItem(selectItem)).then(() => {
-
                                     setTimeout(() => {
-                                        console.log('deleted sucessful');
-                                        hideDeleteModal(true)
                                         dispatch(clearFields())
-                                    }, [1200])
+                                        hideDeleteModal(true)
+
+                                    }, [1800])
 
                                 })
 

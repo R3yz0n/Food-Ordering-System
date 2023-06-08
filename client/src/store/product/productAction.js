@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 const token = localStorage.getItem("userToken");
 const authHeaders = { headers: { Authorization: `Bearer ${token}` } }
 
-export const createItem = createAsyncThunk('create item',
+export const createItem = createAsyncThunk('Create An Item',
     async (values, { rejectWithValue }) => {
 
 
@@ -23,8 +23,8 @@ export const createItem = createAsyncThunk('create item',
             const { file, ...others } = values
             const res = await axios.post(`${APIURL}/item`, others, authHeaders)
             // console.log(res);
-
             return res.data.message
+
 
         }
 
@@ -126,3 +126,49 @@ export const deleteItem = createAsyncThunk('Delete An Item',
 
 )
 
+
+export const updateItem = createAsyncThunk('Update An Item',
+    async (values, { rejectWithValue }) => {
+
+
+        try {
+
+            if (typeof (values.file) === 'string') {
+                const res = await axios.put(`${APIURL}/item/${values.id}`, values, authHeaders)
+                toast.success(res.data.message)
+                return res.data
+
+            }
+            const formData = new FormData()
+            formData.append('file', values.file)
+
+            const fileRes = await axios.post(`${APIURL}/file`, formData, authHeaders)
+            values.image = fileRes.data.url
+            const { file, ...others } = values
+
+            const res = await axios.put(`${APIURL}/item/${values.id}`, others, authHeaders)
+
+
+            toast.success(res.data.message)
+
+            return res.data
+
+        }
+
+        catch (error) {
+
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(error.response.data.message);
+            } else {
+                console.log(error);
+                toast.error(error.message)
+                return rejectWithValue(error.message);
+            }
+
+        }
+
+    }
+
+
+)

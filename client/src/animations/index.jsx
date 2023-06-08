@@ -5,6 +5,12 @@ export const fadeInOut = {
     exit: { opacity: 0, transition: { duration: 0.5 } }
 
 }
+export const fade = {
+    initial: { opacity: 0, transition: { duration: 1.5 } },
+    animate: { opacity: 1, transition: { duration: 1 } },
+    exit: { opacity: 0.2, transition: { duration: 1.5 } }
+
+}
 
 export const btnClick = {
     // whileHover: { scale: 1.1 },
@@ -34,4 +40,9 @@ export const straggerFadeInOut = (i) => {
         transition: { duration: 0.3, delay: i * 0.15 },
         key: { i },
     }
+}
+
+export const error = {
+    initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 1 }
+
 }

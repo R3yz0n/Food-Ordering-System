@@ -11,12 +11,12 @@ import H4 from '../assests/H4.png'
 
 
 export const DummyFood = [
-    { id: 'f1', image: Seafood, name: "Lobster", category: "seafood", price: 1500 },
-    { id: 'f2', image: Pizza, name: "Laziz pizza", category: "drinks", price: 300 },
-    { id: 'f3', image: Vegan, name: "Legumes", category: "burgers", price: 180 },
-    { id: 'f4', image: Pasta, name: "Penne pasta", category: "pasta", price: 320 },
-    { id: 'f5', image: Drinks, name: "Vigin mojito", category: "pizzas", price: 999 },
-    { id: 'f6', image: Burger, name: "Turkey burger", category: "vegan", price: 340 },
+    { id: 'f1', image: Seafood, name: "Lobster", category: "seafoods", price: 1500 },
+    { id: 'f2', image: Pizza, name: "Laziz pizza", category: "pizzas", price: 799 },
+    { id: 'f3', image: Vegan, name: "Legumes", category: "vegans", price: 680 },
+    { id: 'f4', image: Pasta, name: "Penne pasta", category: "pastas", price: 320 },
+    { id: 'f5', image: Drinks, name: "Vigin mojito", category: "drinks", price: 220 },
+    { id: 'f6', image: Burger, name: "Turkey burger", category: "burgers", price: 190 },
 ];
 
 export const APIURL = process.env.REACT_APP_API_URL
@@ -32,9 +32,9 @@ export const FooterItems = [
 export const foodCat = [
     { id: 1, title: "Drinks", category: "drinks" },
     { id: 2, title: "Pizzas", category: "pizzas" },
-    { id: 3, title: "Seafood", category: "seafood" },
-    { id: 4, title: "Vegan", category: "vegan" },
+    { id: 3, title: "Seafoods", category: "seafoods" },
+    { id: 4, title: "Vegans", category: "vegans" },
     { id: 5, title: "Burgers", category: "burgers" },
-    { id: 6, title: "Pasta", category: "pasta" },
+    { id: 6, title: "Pastas", category: "pastas" },
 
 ]

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createItem, deleteItem, getAllItems } from "./productAction";
+import { createItem, deleteItem, getAllItems, updateItem } from "./productAction";
 
 
 
@@ -89,6 +89,7 @@ const productSlice = createSlice({
 
 
         },
+        //delete
 
         [deleteItem.fulfilled]: (state, { payload }) => {
 
@@ -113,6 +114,32 @@ const productSlice = createSlice({
 
 
         },
+
+        //update
+        [updateItem.fulfilled]: (state, { payload }) => {
+
+            // state.items = payload
+            state.error = null;
+            state.success = payload.message
+            state.loading = false
+
+        },
+        [updateItem.pending]: (state) => {
+
+            state.loading = true;
+            state.error = null;
+            state.success = false
+
+
+        },
+        [updateItem.rejected]: (state, { payload }) => {
+            state.error = payload
+            state.loading = false
+            state.success = false;
+
+
+        },
+
 
 
     }

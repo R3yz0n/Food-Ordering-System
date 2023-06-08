@@ -30,6 +30,19 @@ const Items = () => {
 
     }
 
+    const hideEditModal = async (status) => {
+
+        setSelectItem('')
+
+        setShowEditModal(state => !state)
+        // the fetching items will only be called after successful deleteion
+        if (status === true)
+            await dispatch(getAllItems()).then(() => dispatch(clearFields()))
+
+
+
+    }
+
     //toggler
     const hideDeleteModal = async (status) => {
         setSelectItem('')
@@ -40,11 +53,6 @@ const Items = () => {
             await dispatch(getAllItems()).then(() => dispatch(clearFields()))
 
     }
-
-    useEffect(() => {
-        // console.log(selectItem);
-
-    }, [selectItem])
 
 
 
@@ -90,7 +98,7 @@ const Items = () => {
                 </table>
             </div>
             {showDeleteModal && <DeleteItem hideDeleteModal={hideDeleteModal} selectItem={selectItem} />}
-            {showEditModal && <EditItem />}
+            {showEditModal && <EditItem hideEditModal={hideEditModal} selectItem={selectItem} />}
         </>
 
 

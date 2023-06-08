@@ -146,14 +146,7 @@ const Register = () => {
                         </Link>
                     </p>
 
-
-
-
                 </form>
-
-
-
-
 
             </aside>
 
