@@ -31,10 +31,10 @@ const Header = () => {
 
     return (
 
-        <header className='fixed backdrop-blur-sm bg-gray-100 bg-opacity-80 z-40 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20  pt-2 w-full border-[1px] border-b-gray-400'>
+        <header className='fixed backdrop-blur-sm bg-gray-100 bg-opacity-80 z-40 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20  pt-2 w-full border-[1px] border-b-gray-300'>
 
             <NavLink to='/' className='flex items justify-center gap-4 '>
-                <img src={FoodZone} className='w-20' alt="FoodZone" />
+                <img src={FoodZone} className='w-[70px]' alt="FoodZone" />
                 <p className='font-semibold text-xl'>Foodie.</p>
             </NavLink>
 
