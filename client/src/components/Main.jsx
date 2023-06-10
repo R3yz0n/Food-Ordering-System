@@ -9,7 +9,7 @@ import Profile from './profile/Profile'
 const Main = () => {
 
     return (
-        <main className='w-full min-h-screen flex items-center justify-start flex-col bg-primary '>
+        <main className='w-full min-h-screen  bg-primary '>
             <Navbar />
             <Routes>
                 <Route path='/' element={<Home />} />

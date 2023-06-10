@@ -60,7 +60,7 @@ const App = () => {
 
   return (
 
-    <main className='w-screen min-h-screen h-auto flex flex-col items-center justify-center '>
+    <main className=''>
       {currUser.loading && <MainLoader />}
       <ProgressBar />
 

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import LandingPageWrapper from '../../common/LandingPageWrapper';
 import { motion, stagger } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { straggerFadeInOut } from '../../animations/index';
 import { foodCat } from '../../utils/constants';
+import './Swiper.css'
+import 'swiper/css/bundle'
 
 const MenuCat = () => {
+
 
     const [category, setCategory] = useState('');
 
@@ -15,20 +17,37 @@ const MenuCat = () => {
     }
 
     return (
-        <div className='w-880 h-6 -mt-8'>
-            <motion.div className='w-full'>
-                <div className='w-full flex items-center justify-between'>
-                    {/* <div className='flex flex-col items-start justify-start gap-1'>
-                    
-                </div> */}
-                    {/* <p className='text-2xl  text-headingColor font-bold rounded-md px-1 '>
-                        Our Menu Category
-                    </p> */}
-                </div>
+        <div className='w-full '>
+            <motion.div className='w-1/2'>
+
+                <Swiper
+                    centeredSlides={false}
+                    // grabCursor={true}
+                    slidesPerView={3}
+                    spaceBetween={30}
+
+                    className="mySwiper"
+                >
+                    {/* {foodCat.map((item, index) => (
+                        <SwiperSlide>
+                            <FilterCard key={index} item={item} index={index} category={category} setCategory={handleFilterClick} />
+                        </SwiperSlide>
+                    ))} */}
+
+                    <SwiperSlide>Slide 1</SwiperSlide>
+                    <SwiperSlide>Slide 2</SwiperSlide>
+                    <SwiperSlide>Slide 3</SwiperSlide>
+                    <SwiperSlide>Slide 4</SwiperSlide>
+                    <SwiperSlide>Slide 5</SwiperSlide>
+                    <SwiperSlide>Slide 6</SwiperSlide>
+                    <SwiperSlide>Slide 7</SwiperSlide>
+                    <SwiperSlide>Slide 8</SwiperSlide>
+                    <SwiperSlide>Slide 9</SwiperSlide>
+
+                </Swiper>
 
                 <div className='w-full pt-6 flex items-center justify-center gap-6 py-8 '>
-                    {foodCat.map((item, index) => (<FilterCard key={index} item={item} index={index} category={category} setCategory={handleFilterClick} />
-                    ))}
+
                 </div>
             </motion.div>
         </div>
@@ -36,6 +55,24 @@ const MenuCat = () => {
 }
 
 export default MenuCat
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <div className='w-1/2 mx-auto flex gap-10'>
+
+<p className='text-2xl  text-headingColor font-bold rounded-md px-1 '> Our Menu Category  </p>
+
+<input type="search" className='w-50 b rounded-md px-5' placeholder='Search Meal here ..' />
+</div> */}
 
 export const FilterCard = ({ item, index, category, setCategory }) => {
     const handleClick = () => {

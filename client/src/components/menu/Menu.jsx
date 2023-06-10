@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import LandingPageWrapper from '../../common/LandingPageWrapper';
 import { motion, stagger } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { straggerFadeInOut } from '../../animations/index';
 import { foodCat } from '../../utils/constants';
 import MenuCat from './MenuCat';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import './Swiper.css'
+import 'swiper/css/bundle'
 
 
 const Menu = () => {
 
 
     return (
-        <>
-            <LandingPageWrapper>
-                <MenuCat />
-            </LandingPageWrapper>
+        <main className=' pt-24 h-full '>
+            <MenuCat />
 
-            {/* <div className='b w-[1280px] h-3'>
-
-
-            </div> */}
-        </>
+        </main>
     );
 };
 
