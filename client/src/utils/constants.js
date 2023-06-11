@@ -3,10 +3,14 @@ import BurgerCategory from '../assests/BurgerCategory.png'
 import PizzaCategory from '../assests/PizzaCategory.png'
 import DrinkCategory from '../assests/DrinkCategory.png'
 import PastaCategory from '../assests/PastaCategory.png'
+import { BsFillPersonLinesFill } from 'react-icons/bs'
 import SoupCategory from '../assests/SoupCategory.png'
+import { FaFacebookSquare } from 'react-icons/fa'
 import Seafood from '../assests/Seafood.png'
+import { BsInstagram } from 'react-icons/bs'
 import Drinks from '../assests/Drinks.png'
 import Burger from '../assests/Burger.png'
+import { FaTiktok } from 'react-icons/fa'
 import Vegan from '../assests/Vegan.png'
 import Pasta from '../assests/Pasta.png'
 import Pizza from '../assests/Pizza.png'
@@ -36,7 +40,7 @@ export const FooterItems = [
     { id: "h4", image: H4, title: "TPay online or cash on delivery" }
 ];
 
-export const foodCat = [
+export const FoodCat = [
 
     { id: 1, title: "All", category: "all", image: DrinkCategory },
     { id: 1, title: "Drinks", category: "drinks", image: DrinkCategory },
@@ -47,3 +51,33 @@ export const foodCat = [
     { id: 6, title: "Pastas", category: "pastas", image: PastaCategory },
 
 ]
+
+export const SocialData = [
+    {
+        id: 1,
+        child: <>Facebook <FaFacebookSquare size={25} /></>,
+        href: '#',
+        style: 'rounded-tr-md',
+        delay: 100
+    },
+    {
+        id: 2,
+        child: <>Instagram <BsInstagram size={25} /></>,
+        href: '#',
+        delay: 300
+    },
+    {
+        id: 3,
+        child: <> Tiktok <FaTiktok size={25} /></>,
+        href: '#',
+        delay: 500
+    },
+    {
+        id: 4,
+        child: <>Reyzon <BsFillPersonLinesFill size={25} /></>,
+        href: 'https://github.com/R3yz0n',
+        style: 'rounded-br-md',
+        download: true,
+        delay: 700
+    },
+];

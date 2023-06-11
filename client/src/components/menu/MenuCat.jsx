@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, stagger } from 'framer-motion';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { straggerFadeInOut } from '../../animations/index';
-import { foodCat } from '../../utils/constants';
-import './Swiper.css'
-import 'swiper/css/bundle'
+import { BsSearch } from 'react-icons/bs'
+
+import SwiperScroll from './SwiperScroll';
+
 
 const MenuCat = () => {
 
@@ -18,35 +18,32 @@ const MenuCat = () => {
 
     return (
         <div className='w-full '>
-            <motion.div className='w-1/2'>
+            <motion.div className='flex gap-8 w-[90%] px-10 mx-auto  items-center'>
 
-                <Swiper
-                    centeredSlides={false}
-                    // grabCursor={true}
-                    slidesPerView={3}
-                    spaceBetween={30}
+                <div className='w-1/3 mx-auto flex gap-4 flex-col'>
 
-                    className="mySwiper"
-                >
-                    {/* {foodCat.map((item, index) => (
-                        <SwiperSlide>
-                            <FilterCard key={index} item={item} index={index} category={category} setCategory={handleFilterClick} />
-                        </SwiperSlide>
-                    ))} */}
+                    <p className='text-[28px]  text-headingColor font-bold rounded-md px-1 '> Our Menu Category  </p>
 
-                    <SwiperSlide>Slide 1</SwiperSlide>
-                    <SwiperSlide>Slide 2</SwiperSlide>
-                    <SwiperSlide>Slide 3</SwiperSlide>
-                    <SwiperSlide>Slide 4</SwiperSlide>
-                    <SwiperSlide>Slide 5</SwiperSlide>
-                    <SwiperSlide>Slide 6</SwiperSlide>
-                    <SwiperSlide>Slide 7</SwiperSlide>
-                    <SwiperSlide>Slide 8</SwiperSlide>
-                    <SwiperSlide>Slide 9</SwiperSlide>
 
-                </Swiper>
+                    <motion.div className={`flex items-center justify-center gap-4 bg-gray-100 border-2 border-gray-300 focus:border-red-600 rounded-md w-72 px-4 py-[6px] shadow-md `} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
+                        <input type='text' placeholder="Search item here"
 
-                <div className='w-full pt-6 flex items-center justify-center gap-6 py-8 '>
+                            className='w-full h-full bg-transparent text-headingColor text-lg font-semibold border-none outline-none '
+
+                        />
+                        <BsSearch className='text-xl font-semibold text-red-500' />
+                    </motion.div>
+
+
+
+
+                </div>
+
+
+                <div className='w-2/3 '>
+
+
+                    <SwiperScroll category={category} handleFilterClick={handleFilterClick} />
 
                 </div>
             </motion.div>
@@ -67,25 +64,5 @@ export default MenuCat
 
 
 
-{/* <div className='w-1/2 mx-auto flex gap-10'>
 
-<p className='text-2xl  text-headingColor font-bold rounded-md px-1 '> Our Menu Category  </p>
 
-<input type="search" className='w-50 b rounded-md px-5' placeholder='Search Meal here ..' />
-</div> */}
-
-export const FilterCard = ({ item, index, category, setCategory }) => {
-    const handleClick = () => {
-        setCategory(item.category);
-    };
-
-    return (
-        <motion.div key={index} {...straggerFadeInOut(index)} className={`hover:bg-red-500 hover:text-white shadow-md border-gray-200 border-2   group w-28 min-w-[128px] cursor-pointer rounded-3xl py-2 ${category === item.category ? 'bg-red-600' : 'bg-gray-100'} justify-center gap-4`} onClick={handleClick}>
-            <div className={`w-16 mx-auto h-16 rounded-full shadow-md flex items-center justify-center group-hover:bg-primary ${category === item.category ? 'bg-primary' : ' '}`} >
-                <img src={item.image} className='object-contain w-full h-full' alt="" />
-            </div>
-            <p className={`text-center  text-textColor font-semibold group-hover:text-white ${category === item.category && 'text-white'}`} >{item.category.toUpperCase()}</p>
-
-        </motion.div>
-    );
-};

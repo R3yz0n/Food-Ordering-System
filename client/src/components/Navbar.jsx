@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import FoodZone from '../assests/FoodZone.png'
 import { isActiveStyles, isNotActiveStyles } from '../utils/nav'
 import { motion } from 'framer-motion'
@@ -14,14 +14,17 @@ const Header = () => {
 
     const [isMenu, setIsMenu] = useState(false)
     const { userData } = useSelector(state => state.currUser)
+    const navigate = useNavigate()
     // console.log(userData);
     const dispatch = useDispatch()
 
     const handleLogout = async () => {
-
         dispatch(logout())
-
         dispatch(clearUserData())
+        navigate('/')
+
+
+
 
 
 
@@ -44,8 +47,8 @@ const Header = () => {
                 <ul className='hidden md:flex items-center justify-center gap-16 '>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/'}>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/menu'}>Menu</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/services'}>Services</NavLink>
-                    <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/aboutus'}>About Us</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/about'}>About</NavLink>
+                    <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/contact'}>Contact</NavLink>
                 </ul>
 
 

@@ -12,6 +12,8 @@ import { getUser } from './store/user/currUserAction'
 import { clearFields, clearUserData } from './store/user/currUserSlice'
 import { logout } from './store/user/authSlice'
 import MainLoader from './animations/MainLoader'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 
@@ -43,6 +45,7 @@ const App = () => {
 
   }, [token, userId, dispatch])
 
+
   useEffect(() => {
     // console.log(currUser.error);
     if (currUser.error) {
@@ -57,6 +60,7 @@ const App = () => {
 
 
 
+  useEffect(() => { AOS.init({ duration: 1000, easing: 'ease', once: true, }); }, []);
 
   return (
 

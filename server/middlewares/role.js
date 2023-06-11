@@ -24,7 +24,7 @@ const checkRole = async (req, res, next) => {
                 next()
             }
             else {
-                console.log('aunthorized');
+                console.log('not authorized');
                 res.status(401).json({
                     message: "Unauthorized user."
                 })
