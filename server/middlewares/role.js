@@ -1,5 +1,5 @@
-const env = require('dotenv')
-env.config();
+require('dotenv').config({ path: '.env.local' });
+
 const jwt = require('jsonwebtoken')
 const { user } = require('../models')
 const checkRole = async (req, res, next) => {

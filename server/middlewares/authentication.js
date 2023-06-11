@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const env = require('dotenv')
-env.config();
+env.config({ path: '.env.local' });
 
 
 

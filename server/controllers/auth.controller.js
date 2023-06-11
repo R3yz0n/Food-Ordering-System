@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const env = require('dotenv');
-env.config();
+env.config({ path: '.env.local' });
 
 
 
