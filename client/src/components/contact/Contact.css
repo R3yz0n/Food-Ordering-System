@@ -1,7 +1,7 @@
 .contact-stripe {
     background-color: #112337;
     width: 30vw;
-    z-index: 0 !important;
+    z-index: 1 !important;
     position: absolute;
     height: 100% !;
 }

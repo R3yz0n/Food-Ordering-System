@@ -9,7 +9,7 @@ import { createItem } from '../../../store/product/productAction';
 import { clearFields } from '../../../store/product/productSlice';
 import MainLoader from '../../../animations/MainLoader';
 import { FaTrash } from 'react-icons/fa'
-import { FoodCat } from '../../../utils/constants';
+import { Category } from '../../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { HiCurrencyRupee } from 'react-icons/hi';
 
@@ -93,7 +93,7 @@ const AddNewItem = () => {
 
                         <motion.p {...fadeInOut} className='text-2xl text-gray-700 font-semibold'> Categories</motion.p>
                         {
-                            FoodCat.map((item, i) =>
+                            Category.map((item, i) =>
                                 <motion.p {...fade} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-500 backdrop-blur-md`} onClick={() => {
                                     console.log(values.category);
 

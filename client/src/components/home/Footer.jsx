@@ -1,5 +1,8 @@
 import React from 'react'
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FooterItems } from '../../utils/constants'
+
 
 const Footer = () => {
     return (
@@ -17,8 +20,8 @@ const Footer = () => {
                 <aside className='grid grid-cols-2 lg:flex w-full lg:w-4/5 mx-auto  '>
                     {
                         FooterItems.map(item =>
-                            <div className='flex-1' key={item.id}>
-                                <img src={item.image} className='object-cover w-24 mx-auto' alt='foodie'></img>
+                            <div className='flex-1 flex flex-col' key={item.id}>
+                                <LazyLoadImage src={item.image} className='object-cover w-24  mx-auto' alt='footer' effect='opacity' />
                                 <p className='text-center text-xl py-6 px-2'>{item.title}</p>
                             </div>)
                     }

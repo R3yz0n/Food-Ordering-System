@@ -5,6 +5,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import { HiCurrencyRupee } from 'react-icons/hi'
 import { motion } from 'framer-motion';
 import { straggerFadeInOut } from '../../../animations';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+
 
 const Item = ({ item, handleDelete, index, handleEdit }) => {
 
@@ -13,7 +15,7 @@ const Item = ({ item, handleDelete, index, handleEdit }) => {
 
         <motion.tr  {...straggerFadeInOut(index)} className='shadow-md border-2 font-semibold text-textColor   '>
             <td className="py-[10px] px-6 ">
-                <LazyLoadImage effect='opacity' src={`${APIURL}/file/${item.image}`} alt="Item" className="w-[70px] object-cover h-[70px] rounded-full" loading='lazy' />
+                <LazyLoadImage effect='opacity' src={`${APIURL}/file/${item.image}`} alt="Item" className="w-[70px] object-cover h-[70px] rounded-full" />
             </td>
             <td className="py-4 px-6">{item.name}</td>
             <td className="py-4 px-6"><HiCurrencyRupee className='inline text-2xl -mt-1 font-bold text-red-600' /> {item.price}</td>

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateItem } from '../../../store/product/productAction';
 import { clearFields } from '../../../store/product/productSlice';
 import { FaTrash } from 'react-icons/fa'
-import { APIURL, FoodCat } from '../../../utils/constants';
+import { APIURL, Category } from '../../../utils/constants';
 import { HiCurrencyRupee } from 'react-icons/hi'
 
 
@@ -86,7 +86,7 @@ const EditItem = ({ hideEditModal, selectItem }) => {
 
                             <motion.p {...fadeInOut} className='text-2xl text-gray-700 font-semibold'> Categories</motion.p>
                             {
-                                FoodCat.map((item, i) =>
+                                Category.map((item, i) =>
                                     <motion.p {...fade} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-500 backdrop-blur-md`}
                                         onClick={() => {
                                             console.log(values.category);

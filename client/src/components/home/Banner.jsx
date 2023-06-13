@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import { btnClick } from '../../animations'
 
 
+
+
 const Banner = () => {
     const styles = { backgroundImage: `url(${BannerBg})`, backgroundAttachment: 'fixed', backgroundRepeat: 'no-repeat', }
 
