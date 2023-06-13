@@ -51,9 +51,10 @@ function Contact() {
     }
 
     return (
-        <div className="contact global flex flex-col items-center justify-center  relative pt-28 pb-8 bg-gradient-to-b from-gray-200 to-stone-300 " >
+        <div className="contact global flex flex-col items-center justify-center  relative pt-28 pb-8 bg-gradient-to-b from-gray-100 to-zinc-300 " >
             <Social />
-            <div className="contact-stripe  right-0 h-[630px] md:h-[710px]  absolute  "></div>
+            <div className="contact-stripe  right-0 h-[630px] md:h-[710px]  absolute  z-50"></div>
+            <div className="bg-stone-300 w-[70vw] left-[196px]   h-[630px] md:h-[664px]  absolute  z-0"></div>
             <div className="absolute bottom-0  foodzone font-bold  font-sans text-xs  md:text-base">FOODZONE<span className="md:text-lg ">©</span>2023</div>
             <div className="bg-white z-1 rounded  mt-3  pb-6 flex flex-col items-center w-[90%] md:w-[70%] z-20">
                 <div className=" flex flex-col justify-center items-center gap-2 mt-2">
