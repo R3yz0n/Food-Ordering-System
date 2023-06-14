@@ -11,7 +11,7 @@ import { clearUserData } from '../../store/user/currUserSlice'
 import { useLocation } from 'react-router-dom'
 import { searchItems } from '../../store/product/productAction'
 import { clearFields } from '../../store/product/productSlice'
-import { clearSearchFields, getSearchInput } from '../../store/product/searchSlice'
+import { clearSearchFields, getSearchInput } from '../../store/searchSlice'
 
 const DBHeader = () => {
     const [search, setSearch] = useState({ searchKeyword: '', category: 'all', status: false })
@@ -37,14 +37,7 @@ const DBHeader = () => {
             dispatch(getSearchInput({ searchKeyword }))
         }
 
-        // const id = setTimeout(() => {
 
-
-
-
-        // }, [1000])
-
-        // return () => { clearTimeout(id) }
 
 
     }, [search, dispatch])
@@ -64,9 +57,10 @@ const DBHeader = () => {
 
                 <div className='flex items-center justify-center gap-4'>
 
-                    <div className='flex items-center justify-center gap-3 px-4 py-2 backdrop-blur-md rounded-md shadow-lg  bg-gray-100'>
+                    <div className='flex items-center justify-center gap-3 px-4 py-2 backdrop-blur-md rounded-md drop-shadow-lg  bg-gray-100 border-2 border-gray-300'>
                         <MdSearch className='text-gray-700 text-2xl ' />
-                        <input type="text" placeholder='Search here..' className=' bg-transparent w-48 outline-none text-base' onChange={(e) => handleSearch(e.target.value)} value={search.searchKeyword} />
+                        <input type="text" placeholder='Search here..' className=' bg-transparent w-48 outline-none text-base'
+                            onChange={(e) => handleSearch(e.target.value)} value={search.searchKeyword} />
                         <BsToggles2 className='text-gray-700 text-2xl' />
                     </div>
 
