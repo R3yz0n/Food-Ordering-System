@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     category: {
       type: DataTypes.ENUM,
-      values: ['drinks', 'pizzas', 'seafoods', 'vegans', 'pastas'],
+      values: ['drinks', 'pizzas', 'soups', 'chinese', 'burgers', 'pastas'],
       allowNull: false
     },
     image: DataTypes.STRING

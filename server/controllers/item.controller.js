@@ -71,12 +71,22 @@ const getAllItems = async (req, res) => {
 
     try {
 
-        // const query = req.query.category ? { where: { category: req.query.category } } : {};
-        console.log('----------');
+        // console.log(req.query.category);
+
+        const query = req.query.category ? { where: { category: req.query.category } } : {};
         // console.log(query);
 
-        const allItems = await items.findAll();
-        res.json(allItems);
+        if (req.query.category === 'all') {
+            const allItems = await items.findAll()
+            res.json(allItems);
+
+        }
+        else {
+            const allItems = await items.findAll(query);
+            res.json(allItems);
+
+        }
+
 
     } catch (err) {
         if (err.name === 'SequelizeDatabaseError') {
@@ -113,6 +123,7 @@ const updateItem = async (req, res) => {
         })
 
     }
+    console.log(req.body);
 
     const itemToUpdate = {
         name: req.body.name,
