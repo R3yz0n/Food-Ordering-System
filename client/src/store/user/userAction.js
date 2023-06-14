@@ -2,19 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { APIURL } from '../../utils/constants';
 import { toast } from "react-hot-toast";
-const token = localStorage.getItem("userToken");
-const authHeaders = { headers: { Authorization: `Bearer ${token}` } }
 
 
-
-export const getUser = createAsyncThunk('currUser-fetch',
+export const getAllUsers = createAsyncThunk('fetch all users',
     async (values, { rejectWithValue }) => {
+        // console.log('getting al users');
 
         try {
+            const token = localStorage.getItem("userToken");
+            const authHeaders = { headers: { Authorization: `Bearer ${token}` } }
+            // console.log(values);
 
-            const authHeaders = { headers: { Authorization: `Bearer ${values.token}` } }
-
-            const res = await axios.get(`${APIURL}/user/${values.userId}`, authHeaders)
+            const res = await axios.get(`${APIURL}/user`, { ...authHeaders, params: { userName: values } })
+            // console.log(res);
 
             return res.data
 
@@ -38,6 +38,3 @@ export const getUser = createAsyncThunk('currUser-fetch',
 
 
 )
-
-
-

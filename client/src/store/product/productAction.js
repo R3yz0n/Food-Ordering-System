@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { APIURL } from '../../utils/constants';
 import { toast } from "react-hot-toast";
+import { getToken } from "../getToken";
 const token = localStorage.getItem("userToken");
-const authHeaders = { headers: { Authorization: `Bearer ${token}` } }
 
 export const createItem = createAsyncThunk('Create An Item',
     async (values, { rejectWithValue }) => {
@@ -18,10 +18,10 @@ export const createItem = createAsyncThunk('Create An Item',
             const formData = new FormData()
             formData.append('file', values.file)
             // console.log(authHeaders);
-            const fileRes = await axios.post(`${APIURL}/file`, formData, authHeaders)
+            const fileRes = await axios.post(`${APIURL}/file`, formData, getToken())
             values.image = fileRes.data.url
             const { file, ...others } = values
-            const res = await axios.post(`${APIURL}/item`, others, authHeaders)
+            const res = await axios.post(`${APIURL}/item`, others, getToken())
             // console.log(res);
             return res.data.message
 
@@ -49,7 +49,7 @@ export const getAllItems = createAsyncThunk('Get All Items',
     async (values, { rejectWithValue }) => {
 
         //toastify use garna xa fetch na huda data
-        console.log('fetching data............');
+        // console.log('fetching data............');
 
 
         // console.log(values);
@@ -85,14 +85,14 @@ export const getAllItems = createAsyncThunk('Get All Items',
 export const searchItems = createAsyncThunk('Search Item xd',
     async (value, { rejectWithValue }) => {
 
-        console.log('searching');
+        // console.log('searching');
 
 
-        console.log(value);
+        // console.log(value);
 
         try {
-            const res = await axios.get(`${APIURL}/item/search`, { params: { query: value.searchKeyword, category: value.category } })
-            console.log(res);
+            const res = await axios.get(`${APIURL}/item/search`, { params: { query: value.searchValue, category: value.category } })
+            // console.log(res);
 
             return res.data
 
@@ -130,10 +130,10 @@ export const deleteItem = createAsyncThunk('Delete An Item',
             // console.log(1);
 
 
-            const fileRes = await axios.delete(`${APIURL}/file/${values.image}`, authHeaders)
+            const fileRes = await axios.delete(`${APIURL}/file/${values.image}`, getToken())
             // console.log(fileRes);
 
-            const res = await axios.delete(`${APIURL}/item/${values.id}`, authHeaders)
+            const res = await axios.delete(`${APIURL}/item/${values.id}`, getToken())
             toast.success(res.data.message)
 
             return res.data
@@ -167,7 +167,7 @@ export const updateItem = createAsyncThunk('Update An Item',
         try {
 
             if (typeof (values.file) === 'string') {
-                const res = await axios.put(`${APIURL}/item/${values.id}`, values, authHeaders)
+                const res = await axios.put(`${APIURL}/item/${values.id}`, values, getToken())
                 toast.success(res.data.message)
                 return res.data
 
@@ -175,11 +175,11 @@ export const updateItem = createAsyncThunk('Update An Item',
             const formData = new FormData()
             formData.append('file', values.file)
 
-            const fileRes = await axios.post(`${APIURL}/file`, formData, authHeaders)
+            const fileRes = await axios.post(`${APIURL}/file`, formData, getToken())
             values.image = fileRes.data.url
             const { file, ...others } = values
 
-            const res = await axios.put(`${APIURL}/item/${values.id}`, others, authHeaders)
+            const res = await axios.put(`${APIURL}/item/${values.id}`, others, getToken())
 
 
             toast.success(res.data.message)

@@ -14,7 +14,7 @@ const searchSlice = createSlice({
     reducers: {
 
         clearSearchFields: (state, { payload }) => {
-            console.log('clearing search');
+            // console.log('clearing search');
 
             state.searchValue = ""
             state.category = ''

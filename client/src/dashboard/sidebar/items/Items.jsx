@@ -6,6 +6,8 @@ import { clearFields } from '../../../store/product/productSlice';
 import { DeleteItem } from './DeleteItem';
 import Item from './Item';
 import EditItem from './EditItem';
+import { fadeInOut } from '../../../animations';
+import { motion } from 'framer-motion';
 
 const Items = () => {
 
@@ -37,6 +39,8 @@ const Items = () => {
 
         setShowEditModal(state => !state)
         // the fetching items will only be called after successful deleteion
+
+        console.log('ran');
         if (status === true)
             await dispatch(getAllItems()).then(() => dispatch(clearFields()))
 
@@ -67,12 +71,13 @@ const Items = () => {
                 const search = { searchValue: searchValue, category: 'all' }
                 dispatch(searchItems(search)).then(res => dispatch(clearFields()))
 
-            }, [2000])
+            }, [1000])
 
             return () => { clearTimeout(id) }
 
         }
         else {
+            // console.log('gettting all items');
 
             dispatch(getAllItems()).then(() => { dispatch(clearFields()) })
         }
@@ -84,11 +89,9 @@ const Items = () => {
 
 
 
-
-
     return (
         <>
-            <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
+            <div className="   mt-7 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
                 {loading && <MainLoader />}
 
 
@@ -109,7 +112,7 @@ const Items = () => {
                             <Item item={item} handleDelete={handleDelete} handleEdit={handleEdit} index={index} key={item.id} />
 
 
-                        )) : <tr className='text-red-700  flex w-full  p-2 text-lg'><td className=''>No Data Found.</td></tr>
+                        )) : <motion.tr {...fadeInOut} className='text-red-700  flex w-full  p-2 text-lg'><td className=''>{!loading && 'No Item Found.'}</td></motion.tr>
                         }
                     </tbody>
                 </table>

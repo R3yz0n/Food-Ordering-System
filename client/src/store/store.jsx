@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import authSlice from './user/authSlice';
 import productSlice from './product/productSlice';
 import currUserSlice from './user/currUserSlice';
-import searchSlice from './product/searchSlice';
+import searchSlice from './searchSlice';
+import userSlice from './user/userSlice';
 
 
 
@@ -13,6 +14,7 @@ const store = configureStore({
         product: productSlice,
         currUser: currUserSlice,
         search: searchSlice,
+        user: userSlice
 
     }
 })
