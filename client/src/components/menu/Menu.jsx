@@ -6,25 +6,32 @@ import './Swiper.css'
 import 'swiper/css/bundle'
 import { getAllItems, searchItems } from '../../store/product/productAction';
 import { clearFields } from '../../store/product/productSlice'
+import { motion } from 'framer-motion';
+import { fadeInOut } from '../../animations';
 
 
 const Menu = () => {
     const dispatch = useDispatch()
-    const { items } = useSelector(state => state.product)
+    const { items, loading } = useSelector(state => state.product)
     const [category, setCategory] = useState('all');
-    const [search, setSearch] = useState({ searchKeyword: '', category: '', status: false })
+    const [search, setSearch] = useState({ searchValue: '', category: '', status: false })
 
     const handleSearch = (value) => {
-        setSearch({ ...search, searchKeyword: value, category: category, status: true })
-
+        setSearch({ ...search, searchValue: value, category: category, status: true })
     }
+
+    const handleFilter = (category) => setCategory(category);
 
 
 
     useEffect(() => {
+
+
         const id = setTimeout(() => {
-            if (search.status)
+            if (search.status) {
+                // console.log(search.searchValue);
                 dispatch(searchItems(search)).then(res => dispatch(clearFields()))
+            }
 
 
         }, [1000])
@@ -36,11 +43,10 @@ const Menu = () => {
 
 
 
-    const handleFilter = (category) => {
-        setCategory(category);
-    }
+
 
     useEffect(() => {
+        setSearch({ searchValue: '', category: '', status: false })
 
         dispatch(getAllItems(category)).then(res => dispatch(clearFields()))
 
@@ -50,11 +56,13 @@ const Menu = () => {
     return (
         <main className=' pt-[90px]  pb-20 '>
 
-            <MenuCat handleFilter={handleFilter} category={category} handleSearch={handleSearch} searchKeyword={search.searchKeyword} />
+            <MenuCat handleFilter={handleFilter} category={category} handleSearch={handleSearch} searchValue={search.searchValue} />
 
             <div className='mt-10 max-w-screen-lg xl:max-w-screen-xl gap-x-0  mx-auto   grid  xs:grid-cols-2 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 gap-y-5   lg:p-0 '>
                 {
-                    items?.map((item) => <FoodItemCard key={item.id} item={item} />)
+                    items.length > 0 ? items?.map((item) => <FoodItemCard key={item.id} item={item} />)
+                        : <motion.p {...fadeInOut} className='text-xl  w-72 font-semibold -mt-12 ml-20' >{!loading &&
+                            (search.searchValue.length > 0 ? 'No Searched Meal Found' : 'No Meal Available')}</motion.p>
 
                 }
             </div>
