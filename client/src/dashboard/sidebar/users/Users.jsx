@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllItems, searchItems } from '../../../store/product/productAction';
 import MainLoader from '../../../animations/MainLoader';
-import { clearFields } from '../../../store/product/productSlice';
-// import Item from './Item';
+import User from './User';
+import { getAllUsers } from '../../../store/user/userAction';
+import { clearFields } from '../../../store/user/userSlice';
+import { fadeInOut } from '../../../animations';
+import { motion } from 'framer-motion';
 
 const Users = () => {
 
     const dispatch = useDispatch()
     const { searchValue } = useSelector(state => state.search)
-
+    const { usersList, loading } = useSelector(state => state.user)
 
 
 
@@ -22,17 +24,17 @@ const Users = () => {
             const id = setTimeout(() => {
 
 
-                const search = { searchValue: searchValue, category: 'all' }
-                dispatch(searchItems(search)).then(res => dispatch(clearFields()))
+                // const search = { searchValue: searchValue }
+                dispatch(getAllUsers(searchValue)).then(res => dispatch(clearFields()))
 
-            }, [2000])
+            }, [1000])
 
             return () => { clearTimeout(id) }
 
         }
         else {
 
-            dispatch(getAllItems()).then(() => { dispatch(clearFields()) })
+            dispatch(getAllUsers('all')).then(() => { dispatch(clearFields()) })
         }
 
 
@@ -46,29 +48,30 @@ const Users = () => {
 
     return (
         <>
+
             <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
-                {/* {loading && <MainLoader />} */}
+                {loading && <MainLoader />}
 
 
                 <table className="min-w-full static" >
                     <thead className="  text-lg text-gray-800 bg-[rgb(229,231,235)] shadow-md font-sans ">
                         <tr>
-                            <th className="py-3 px-6 text-left">Image</th>
-                            <th className="py-3 px-6 text-left">Name</th>
-                            <th className="py-3 px-6 text-left">Email</th>
-                            <th className="py-3 pl-3 pr-2 text-left">Phone Number</th>
+                            <th className="py-3 px-6 text-left">User Name</th>
+                            <th className="py-3 px-6 text-left">Email Address</th>
+                            <th className="py-3 px-6 text-left">Phone Number</th>
                             <th className="py-3 px-6 text-left">Address</th>
+                            <th className="py-3 px-6 text-left">Status</th>
                         </tr>
                     </thead>
                     <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black ">
-                        {/* 
-                        {items?.length > 0 ? items.map((item, index) => (
 
-                            <Item item={item} handleDelete={handleDelete} handleEdit={handleEdit} index={index} key={item.id} />
+                        {usersList?.length > 0 ? usersList.map((user, index) => (
+
+                            <User user={user} index={index} key={user.id} />
 
 
-                        )) : <tr className='text-red-700  flex w-full  p-2 text-lg'><td className=''>No Data Found.</td></tr>
-                        } */}
+                        )) : <motion.tr {...fadeInOut} className='text-red-700  flex w-full  p-2 text-lg'><td className=''>{!loading && 'No User Found.'}</td></motion.tr>
+                        }
                     </tbody>
                 </table>
             </div>
