@@ -7,6 +7,7 @@ import { btnClick, straggerFadeInOut } from '../../animations/index'
 import LandingPageWrapper from '../../common/LandingPageWrapper'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
+import { Link } from 'react-router-dom'
 
 
 const Home = () => {
@@ -48,7 +49,9 @@ const Home = () => {
                     </p>
 
 
-                    <motion.button {...btnClick} className='bg-orange-400 px-10 py-2 text-xl rounded-md tracking-wide text-headingColor font-semibold shadow-md '>Order Now </motion.button>
+                    <motion.button {...btnClick} className='bg-orange-400 px-10 py-2 text-xl rounded-md tracking-wide text-headingColor font-semibold shadow-md '>
+                        <Link to='/menu'>Order Now </Link>
+                    </motion.button>
 
                 </main>
 

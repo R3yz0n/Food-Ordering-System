@@ -13,8 +13,8 @@
 
 html {
   overflow-y: auto;
-  /* overflow-x: hidden; */
-  /* overflow-x: scroll; */
+  overflow-x: hidden;
+
   scroll-behavior: smooth;
 
 }
@@ -28,6 +28,13 @@ body {
     'Open Sans', 'Helvetica Neue', sans-serif
 }
 
+
+
+/* Hide the scrollbar */
+body::-webkit-scrollbar {
+  width: 0em;
+  background-color: #F5F5F5;
+}
 
 
 

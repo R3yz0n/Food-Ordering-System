@@ -5,7 +5,7 @@ const Profile = () => {
     const { userData } = useSelector(state => state.currUser)
 
     return (
-        <div className='mt-52  w-full h-screen'>
+        <div className='pt-52  w-full h-screen'>
 
 
             <section className="">
@@ -19,7 +19,7 @@ const Profile = () => {
                                             userData?.image ? <img
                                                 src={userData?.image}
                                                 alt="Avatar"
-                                                className="my-5 w-20 mx-auto h-20 rounded-full object-cover"
+                                                className="my-5 w-28 mx-auto h-28 rounded-full object-cover"
                                             /> : <p className='w-20 h-20 mx-auto rounded-full bg-orange-500'></p>
                                         }
                                         <h5 className="text-lg">{userData?.userName}</h5>
@@ -37,7 +37,7 @@ const Profile = () => {
                                                 </div>
                                                 <div className="w-1/2">
                                                     <h6 className="font-bold">Phone</h6>
-                                                    <p className="text-gray-600">123 456 789</p>
+                                                    <p className="text-gray-600">{userData?.phoneNumber ? userData.phoneNumber : '123 456 789'}</p>
                                                 </div>
                                             </div>
 
@@ -49,8 +49,8 @@ const Profile = () => {
                                                     <p className="text-gray-600">{userData?.email}</p>
                                                 </div>
                                                 <div className="w-1/2">
-                                                    <h6 className="font-bold">Phone</h6>
-                                                    <p className="text-gray-600">123 456 789</p>
+                                                    <h6 className="font-bold">Address</h6>
+                                                    <p className="text-gray-600">{userData?.address ? userData.address : '123 456 789'}</p>
                                                 </div>
                                             </div>
 

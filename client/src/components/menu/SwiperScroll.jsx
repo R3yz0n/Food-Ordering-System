@@ -4,7 +4,7 @@ import { MenuCategory } from '../../utils/constants';
 import { motion } from 'framer-motion';
 import { straggerFadeInOut } from '../../animations/index';
 
-const SwiperScroll = ({ category, handleFilterClick }) => {
+const SwiperScroll = ({ category, handleFilter }) => {
     const [slidesPerView, setSlidesPerView] = useState(4);
 
 
@@ -36,11 +36,9 @@ const SwiperScroll = ({ category, handleFilterClick }) => {
 
             {MenuCategory.map((item, index) => (
 
-                <React.Fragment key={item.id}>
-                    <SwiperSlide key={item.id}>
-                        <CategoryCard key={index} item={item} index={index} category={category} setCategory={handleFilterClick} />
-                    </SwiperSlide>
-                </React.Fragment>
+                <SwiperSlide key={item.id} className=' mx-auto'>
+                    <CategoryCard item={item} index={index} category={category} handleFilter={handleFilter} />
+                </SwiperSlide>
             ))}
 
 
@@ -54,14 +52,14 @@ export default SwiperScroll
 
 
 
-export const CategoryCard = ({ item, index, category, setCategory }) => {
+export const CategoryCard = ({ item, index, category, handleFilter }) => {
     const handleClick = () => {
-        setCategory(item.category);
+        handleFilter(item.category);
     };
 
     return (
-        <motion.div key={index} {...straggerFadeInOut(index)} className={`hover:bg-red-500 hover:text-white   border-gray-200 border-2    group sm:w-28 min-w-[60px] cursor-grab rounded-xl pt-2 pb-1 ${category === item.category ? 'bg-red-600 border-transparent ' : 'bg-gray-100'} justify-center gap-4  `} onClick={handleClick}>
-            <div className={`w-14 flex-col mx-auto h-14 rounded-full shadow-md flex items-center justify-center  group-hover:bg-primary ${category === item.category ? 'bg-primary border-none' : ''}`} >
+        <motion.div key={index} {...straggerFadeInOut(index)} className={`hover:bg-red-500 hover:text-white  border-gray-300 border-2    group sm:w-28 min-w-[60px] cursor-grab rounded-lg  pt-2 pb-1 ${category === item.category ? 'bg-red-600 border-transparent ' : 'bg-stone-100 '} justify-center gap-4 `} onClick={handleClick}>
+            <div className={`w-14 flex-col mx-auto h-14 rounded-full shadow-md flex items-center justify-center  group-hover:bg-white ${category === item.category ? 'bg-white border-none' : ''}`} >
                 <img src={item.image} className='object-contain w-full h-full ' alt="Food Item" />
             </div>
             <p className={`text-center text-[14px] pt-2  text-textColor  font-semibold group-hover:text-white ${category === item.category && 'text-white'} `} >{item.category.toUpperCase()}</p>

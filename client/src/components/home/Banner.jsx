@@ -3,6 +3,7 @@ import BannerBg from '../../assests/BannerBg.jpg'
 import BannerRight from '../../assests/BannerRight.png'
 import { motion } from 'framer-motion'
 import { btnClick } from '../../animations'
+import { Link } from 'react-router-dom'
 
 
 
@@ -22,7 +23,9 @@ const Banner = () => {
                     <p className='text-[44px] font-bold'>Enjoy Our Delicious Meal</p>
                     <p className='font-semibold opacity-90 text-lg lg:pr-8'>A restaurant is a place where people go to enjoy a meal, typically with friends, family, or colleagues.</p>
 
-                    <motion.button {...btnClick} className='bg-orange-500 hover:bg-orange-600 px-4 py-2 w-52 rounded-md tracking-wider text-headingColor text-xl font-bold'>See Our Menu</motion.button>
+                    <motion.button {...btnClick} className='bg-orange-500 hover:bg-orange-600 px-4 py-2 w-52 rounded-md tracking-wider text-headingColor text-xl font-bold'>
+                        <Link to='/menu'>See Our Menu</Link>
+                    </motion.button>
 
                 </div>
 

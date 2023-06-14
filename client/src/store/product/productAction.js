@@ -57,9 +57,42 @@ export const getAllItems = createAsyncThunk('Get All Items',
 
         // console.log(token);
         try {
-            // console.log(1);
-            const res = await axios.get(`${APIURL}/item`)
+            const res = await axios.get(`${APIURL}/item`, { params: { category: values } })
             // console.log(res);
+
+            return res.data
+
+        }
+
+        catch (error) {
+            // console.log(error);
+
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(error.response.data.message);
+            } else {
+                toast.error(error.message)
+                console.log(error);
+                return rejectWithValue(error.message);
+            }
+
+        }
+
+    }
+
+
+)
+export const searchItems = createAsyncThunk('Search Item xd',
+    async (value, { rejectWithValue }) => {
+
+        console.log('searching');
+
+
+        console.log(value);
+
+        try {
+            const res = await axios.get(`${APIURL}/item/search`, { params: { query: value.searchKeyword, category: value.category } })
+            console.log(res);
 
             return res.data
 

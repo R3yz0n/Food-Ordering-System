@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllItems } from '../../../store/product/productAction';
+import { getAllItems, searchItems } from '../../../store/product/productAction';
 import MainLoader from '../../../animations/MainLoader';
 import { clearFields } from '../../../store/product/productSlice';
 import { DeleteItem } from './DeleteItem';
 import Item from './Item';
 import EditItem from './EditItem';
-
 
 const Items = () => {
 
@@ -15,6 +14,8 @@ const Items = () => {
     const [selectItem, setSelectItem] = useState('');
     const dispatch = useDispatch()
     const { items, loading, success } = useSelector(state => state.product)
+    const { searchValue } = useSelector(state => state.search)
+
 
     const handleDelete = (item) => {
         setSelectItem(item)
@@ -58,10 +59,26 @@ const Items = () => {
 
 
     useEffect(() => {
+        // console.log(searchValue);
+        if (searchValue) {
+            const id = setTimeout(() => {
 
-        dispatch(getAllItems()).then(() => { dispatch(clearFields()) })
 
-    }, [dispatch])
+                const search = { searchValue: searchValue, category: 'all' }
+                dispatch(searchItems(search)).then(res => dispatch(clearFields()))
+
+            }, [2000])
+
+            return () => { clearTimeout(id) }
+
+        }
+        else {
+
+            dispatch(getAllItems()).then(() => { dispatch(clearFields()) })
+        }
+
+
+    }, [dispatch, searchValue])
 
 
 

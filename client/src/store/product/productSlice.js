@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createItem, deleteItem, getAllItems, updateItem } from "./productAction";
+import { createItem, deleteItem, getAllItems, searchItems, updateItem } from "./productAction";
 
 
 
@@ -86,6 +86,33 @@ const productSlice = createSlice({
             state.loading = false
             state.success = false;
             state.items = []
+
+
+        },
+
+
+        //search
+        [searchItems.fulfilled]: (state, { payload }) => {
+            state.items = payload
+            state.error = null;
+            state.success = true;
+            state.loading = false
+
+        },
+        [searchItems.pending]: (state) => {
+
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+
+
+        },
+        [searchItems.rejected]: (state, { payload }) => {
+            console.log(payload);
+            state.error = payload
+            state.loading = false
+            state.success = false;
+            // state.items = []
 
 
         },

@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import Menu from './menu/Menu'
 import Profile from './profile/Profile'
 import Contact from './contact/Contact'
+import PageNotFound from './PageNotFound'
 
 
 const Main = () => {
@@ -17,6 +18,7 @@ const Main = () => {
                 <Route path='/menu' element={<Menu />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/contact' element={<Contact />} />
+                <Route path='*' element={<PageNotFound />} />
 
 
 
