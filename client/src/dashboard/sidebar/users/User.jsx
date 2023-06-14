@@ -6,25 +6,35 @@ import { HiCurrencyRupee } from 'react-icons/hi'
 import { motion } from 'framer-motion';
 import { straggerFadeInOut } from '../../../animations';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
+import { MdOutlineVerified } from 'react-icons/md'
+import { VscUnverified } from 'react-icons/vsc'
 
 
-const User = ({ item, handleDelete, index, handleEdit }) => {
+const User = ({ user, index }) => {
 
 
     return (
 
         <motion.tr  {...straggerFadeInOut(index)} className='shadow-md border-2 font-semibold text-textColor   '>
-            <td className="py-[10px] px-6 ">
-                <LazyLoadImage effect='opacity' src={`${APIURL}/file/${item.image}`} alt="User" className="w-[70px] object-cover h-[70px] rounded-full" />
-            </td>
-            <td className="py-4 px-6">{item.name}</td>
-            <td className="py-4 px-6"><HiCurrencyRupee className='inline text-2xl -mt-1 font-bold text-red-600' /> {item.price}</td>
-            <td className="py-4 px-6">{item.category}</td>
+
+            <td className="py-4 px-6 text-lg">{user.userName}</td>
+            <td className="py-4 px-6">{user.email}</td>
+            <td className="py-4 px-6">{user.phoneNumber ? user.phoneNumber : 'XXXXXXXXXX'}</td>
+            <td className="py-4 px-6">{user.address ? user.address : 'XXXXXXXXXX'}</td>
             <td className="py-4 px-6">
-                <div className="flex  space-x-2 gap-3">
-                    <FaEdit className="cursor-pointer text-green-600 hover:text-green-800 text-2xl" onClick={() => { handleEdit(item) }} />
-                    <FaTrash className="cursor-pointer text-red-500 hover:text-red-700 text-xl mt-1" onClick={() => { handleDelete(item) }} />
-                </div>
+                {
+                    user.role === 'admin' ?
+                        <button className='bg-green-600 px-2 text-white rounded-md py-1 w-32 flex gap-2'>
+                            <MdOutlineVerified className='text-lg my-auto' />
+                            Verified
+                        </button> :
+                        <button className='bg-red-600 px-2 text-white rounded-md py-1 w-32 flex gap-2'>
+                            <VscUnverified className='text-xl my-auto' />
+                            Unverfied
+                        </button>
+                }
+
+
             </td>
         </motion.tr>
     )
