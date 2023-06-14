@@ -13,7 +13,7 @@ const Item = ({ item, handleDelete, index, handleEdit }) => {
 
     return (
 
-        <motion.tr  {...straggerFadeInOut(index)} className='shadow-md border-2 font-semibold text-textColor   '>
+        <motion.tr  {...straggerFadeInOut()} className='shadow-md border-2 font-semibold text-textColor   '>
             <td className="py-[10px] px-6 ">
                 <LazyLoadImage effect='opacity' src={`${APIURL}/file/${item.image}`} alt="Item" className="w-[70px] object-cover h-[70px] rounded-full" />
             </td>
