@@ -5,18 +5,20 @@ env.config({ path: '.env.local' });
 
 
 const checkAuthentication = async (req, res, next) => {
-    console.log(req.headers.authorization);
-    console.log(req.headers.authorization.split(" ")[1]);
+
     if (!req.headers.authorization) {
+
         console.log('----------------');
         return res.status(403).json({ message: "Unauthorized user." })
     }
+    console.log(req.headers.authorization);
+    console.log(req.headers.authorization.split(" ")[1]);
+
 
 
 
 
     try {
-        // const decodedUser = jwt.verify(req.headers.authorization, 'secret')
         console.log('------1-');
         const decodedUser = jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_SECRET)
         console.log(decodedUser);
