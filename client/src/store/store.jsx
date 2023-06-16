@@ -4,6 +4,7 @@ import productSlice from './product/productSlice';
 import currUserSlice from './user/currUserSlice';
 import searchSlice from './searchSlice';
 import userSlice from './user/userSlice';
+import cartSlice from './cart/cartSlice';
 
 
 
@@ -14,7 +15,8 @@ const store = configureStore({
         product: productSlice,
         currUser: currUserSlice,
         search: searchSlice,
-        user: userSlice
+        user: userSlice,
+        cart: cartSlice,
 
     }
 })

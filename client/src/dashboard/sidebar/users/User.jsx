@@ -15,12 +15,12 @@ const User = ({ user, index }) => {
 
     return (
 
-        <motion.tr  {...straggerFadeInOut(index)} className='shadow-md border-2 font-semibold text-textColor   '>
+        <motion.tr  {...straggerFadeInOut(index)} className='shadow-md border-[3px] font-semibold text-textColor bg-gray-50  border-gray-200 '>
 
             <td className="py-4 px-6 text-lg">{user.userName}</td>
             <td className="py-4 px-6">{user.email}</td>
-            <td className="py-4 px-6">{user.phoneNumber ? user.phoneNumber : 'XXXXXXXXXX'}</td>
-            <td className="py-4 px-6">{user.address ? user.address : 'XXXXXXXXXX'}</td>
+            <td className="py-4 px-6 text-[15px]">{user.phoneNumber ? user.phoneNumber : 'XXXXXXXXXX'}</td>
+            <td className="py-4 px-6 text-[15px]">{user.address ? user.address : 'XXXXXXXXXX'}</td>
             <td className="py-4 px-6">
                 {
                     user.role === 'admin' ?

@@ -12,9 +12,9 @@ import { BsInstagram } from 'react-icons/bs'
 import Drinks from '../assests/Drinks.png'
 import Burger from '../assests/Burger.png'
 import { FaTiktok } from 'react-icons/fa'
-import Soup from '../assests/Soup.png'
 import Pasta from '../assests/Pasta.png'
 import Pizza from '../assests/Pizza.png'
+import Soup from '../assests/Soup.png'
 import H1 from '../assests/H1.png'
 import H2 from '../assests/H2.png'
 import H3 from '../assests/H3.png'
@@ -26,7 +26,7 @@ export const APIURL = process.env.REACT_APP_API_URL
 export const PopularFood =
     [
         { id: 'f1', image: Chinese, name: "Lobster", category: "chinese", price: 1500 },
-        { id: 'f2', image: Pizza, name: "Laziz pizza", category: "pizzas", price: 799 },
+        { id: 'f2', image: Pizza, name: "Laziz pizza pizza pizza pizza pizza", category: "pizzas", price: 799 },
         { id: 'f3', image: Soup, name: "Legumes", category: "soups", price: 680 },
         { id: 'f4', image: Pasta, name: "Penne pasta", category: "pastas", price: 320 },
         { id: 'f5', image: Drinks, name: "Vigin mojito", category: "drinks", price: 220 },

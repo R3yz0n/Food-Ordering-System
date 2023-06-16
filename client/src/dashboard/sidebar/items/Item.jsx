@@ -13,9 +13,9 @@ const Item = ({ item, handleDelete, index, handleEdit }) => {
 
     return (
 
-        <motion.tr  {...straggerFadeInOut()} className='shadow-md border-2 font-semibold text-textColor   '>
-            <td className="py-[10px] px-6 ">
-                <LazyLoadImage effect='opacity' src={`${APIURL}/file/${item.image}`} alt="Item" className="w-[70px] object-cover h-[70px] rounded-full" />
+        <motion.tr  {...straggerFadeInOut(index)} className='shadow-md border-b-[3px] border-gray-300  font-semibold text-textColor  bg-gray-100 '>
+            <td className=" px-6 ">
+                <LazyLoadImage effect='opacity' src={`${APIURL}/file/${item.image}`} alt="Item" className="w-[75px] object-contain h-[75px] rounded-full" />
             </td>
             <td className="py-4 px-6">{item.name}</td>
             <td className="py-4 px-6"><HiCurrencyRupee className='inline text-2xl -mt-1 font-bold text-red-600' /> {item.price}</td>

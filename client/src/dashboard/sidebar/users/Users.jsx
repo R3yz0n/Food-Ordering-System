@@ -49,12 +49,12 @@ const Users = () => {
     return (
         <>
 
-            <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
+            <div className="   mt-10 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative rounded-lg">
                 {loading && <MainLoader />}
 
 
                 <table className="min-w-full static" >
-                    <thead className="  text-lg text-gray-800 bg-[rgb(229,231,235)] shadow-md font-sans ">
+                    <thead className="  text-[17px] text-gray-800 shadow-md font-sans bg-[rgb(218,221,228)]">
                         <tr>
                             <th className="py-3 px-6 text-left">User Name</th>
                             <th className="py-3 px-6 text-left">Email Address</th>
@@ -63,7 +63,7 @@ const Users = () => {
                             <th className="py-3 px-6 text-left">Status</th>
                         </tr>
                     </thead>
-                    <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black ">
+                    <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black  ">
 
                         {usersList?.length > 0 ? usersList.map((user, index) => (
 

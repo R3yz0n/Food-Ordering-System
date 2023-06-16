@@ -91,18 +91,18 @@ const Items = () => {
 
     return (
         <>
-            <div className="   mt-7 max-h-[80vh] overflow-y-auto scrollbar-thin shadow-lg relative">
+            <div className="   mt-7 max-h-[82vh] overflow-y-auto scrollbar-thin shadow-lg rounded-lg ">
                 {loading && <MainLoader />}
 
 
-                <table className="min-w-full static" >
-                    <thead className="  text-lg text-gray-800 bg-[rgb(229,231,235)] shadow-md font-sans ">
+                <table className="min-w-full  relative" >
+                    <thead className="  text-lg text-gray-800 bg-[rgb(220,223,230)] shadow-md font-sans ">
                         <tr>
                             <th className="py-3 px-6 text-left">Image</th>
                             <th className="py-3 px-6 text-left">Name</th>
                             <th className="py-3 px-6 text-left">Price</th>
                             <th className="py-3 px-6 text-left">Category</th>
-                            <th className="py-3 px-6 text-left">Actions</th>
+                            <th className="py-3 px-6 text-left rounded-tr-lg">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="overflow-y-scroll max-h-[60vh] scrollbar-track-black ">

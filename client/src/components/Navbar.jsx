@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../assests/Avatar.png'
 import { logout } from '../store/user/authSlice'
 import { clearUserData } from '../store/user/currUserSlice'
+import { showCart } from '../store/cart/cartSlice'
 
 const Header = () => {
 
@@ -22,11 +23,6 @@ const Header = () => {
         dispatch(logout())
         dispatch(clearUserData())
         navigate('/')
-
-
-
-
-
 
     }
 
@@ -52,9 +48,9 @@ const Header = () => {
                 </ul>
 
 
-                <motion.div {...btnClick} className='relative cursor-pointer' >
+                <motion.div {...btnClick} className='relative cursor-pointer' onClick={() => dispatch(showCart())} >
 
-                    <MdShoppingCart className='text-3xl text-textColor' />
+                    <p> <MdShoppingCart className='text-3xl text-textColor' /></p>
                     <div className='w-6 h-6 rounded-full bg-red-500 flex items-center justify-center absolute -top-4 -right-1'>
                         <p className='text-primary text-base font-semibold'>2</p>
                     </div>
@@ -63,7 +59,7 @@ const Header = () => {
 
                 {
                     userData?.userName ?
-                        <div className='relative cursor-pointer' onMouseEnter={() => setIsMenu(true)} onMouseLeave={() => setIsMenu(false)} >
+                        <div className='relative cursor-pointer ' onMouseEnter={() => setIsMenu(true)} onMouseLeave={() => setIsMenu(false)} >
                             <div className='w-14 h-14 rounded-full shadow-md cursor-pointer overflow-hidden bg-green-200 flex items-center justify-center border-[1px] border-orange-700'>
 
                                 <motion.img className='w-full h-full object-cover' src={userData?.image ? userData.image : Avatar}
@@ -72,7 +68,7 @@ const Header = () => {
                             </div>
 
                             {
-                                isMenu && <motion.div className='px-6 py-4 bg-gray-200 backdrop-blur-md rounded-md absolute top-13 right-0 flex flex-col gap-4 w-48' {...slideTop}>
+                                isMenu && <motion.div className='px-6 py-4 bg-gray-200 backdrop-blur-md rounded-md absolute top-13 right-0 flex flex-col gap-4 w-48 ' {...slideTop}>
 
                                     {
                                         userData.role === 'admin' &&

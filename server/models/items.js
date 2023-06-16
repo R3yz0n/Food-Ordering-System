@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       // Associate FoodItem with User in a many-to-one relationship
-      models.items.belongsTo(models.user, { foreignKey: 'userId' });
+      // models.items.belongsTo(models.user, { foreignKey: 'userId' });
+      models.items.belongsToMany(models.cart, { through: 'cartItem' });
     }
   }
   items.init({
