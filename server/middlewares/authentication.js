@@ -11,17 +11,17 @@ const checkAuthentication = async (req, res, next) => {
         console.log('----------------');
         return res.status(403).json({ message: "Unauthorized user." })
     }
-    console.log(req.headers.authorization);
-    console.log(req.headers.authorization.split(" ")[1]);
+    // console.log(req.headers.authorization);
+    // console.log(req.headers.authorization.split(" ")[1]);
 
 
 
 
 
     try {
-        console.log('------1-');
+        // console.log('------1-');
         const decodedUser = jwt.verify(req.headers.authorization.split(" ")[1], process.env.JWT_SECRET)
-        console.log(decodedUser);
+        // console.log(decodedUser);
         console.log('next auth');
         next()
 

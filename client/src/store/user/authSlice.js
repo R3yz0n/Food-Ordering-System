@@ -42,6 +42,7 @@ const authSlice = createSlice({
             state.error = null;
 
         },
+
         clearFields: (state, { payload }) => {
             state.success = false;
             state.loading = false;
