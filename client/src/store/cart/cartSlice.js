@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createCart } from "./cartAction";
+import { useDispatch } from "react-redux";
 
 const initialState = {
 
     loading: false,
     error: null,
     success: false,
+    isCartOn: false,
     cartItems: [],
-    isCartOn: false
+    totalPrice: 0,
+
+
 
 };
 
@@ -30,6 +35,24 @@ const cartSlice = createSlice({
 
         },
 
+        addToCart: (state, { payload }) => {
+            const newItem = payload.itemId;
+            console.log(newItem);
+            const existingItem = state.cartItems.find(item => item.id === newItem.id);
+            if (!existingItem) {
+
+                //create brand new cart
+            }
+
+            else {
+
+                // update the quantity
+            }
+
+
+
+        }
+
 
 
 
@@ -45,4 +68,4 @@ const cartSlice = createSlice({
 
 
 export default cartSlice.reducer;
-export const { clearFields, showCart } = cartSlice.actions;
+export const { clearFields, showCart, addToCart } = cartSlice.actions;
