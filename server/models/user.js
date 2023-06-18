@@ -8,10 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 
 
-      models.user.hasOne(models.cart, { foreignKey: 'userId', as: 'cart' });
+      models.user.hasOne(models.cart,);
 
-
-      // models.user.hasMany(models.items, { foreignKey: 'userId' });
+      // models.cart.belongsTo(models.user, { foreignKey: 'userId', as: 'user' });
     }
   }
   user.init({

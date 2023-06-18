@@ -5,7 +5,7 @@ const { addItemToCart, getCartItems } = require('../controllers/cart.controller'
 const router = express.Router();
 
 router.post('/', checkAuthentication, addItemToCart)
-router.get('/:userId', checkAuthentication, getCartItems)
+router.get('/:userId', getCartItems)
 
 
 
