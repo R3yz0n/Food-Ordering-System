@@ -7,11 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-<<<<<<< HEAD
       items.belongsToMany(models.cart, { through: models.cartItem });
-=======
-      items.belongsTo(models.cart);
->>>>>>> main
 
 
 
