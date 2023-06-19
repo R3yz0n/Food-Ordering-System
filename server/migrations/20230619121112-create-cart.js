@@ -9,11 +9,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      price: {
+        type: Sequelize.FLOAT
+      },
       quantity: {
         type: Sequelize.INTEGER
       },
-      price: {
-        type: Sequelize.FLOAT
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      itemId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
