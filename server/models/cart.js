@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       cart.hasMany(models.items, { foreignKey: 'itemId' });
 
 
-      // cart.belongsToMany(models.items, { through: models.cartItem });
+      cart.belongsToMany(models.items, { through: models.cartItem });
 
-      cart.hasMany(models.cartItem, { foreignKey: 'cartId' });
+      // cart.hasMany(models.cartItem, { foreignKey: 'cartId' });
 
 
     }
