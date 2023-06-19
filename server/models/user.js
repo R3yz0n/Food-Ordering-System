@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
 
       models.user.hasOne(models.cart);
 
-      // models.cart.belongsTo(models.user, { foreignKey: 'userId', as: 'user' });
     }
   }
   user.init({

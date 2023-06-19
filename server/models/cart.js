@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-      models.cart.belongsToMany(models.items, { through: models.cartItem });
+      models.cart.belongsTo(models.user, { foreignKey: 'userId', as: 'user' });
 
-      models.cart.belongsTo(models.user, { foreignKey: 'userId' })
+      // cart.belongsToMany(models.items, { through: models.cartItem });
 
+      cart.hasMany(models.cartItem, { foreignKey: 'cartId' });
 
 
     }
@@ -19,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
-
     },
     quantity: DataTypes.INTEGER,
-    price: DataTypes.FLOAT
+    price: DataTypes.INTEGER,
+    // name: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'cart',
