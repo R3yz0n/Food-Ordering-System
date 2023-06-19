@@ -26,10 +26,10 @@ app.use('/cart', cartRoutes)
 
 
 
-sequelize.sync({ force: true }).then((result) => {
-    console.log("migration successful");
-}).catch(err => {
-    console.log(err.message);
-});
+// sequelize.sync({ force: true }).then((result) => {
+//     console.log("migration successful");
+// }).catch(err => {
+//     console.log(err.message);
+// });
 
 module.exports = app;

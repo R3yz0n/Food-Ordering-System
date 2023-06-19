@@ -3,36 +3,68 @@ const models = require('../models')
 
 
 //create the cart for the first time and add an item
+
 const addItemToCart = async (req, res) => {
-    const { userId, quantity, itemId } = req.body;
-    // console.log(req.body);
-    console.log(quantity);
-
+    const { userId, price, quantity, itemId } = req.body;
     try {
+        // Check if the cart already exists for the user
+        let cart = await models.cart.findOne({
+            where: {
+                userId: userId
+            }
+        });
+        console.log('here');
 
-        const item = await models.items.findByPk(itemId);
-        if (!item) {
-            throw new Error('Item not found.');
+        if (!cart) {
+            // If the cart doesn't exist, create a new one
+            cart = await models.cart.create({
+                userId: userId,
+                quantity: quantity,
+                price: 100
+            });
+        } else {
+            // If the cart exists, check if the item already exists
+            const existingCartItem = await models.cartItem.findOne({
+                where: {
+                    cartId: cart.id,
+                    itemId: itemId
+                }
+            });
+            console.log(existingCartItem);
+
+            if (existingCartItem) {
+                // If the item already exists, update its quantity
+                existingCartItem.quantity += quantity;
+                await existingCartItem.save();
+            } else {
+                // If the item doesn't exist, create a new cart item
+                await models.cartItem.create({
+                    cartId: cart.id,
+                    itemId: itemId,
+                    quantity: quantity,
+                    price: price
+                });
+            }
+
+            // Update the total quantity of the cart
+            cart.quantity += quantity;
+            await cart.save();
         }
 
-        const cart = await models.cart.create({ userId, quantity, price: item.dataValues.price });
-        console.log(cart.dataValues);
-
-        await models.cartItem.create({ cartId: cart.dataValues.id, itemId });
-
         res.status(201).json({
-            message: 'Item added to cart successfully.',
+            message: 'Cart created successfully.',
+            cartId: cart.id
         });
-
-
     } catch (error) {
-        // console.log(error.message);
+        console.log(error);
         res.status(500).json({
-            message: 'Failed to add item to cart.',
+            message: 'Failed to create cart.',
             error: error.message,
         });
     }
+
 };
+
 
 
 
@@ -64,19 +96,37 @@ const addItemToCart = async (req, res) => {
 // }
 
 const getCartItems = async (req, res) => {
+
+
+
     try {
-        const cartItems = await models.cart.findAll({
-            where: { userId: 1 },
-            // include: { model: models.user, as: 'user' },
-            // through: 'cartItem',
-            include: [
-                { model: models.user, as: 'user' },
+        // const cartItems = await models.cart.findOne({
+        //     where: { userId: 1 },
+        //     // include: { model: models.user, as: 'user' },
+        //     // through: 'cartItem',
+        //     // include: [
+        //     //     { model: models.items }
 
 
-            ]
-        });
+        //     // ]
+        // })
+        const items = await models.cart.findOne({
+            where: {
+                userId: 1
+            },
+            include: {
+                model: models.cartItem
 
-        res.json(cartItems);
+            }
+
+
+
+        })
+
+        // console.log(items);
+
+
+        res.json(items);
     } catch (error) {
         console.log(error.message);
         // console.error('Failed to fetch cart items:', error);

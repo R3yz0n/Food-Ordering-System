@@ -70,27 +70,30 @@ const deleteItem = async (req, res) => {
 const getAllItems = async (req, res) => {
 
     try {
+        console.log('1');
 
-        // console.log(req.query.category);
+        console.log(req.query.category);
 
         const query = req.query.category ? { where: { category: req.query.category } } : {};
-        // console.log(query);
+        console.log(query);
 
         if (req.query.category === 'all') {
             const allItems = await items.findAll()
-            res.json(allItems);
+            return res.json(allItems);
 
         }
         else {
+            console.log('here');
             const allItems = await items.findAll(query);
-            res.json(allItems);
+            console.log(allItems);
+            return res.json(allItems);
 
         }
 
 
     } catch (err) {
         if (err.name === 'SequelizeDatabaseError') {
-            res.status(400).json({ message: 'Invalid query parameter' });
+            return res.status(400).json({ message: 'Invalid query parameter' });
         }
         res.status(500).json({ message: 'Something went wrong.' });
     }
