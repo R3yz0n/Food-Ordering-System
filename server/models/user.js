@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 
 
-      models.user.hasOne(models.cart,);
+      models.user.hasOne(models.cart);
 
       // models.cart.belongsTo(models.user, { foreignKey: 'userId', as: 'user' });
     }

@@ -15,10 +15,32 @@ const addItemToCart = async (req, res) => {
             throw new Error('Item not found.');
         }
 
-        const cart = await models.cart.create({ userId, quantity, price: item.dataValues.price });
-        console.log(cart.dataValues);
 
-        await models.cartItem.create({ cartId: cart.dataValues.id, itemId });
+        const cart = await models.cart.create(
+            {
+                userId: 1,
+                itemId: 1,
+                quantity: 1,
+                price: 100,
+
+            },
+            {
+                include: [
+                    {
+                        model: models.items,
+                    },
+                ],
+            }
+
+
+        );
+        // console.log(cart);
+
+        // console.log(item);
+
+        const a = await cart.addItem(item);
+        // console.log(a);
+        console.log(cart);
 
         res.status(201).json({
             message: 'Item added to cart successfully.',
@@ -26,7 +48,7 @@ const addItemToCart = async (req, res) => {
 
 
     } catch (error) {
-        // console.log(error.message);
+        console.log(error.message);
         res.status(500).json({
             message: 'Failed to add item to cart.',
             error: error.message,
@@ -64,19 +86,26 @@ const addItemToCart = async (req, res) => {
 // }
 
 const getCartItems = async (req, res) => {
+
+    let a = models.cartItem.associations;
+    console.log(a);
+    return res.json(1)
+
     try {
-        const cartItems = await models.cart.findAll({
+        const cartItems = await models.cart.findOne({
             where: { userId: 1 },
             // include: { model: models.user, as: 'user' },
             // through: 'cartItem',
-            include: [
-                { model: models.user, as: 'user' },
+            // include: [
+            //     { model: models.items }
 
 
-            ]
-        });
+            // ]
+        })
 
-        res.json(cartItems);
+        console.log(await cartItems.getItems());
+
+        // res.json(cartItems);
     } catch (error) {
         console.log(error.message);
         // console.error('Failed to fetch cart items:', error);

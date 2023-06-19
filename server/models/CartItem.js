@@ -4,6 +4,19 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
 
     class cartItem extends Model {
+        static associate(models) {
+
+            // models.cart.belongsTo(models.items, { through: models.cartItem });
+            // models.items.belongsTo(models.cart, { through: models.cartItem });
+
+            // cartItem.belongsTo(models.cart);
+            // cartItem.belongsTo(models.items);
+            cartItem.belongsTo(models.cart, { foreignKey: 'cartId' });
+            cartItem.belongsTo(models.items, { foreignKey: 'itemId' });
+
+
+
+        }
 
 
     }
