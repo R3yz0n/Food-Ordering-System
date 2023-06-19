@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsTo(models.user);
       // this.belongsTo(models.user, { foreignKey: 'userId', as: 'user' });
-      cart.hasMany(models.items, { foreignKey: 'itemId' });
+      // cart.hasMany(models.items, { foreignKey: 'itemId' });
 
 
       cart.belongsToMany(models.items, { through: models.cartItem });
