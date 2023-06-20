@@ -2,61 +2,81 @@ const express = require('express')
 const models = require('../models')
 
 
-//create the cart for the first time and add an item
 
 const addItemToCart = async (req, res) => {
-    const { userId, price, quantity, itemId } = req.body;
+    const { userId, quantity, itemId } = req.body;
     try {
-        // Check if the cart already exists for the user
-        let cart = await models.cart.findOne({
+        let cartExists = await models.cart.findOne({
             where: {
                 userId: userId
             }
         });
-        console.log('here');
+        const getItem = await models.items.findByPk(itemId, { attributes: ['name'] })
+        // console.log(getItem);
 
-        if (!cart) {
-            // If the cart doesn't exist, create a new one
-            cart = await models.cart.create({
-                userId: userId,
-                quantity: quantity,
-                price: 100
-            });
-        } else {
-            // If the cart exists, check if the item already exists
-            const existingCartItem = await models.cartItem.findOne({
-                where: {
-                    cartId: cart.id,
-                    itemId: itemId
-                }
-            });
-            console.log(existingCartItem);
+        // console.log(cartExists);
 
-            if (existingCartItem) {
-                // If the item already exists, update its quantity
-                existingCartItem.quantity += quantity;
-                await existingCartItem.save();
+
+        if (!cartExists) {
+            await models.sequelize.transaction(async (transaction) => {
+                // Create a new cart
+                const newCart = await models.cart.create({ userId: userId }, { transaction });
+
+                // Create a new cartItem entry
+                const createCartItem = await models.cartItem.create(
+                    {
+                        cartId: newCart.id,
+                        itemId: itemId,
+                        quantity: 1,
+                    },
+                    { transaction }
+                );
+
+                // const getItem = await models.items.findByPk(itemId, { attributes: ['name'] })
+                // console.log(getItem);
+
+                return res.status(201).json({
+                    item: getItem.name
+                })
+            });
+        }
+        else {
+            const itemInCart = await models.cartItem.findOne({
+                where: { cartId: cartExists.id, itemId: itemId },
+
+            })
+
+
+            console.log(itemInCart);
+            // return res.json(itemInCart)
+
+            if (itemInCart) {
+                // console.log('here');
+
+                return updateQuantity(req, res)
             } else {
-                // If the item doesn't exist, create a new cart item
-                await models.cartItem.create({
-                    cartId: cart.id,
-                    itemId: itemId,
-                    quantity: quantity,
-                    price: price
-                });
+                console.log('here');
+                await models.cartItem.create(
+                    {
+                        cartId: cartExists.id,
+                        itemId: itemId,
+                        quantity: 1,
+                    }
+                );
+
+                return res.status(201).json(
+                    {
+                        item: getItem.name
+                    }
+                );
             }
 
-            // Update the total quantity of the cart
-            cart.quantity += quantity;
-            await cart.save();
         }
+    }
 
-        res.status(201).json({
-            message: 'Cart created successfully.',
-            cartId: cart.id
-        });
-    } catch (error) {
-        console.log(error);
+
+    catch (error) {
+        console.log(error.message);
         res.status(500).json({
             message: 'Failed to create cart.',
             error: error.message,
@@ -68,54 +88,47 @@ const addItemToCart = async (req, res) => {
 
 
 
-// const addItemToCart = async (req, res) => {
+const updateQuantity = async (req, res) => {
+    const { cartId, itemId } = req.body;
 
-//     const itemToAdd = {
-//         userId: parseInt(req.body.userId),
-//         price: parseFloat(req.body.price),
-//         quantity: parseInt(req.body.quantity),
-//         itemId: parseInt(req.body.itemId),
-//     };
-//     // console.log(itemToAdd);
-//     try {
+    try {
+        const cartItem = await models.cartItem.findOne({
+            where: { cartId: 24, itemId: itemId }
+        });
 
-//         const cartItem = await models.cart.create(itemToAdd);
-//         console.log(cartItem);
+        if (cartItem) {
+            // Increment the quantity
+            cartItem.quantity += 1;
+            await cartItem.save();
 
-//         res.status(201).json(cartItem);
+            return res.json({ message: 'Quantity incremented.', item: cartItem });
+        } else {
+            return res.status(404).json({ error: 'Item not found in the cart.' });
+        }
+    } catch (error) {
+        console.error('Error incrementing quantity:', error);
+        return res.status(500).json({ error: 'Error incrementing quantity.' });
+    }
 
-//     } catch (error) {
-
-//         res.status(500).json({
-//             message: 'Failed to add to cart.',
-//             error: error
-//         });
-//     }
+}
 
 
-// }
 
 const getCartItems = async (req, res) => {
+    console.log(req.params);
 
 
 
     try {
-        // const cartItems = await models.cart.findOne({
-        //     where: { userId: 1 },
-        //     // include: { model: models.user, as: 'user' },
-        //     // through: 'cartItem',
-        //     // include: [
-        //     //     { model: models.items }
 
-
-        //     // ]
-        // })
         const items = await models.cart.findOne({
             where: {
-                userId: 1
+                userId: req.params.userId,
             },
+            attributes: [],
             include: {
-                model: models.cartItem
+                model: models.cartItem,
+                attributes: ['itemId', 'quantity']
 
             }
 
@@ -123,10 +136,10 @@ const getCartItems = async (req, res) => {
 
         })
 
-        // console.log(items);
+        console.log(items);
 
 
-        res.json(items);
+        res.status(200).json(items.cartItems);
     } catch (error) {
         console.log(error.message);
         // console.error('Failed to fetch cart items:', error);

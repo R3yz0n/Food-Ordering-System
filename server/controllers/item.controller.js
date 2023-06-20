@@ -1,5 +1,6 @@
 const express = require('express')
 const { users, items } = require('../models')
+const models = require('../models')
 
 const addItem = (req, res) => {
     // console.log(req.body);
@@ -8,11 +9,11 @@ const addItem = (req, res) => {
         image: req.body.image,
         price: req.body.price,
         category: req.body.category,
-        userId: req.body.userId,
+        // userId: req.body.userId,
     }
-    console.log(1);
+    // console.log(1);
     // console.log(user);
-    console.log(itemToCreate);
+    // console.log(itemToCreate);
 
     items.create(itemToCreate).then(result => {
         res.status(201).json(
@@ -22,7 +23,6 @@ const addItem = (req, res) => {
             }
         );
         console.log(result);
-        // console.log('sucessfull');
 
 
 
@@ -43,7 +43,8 @@ const deleteItem = async (req, res) => {
 
     try {
         const itemToDelete = await items.destroy({
-            where: { id: req.params.id }
+            where: { id: req.params.id },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
         })
         console.log(itemToDelete);
         if (itemToDelete)
@@ -74,11 +75,11 @@ const getAllItems = async (req, res) => {
 
         console.log(req.query.category);
 
-        const query = req.query.category ? { where: { category: req.query.category } } : {};
-        console.log(query);
+        const query = req.query.category ? { where: { category: req.query.category } } : { attributes: { exclude: ['createdAt', 'updatedAt'] } };
+        // console.log(query);
 
         if (req.query.category === 'all') {
-            const allItems = await items.findAll()
+            const allItems = await items.findAll({ attributes: { exclude: ['createdAt', 'updatedAt'] } })
             return res.json(allItems);
 
         }
@@ -105,13 +106,13 @@ const getAllItems = async (req, res) => {
 
 const updateItem = async (req, res) => {
 
-    console.log('hello');
+    // console.log('hello');
     const id = req.params.id;
 
 
 
     try {
-        const isExists = await items.findOne({ where: { id: req.params.id } })
+        const isExists = await items.findOne({ where: { id: id } })
         // console.log(isExists);
         if (!isExists)
             return res.status(404).json({
@@ -136,11 +137,15 @@ const updateItem = async (req, res) => {
         userId: req.body.userId,
     }
     // console.log(postToCreate);
-    console.log(itemToUpdate);
+    // console.log(itemToUpdate);
 
 
     try {
-        const result = await items.update(itemToUpdate, { where: { id: id, userId: req.body.userId } })
+        const result = await items.update(itemToUpdate, {
+            where: { id: id },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+
+        })
 
         if (!result[0]) {
 
@@ -154,15 +159,16 @@ const updateItem = async (req, res) => {
 
         }
 
-        res.status(200).json(
+        return res.status(200).json(
             {
                 message: "Update successfull.",
-                post: itemToUpdate
+                updatedItem: itemToUpdate
             }
         )
 
     }
     catch (error) {
+        console.log(error.message);
         res.status(500).json({
             message: "Something went wrong.",
             error: error

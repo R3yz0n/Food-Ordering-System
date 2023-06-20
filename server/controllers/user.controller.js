@@ -1,5 +1,5 @@
 const express = require('express')
-const { user } = require('../models')
+const { users } = require('../models')
 const models = require('../models')
 const { Op } = require('sequelize');
 
@@ -15,17 +15,25 @@ const getAllUsers = async (req, res) => {
             where: {
                 userName: { [Op.startsWith]: userName },
             },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
         }
         : {};
 
     try {
         if (req.query.userName === 'all') {
-            const allUsers = await user.findAll();
+            const allUsers = await users.findAll(
+                {
+                    attributes: { exclude: ['createdAt', 'updatedAt'] }
+
+                }
+            );
+
+            // console.log(allUsers);
 
             return res.json(allUsers);
 
         }
-        const allUsers = await user.findAll(query);
+        const allUsers = await users.findAll(query);
 
         res.json(allUsers);
     } catch (error) {
@@ -42,7 +50,14 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
 
     try {
-        const user = await models.user.findOne({ where: { id: req.params.id } });
+        const user = await models.users.findOne({
+            where: { id: req.params.id },
+
+            attributes: ['id', 'email', 'phoneNumber', 'role', 'address', 'userName', 'image']
+
+
+
+        });
         console.log(user);
         if (!user)
             return res.status(404).json({
@@ -50,8 +65,8 @@ const getUser = async (req, res) => {
 
             })
 
-        const { createdAt, updatedAt, password, ...others } = user.dataValues;
-        res.json(others);
+
+        res.json(user);
 
     } catch (error) {
         res.status(500).json({ message: 'Something went wrong' });
