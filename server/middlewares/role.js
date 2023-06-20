@@ -1,7 +1,7 @@
 require('dotenv').config({ path: '.env.local' });
 
 const jwt = require('jsonwebtoken')
-const { user } = require('../models')
+const { users } = require('../models')
 const checkRole = async (req, res, next) => {
 
 
@@ -15,7 +15,7 @@ const checkRole = async (req, res, next) => {
 
 
         try {
-            const userData = await user.findByPk(decodedUser.id)
+            const userData = await users.findByPk(decodedUser.id)
             // console.log(userData);
 
             if (userData.dataValues.role === decodedUser.role) {

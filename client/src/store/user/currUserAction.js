@@ -15,6 +15,7 @@ export const getUser = createAsyncThunk('currUser-fetch',
             const authHeaders = { headers: { Authorization: `Bearer ${values.token}` } }
 
             const res = await axios.get(`${APIURL}/user/${values.userId}`, authHeaders)
+            // console.log(res);
 
             return res.data
 

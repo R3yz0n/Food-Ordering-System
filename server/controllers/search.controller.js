@@ -1,13 +1,14 @@
 const express = require('express')
 const { users, items } = require('../models')
+const models = require('../models')
 const { Op } = require('sequelize');
 
 
 const searchItems = async (req, res) => {
     const searchQuery = req.query.query;
     const category = req.query.category
-    console.log(searchQuery);
-    console.log(category);
+    // console.log(searchQuery);
+    // console.log(category);
 
 
 
@@ -18,10 +19,14 @@ const searchItems = async (req, res) => {
         if (req.query.category === 'all') {
             const searchResults = await items.findAll({
                 where: {
-                    name: { [Op.startsWith]: searchQuery }
-
+                    name: { [Op.startsWith]: searchQuery },
                 },
+                attributes: { exclude: ['createdAt', 'updatedAt'] }
+
+
             });
+
+            console.log(searchResults);
             return res.json(searchResults);
 
         }
@@ -35,6 +40,7 @@ const searchItems = async (req, res) => {
                 },
                 category: category
             },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
         });
 
         res.json(searchResults);

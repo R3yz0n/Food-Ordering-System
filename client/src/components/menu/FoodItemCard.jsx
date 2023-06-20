@@ -20,7 +20,7 @@ const FoodItemCard = ({ item }) => {
         const itemId = item.id
         const price = +item.price
         const existingItem = cartItems.find(item => item.id === itemId);
-        console.log(existingItem);
+        // console.log(existingItem);
         const data = {
             userId: userData.userId,
             itemId: item.id

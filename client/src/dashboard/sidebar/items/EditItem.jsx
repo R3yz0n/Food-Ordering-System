@@ -32,11 +32,13 @@ const EditItem = ({ hideEditModal, selectItem }) => {
 
             dispatch(updateItem(values)).then(() => {
 
+                console.log('hello');
+
                 setTimeout(() => {
                     dispatch(clearFields())
                     hideEditModal(true)
 
-                }, 1800);
+                }, 10);
             })
 
 

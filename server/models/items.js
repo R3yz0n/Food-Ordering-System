@@ -7,17 +7,25 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-      items.belongsToMany(models.cart, { through: models.cartItem });
+      items.belongsToMany(models.cart, { through: models.cartItem, onDelete: 'CASCADE' });
 
-      items.hasMany(models.cartItem, { foreignKey: 'itemId' });
+      // items.hasMany(models.cartItem);
+
 
 
 
     }
   }
   items.init({
-    name: DataTypes.STRING,
-    price: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+
+    },
 
     category: {
       type: DataTypes.ENUM,

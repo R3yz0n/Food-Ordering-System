@@ -7,27 +7,37 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-      cartItem.belongsTo(models.cart, { foreignKey: 'cartId' });
-      cartItem.belongsTo(models.items, { foreignKey: 'itemId' })
+      // cartItem.hasMany(models.cart);
+      // cartItem.hasMany(models.items)
     }
   }
   cartItem.init({
+
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+
+
+    },
+
 
     cartId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'cart', // Name of the referenced table/model
-        key: 'id',      // Name of the referenced column/key
+        model: 'carts',
+        key: 'id',
       },
+      onDelete: 'CASCADE',
     },
     itemId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'items', // Name of the referenced table/model
-        key: 'id',      // Name of the referenced column/key
+        model: 'items',
+        key: 'id',
       },
+      onDelete: 'CASCADE',
     },
 
 

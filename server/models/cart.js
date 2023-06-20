@@ -7,13 +7,13 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-      this.belongsTo(models.user);
-
-
+      cart.belongsTo(models.users);
 
       cart.belongsToMany(models.items, { through: models.cartItem });
 
-      cart.hasMany(models.cartItem, { foreignKey: 'cartId' });
+
+      cart.hasMany(models.cartItem);
+
 
 
     }
@@ -21,11 +21,14 @@ module.exports = (sequelize, DataTypes) => {
   cart.init({
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+
+      }
     },
-    quantity: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
-    // name: DataTypes.INTEGER
+
   }, {
     sequelize,
     modelName: 'cart',

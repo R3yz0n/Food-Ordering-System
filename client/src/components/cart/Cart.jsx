@@ -18,7 +18,9 @@ const Cart = () => {
     const navigate = useNavigate()
 
     const shopMealNow = () => {
+
         dispatch(showCart())
+
         navigate('/menu')
 
 

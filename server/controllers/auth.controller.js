@@ -14,9 +14,10 @@ const register = async (req, res) => {
 
 
     try {
+        console.log(1);
 
         //check existing user
-        const user = await models.user.findOne({
+        const user = await models.users.findOne({
             where: {
                 [Op.or]: [
                     { email: req.body.email },
@@ -26,7 +27,7 @@ const register = async (req, res) => {
         });
         // console.log(user);
         console.log('-------------');
-        console.log(req.body);
+        // console.log(req.body);
 
         if (user) {
             // console.log('user exists');
@@ -55,8 +56,8 @@ const register = async (req, res) => {
     const userData = { email: req.body.email, userName: req.body.userName, password: hash, role: 'customer' }
 
     try {
-        const user = models.user.create(userData);
-        // console.log(user);
+        const user = await models.users.create(userData);
+        console.log(user);
         return res.status(200).json({
             message: "Signup sucessfully !",
             user: user.dataValues
@@ -82,8 +83,10 @@ const login = async (req, res) => {
         //check existing user
         // console.log(req.body);
 
-        const user = await models.user.findOne({
-            where: { email: req.body.email }
+        const user = await models.users.findOne({
+            where: { email: req.body.email },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+
 
         });
         // console.log(user);
@@ -93,8 +96,8 @@ const login = async (req, res) => {
             return res.status(404).json({ message: "Invalid Credentials." });
         }
 
-        const checkPassword = await bcrypt.compareSync(req.body.password, user.dataValues.password)
-        console.log(checkPassword);
+        const checkPassword = await bcrypt.compareSync(req.body.password, user.password)
+        // console.log(checkPassword);
         if (!checkPassword)
             return res.status(400).json({ message: "Wrong password ." })
 
@@ -102,8 +105,8 @@ const login = async (req, res) => {
         const token = jwt.sign({ email: user.email, id: user.id, userName: user.userName, image: user.image, role: user.role }, process.env.JWT_SECRET, { expiresIn: '10h' });
 
 
-        console.log(user.dataValues);
-        const { id, email, userName } = user;
+        // console.log(user.dataValues);
+        // const { id, email, userName } = user;
 
         res.status(200).json({ message: "Login sucessfull.", token: token, id: user.id })
 

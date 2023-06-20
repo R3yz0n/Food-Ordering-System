@@ -36,22 +36,22 @@ const uploadFile = (req, res) => {
 
 const getFile = (req, res) => {
 
-    console.log('hello');
-    console.log(req.params.filename);
+    // console.log('hello');
+    // console.log(req.params.filename);
 
     const filePath = path.join(__dirname, '../uploads/', req.params.filename);
-    console.log('--------------');
-    console.log(filePath);
+    // console.log('--------------');
+    // console.log(filePath);
 
-    console.log(__dirname);
-    console.log('this is file controller');
+    // console.log(__dirname);
+    // console.log('this is file controller');
 
     fs.stat(filePath, (err, stats) => {
         if (err || !stats.isFile()) {
             return res.status(404).json({ message: 'File not found.' });
         }
         // Serve the file
-        console.log(filePath);
+        // console.log(filePath);
         res.sendFile(filePath);
 
     });
@@ -94,8 +94,8 @@ const updateFile = async (req, res, next) => {
 
     const filename = req.params.filename;
     const filePath = path.join(__dirname, '../uploads', filename);
-    console.log(filename);
-    console.log(filePath);
+    // console.log(filename);
+    // console.log(filePath);
 
     // Check if the file exists
     fs.stat(filePath, (err, stats) => {

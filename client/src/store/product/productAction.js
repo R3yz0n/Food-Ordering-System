@@ -92,7 +92,7 @@ export const searchItems = createAsyncThunk('Search Item xd',
 
         try {
             const res = await axios.get(`${APIURL}/item/search`, { params: { query: value.searchValue, category: value.category } })
-            // console.log(res);
+            // console.log(res.data);
 
             return res.data
 
@@ -165,7 +165,7 @@ export const updateItem = createAsyncThunk('Update An Item',
 
 
         try {
-
+            console.log(values);
             if (typeof (values.file) === 'string') {
                 const res = await axios.put(`${APIURL}/item/${values.id}`, values, getToken())
                 toast.success(res.data.message)
@@ -180,7 +180,6 @@ export const updateItem = createAsyncThunk('Update An Item',
             const { file, ...others } = values
 
             const res = await axios.put(`${APIURL}/item/${values.id}`, others, getToken())
-
 
             toast.success(res.data.message)
 
