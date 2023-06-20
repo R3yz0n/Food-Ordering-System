@@ -7,13 +7,14 @@ import { getToken } from "../getToken";
 
 export const addToCart = createAsyncThunk('create cart',
     async (values, { rejectWithValue }) => {
-        console.log('create cart');
 
         try {
 
-            console.log(values);
+            // console.log(values);
             const res = await axios.post(`${APIURL}/cart`, values, getToken())
-            console.log(res);
+            toast.success(res.data.item + " added to cart")
+            // console.log(res.data);
+
             return res.data
 
         }
@@ -22,11 +23,13 @@ export const addToCart = createAsyncThunk('create cart',
             // console.log(error);
 
             if (error.response && error.response.data.message) {
-                toast.error(error.response.data.message)
+                // toast.error(error.response.data.message)
+                toast.error(" Failed to add meal to cart.")
                 return rejectWithValue(error.response.data.message);
             } else {
-                console.log(error);
-                toast.error(error.message)
+                // console.log(error);
+                // toast.error(error.message)
+                toast.error(" Failed to add meal to cart.")
                 return rejectWithValue(error.message);
             }
 
