@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
       items.belongsToMany(models.cart, { through: models.cartItem, onDelete: 'CASCADE' });
 
-      // items.hasMany(models.cartItem);
+      items.hasMany(models.cartItem);
 
 
 
