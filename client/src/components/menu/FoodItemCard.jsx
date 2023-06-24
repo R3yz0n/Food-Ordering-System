@@ -8,35 +8,41 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/cart/cartAction';
+import { calculateTotalQuantity, clearFields } from '../../store/cart/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 
 const FoodItemCard = ({ item }) => {
     const { userData } = useSelector(state => state.currUser)
-    const { cartItems } = useSelector(state => state.cart)
+    const { cartItems, error } = useSelector(state => state.cart)
     const dispatch = useDispatch()
-    const handleClick = () => {
-        // console.log(item);
-        const userId = userData.id;
-        const itemId = item.id
-        const price = +item.price
-        const existingItem = cartItems.find(item => item.id === itemId);
-        // console.log(existingItem);
-        const data = {
-            userId: userData.userId,
-            itemId: item.id
-        }
+    const navigate = useNavigate()
 
-        if (existingItem) {
+    const addAnItemToCart = async () => {
+
+        if (userData && localStorage.getItem('userToken')) {
+            const userId = userData.id
+            const itemId = item.id
+
+            dispatch(addToCart({ userId, itemId })).unwrap().then(() => {
+
+                dispatch((calculateTotalQuantity(true)))
+                dispatch(clearFields())
+
+            }).catch((error) => {
+                // console.log(error);
+
+            })
 
         }
         else {
-
-            dispatch(addToCart({ userId, itemId, quantity: 1, price }))
+            navigate('/login')
+            toast("You must be logged in.", {
+                icon: '👏'
+            })
 
         }
-
-        // dispatch(addToCart(data))
-
 
 
 
@@ -50,7 +56,7 @@ const FoodItemCard = ({ item }) => {
                 <p className='font-semibold text-red-500 flex items-center justify-center gap-1 pt-1'><HiCurrencyRupee className='text-xl' />{parseFloat(item.price)}</p>
             </div>
 
-            <motion.div className='w-8 h-8 p-1 rounded-full bg-red-500 flex items-center justify-center absolute top-2 right-2 cursor-pointer' {...btnClick} onClick={handleClick}>
+            <motion.div className='w-8 h-8 p-1 rounded-full bg-red-500 flex items-center justify-center absolute top-2 right-2 cursor-pointer active:bg-red-700 hover:bg-red-700' {...btnClick} onClick={addAnItemToCart}>
                 <RiShoppingBasketFill className='text-3xl text-primary' />
 
 
