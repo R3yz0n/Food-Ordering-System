@@ -71,9 +71,8 @@ const deleteItem = async (req, res) => {
 const getAllItems = async (req, res) => {
 
     try {
-        console.log('1');
 
-        console.log(req.query.category);
+        // console.log(req.query.category);
 
         const query = req.query.category ? { where: { category: req.query.category } } : { attributes: { exclude: ['createdAt', 'updatedAt'] } };
         // console.log(query);
