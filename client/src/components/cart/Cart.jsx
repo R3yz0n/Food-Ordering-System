@@ -5,12 +5,13 @@ import { motion } from 'framer-motion'
 import { btnClick, fade, fadeInOut, slideLeft } from '../../animations'
 import { useDispatch, useSelector } from 'react-redux'
 import EmptyCart from '../../assests/EmptyCart.png'
-import { clearFields, showCart } from '../../store/cart/cartSlice'
+import { calculateTotalPrice, clearFields, showCart } from '../../store/cart/cartSlice'
 import { useNavigate } from 'react-router-dom'
-import { PopularFood } from '../../utils/constants'
 import CartItem from './CartItem'
 import { CartOverlay } from '../../common/Overlay'
 import { getAllCartItems } from '../../store/cart/cartAction'
+import CartSummary from './CartSummary'
+
 
 
 const Cart = () => {
@@ -35,6 +36,11 @@ const Cart = () => {
         })
     }, [])
 
+    useEffect(() => {
+        dispatch(calculateTotalPrice())
+
+    }, [cartItems])
+
 
 
 
@@ -49,10 +55,10 @@ const Cart = () => {
 
 
                 <section className='flex-1 flex flex-col items-start justify-start rounded-tl-3xl sm:rounded-tl-none rounded-tr-3xl sm:mr-2 bg-zinc-900 h-full py-6 gap-3 relative'>
-
+                    {/* if use loading here it will re-render */}
                     {
-                        !loading && cartItems?.length > 0 &&
-                        <aside className='flex flex-col w-full items-start justify-start  gap-3 h-[65%] overflow-y-scroll scroll-auto scrollbar-none px-3'>
+                        cartItems?.length > 0 &&
+                        <aside className='flex flex-col w-full items-start justify-start  gap-3 h-[78%] md:h-[74%] overflow-y-scroll scroll-auto scrollbar-none px-3'>
 
                             {
                                 cartItems.map((item) =>
@@ -64,6 +70,14 @@ const Cart = () => {
                         </aside>
 
                     }
+
+                    {cartItems?.length > 0 &&
+                        <CartSummary />
+                    }
+
+
+
+
                     {
 
                         !loading && cartItems.length === 0 && <motion.aside {...fadeInOut} className='w-full flex mt-28 flex-col gap-2 '>

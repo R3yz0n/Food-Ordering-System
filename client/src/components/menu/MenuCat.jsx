@@ -18,7 +18,7 @@ const MenuCat = ({ handleFilter, category, handleSearch, searchValue }) => {
 
                 <div className='w-4/5 sm:w-[70%] lg:w-1/3 mx-auto flex gap-3  flex-col  lg:pl-8 pt-2 lg:pt-5 '>
 
-                    <p className='text-[26px]  text-headingColor font-bold rounded-md px-1 mx-auto lg:mx-0'> Our Menu Category </p>
+                    <p className='text-[26px]  text-headingColor font-extrabold rounded-md px-1 mx-auto lg:mx-0 font-sans '> Our Menu Category </p>
 
 
                     <div className="mb-3">

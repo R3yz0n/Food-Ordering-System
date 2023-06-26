@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 import { HiCurrencyRupee } from 'react-icons/hi';
-import { btnClick, fade, pop } from '../../animations';
+import { btnClick } from '../../animations';
 import { APIURL } from '../../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrementQuantity, getAllCartItems, incrementQuantity } from '../../store/cart/cartAction';
@@ -60,7 +60,7 @@ const CartItem = ({ item }) => {
     <motion.section className='w-full flex items-center justify-start bg-zinc-800 rounded-md drop-shadow-md px-2 sm:pl-2 xs:pr-3 sm:pr-4 gap-4'>
 
       <div className='h-20  w-20 sm:w-28 sm:h-24 py-2 flex'>
-        <LazyLoadImage src={`${APIURL}/file/${item.image}`} className='w-full h-full object-contain m-auto' alt="Cart Item" />
+        <LazyLoadImage src={`${APIURL}/file/${item.image}`} className='w-full h-full object-contain m-auto' alt="Cart Item" effect='opacity' />
       </div>
 
       <div className='flex items-center justify-start gap-1 w-full h-20 '>
@@ -74,8 +74,8 @@ const CartItem = ({ item }) => {
 
         </p>
 
-        <p className='text-sm font-semibold text-red-400 ml-auto flex items-center justify-center gap-1'>
-          <HiCurrencyRupee className='text-red-500 text-lg' />
+        <p className='text-sm font-semibold text-red-400 ml-auto flex items-center justify-center gap-1 md:text-base font-sans'>
+          <HiCurrencyRupee className='text-red-500 text-[19px]' />
           {item.price * item.quantity}
         </p>
 

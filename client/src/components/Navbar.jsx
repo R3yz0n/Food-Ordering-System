@@ -80,7 +80,7 @@ const Header = () => {
                                     {
                                         userData.role === 'admin' &&
 
-                                        <Link className='hover:text-red-500 text-xl text-textColor ' to='/dashboard'>
+                                        <Link className='hover:text-red-500 text-xl text-textColor ' to='/dashboard/home'>
                                             Dashboard
                                         </Link>
 

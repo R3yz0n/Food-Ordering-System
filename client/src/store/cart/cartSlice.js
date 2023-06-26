@@ -9,6 +9,7 @@ const initialState = {
     isCartOn: false,
     cartItems: [],
     totalQuantity: 0,
+    totalPrice: 0
 
 
 
@@ -51,7 +52,7 @@ const cartSlice = createSlice({
                 // console.log(state.totalQuantity);
             }
 
-            else if (state.cartItems.length > 0) {
+            else if (state.cartItems.length >= 0) {
                 // console.log('here');
                 state.totalQuantity = state.cartItems.reduce((total, item) => {
                     return total + item.quantity
@@ -60,6 +61,16 @@ const cartSlice = createSlice({
 
 
             }
+
+        },
+        calculateTotalPrice: (state, { payload }) => {
+
+            state.totalPrice = state.cartItems.reduce((accumulator, cartItem) => {
+                const { quantity, price } = cartItem;
+                const itemTotal = quantity * price;
+                return accumulator + itemTotal;
+            }, 0);
+            console.log(state.totalPrice);
 
         }
 
@@ -139,4 +150,4 @@ const cartSlice = createSlice({
 
 
 export default cartSlice.reducer;
-export const { clearFields, showCart, calculateTotalQuantity, clearCartData } = cartSlice.actions;
+export const { clearFields, showCart, calculateTotalQuantity, clearCartData, calculateTotalPrice } = cartSlice.actions;
