@@ -4,11 +4,13 @@ const router = express.Router();
 
 
 const { getLatestItems } = require('../controllers/latest.controller')
-const { getLatestUsers } = require('../controllers/latest.controller')
+const { getLatestUsers } = require('../controllers/latest.controller');
+const { checkAuthentication } = require('../middlewares/authentication');
+const { checkRole } = require('../middlewares/role');
 
 
-router.get('/users', getLatestUsers)
-router.get('/items', getLatestItems)
+router.get('/users', checkAuthentication, checkRole, getLatestUsers)
+router.get('/items', checkAuthentication, checkRole, getLatestItems)
 
 
 

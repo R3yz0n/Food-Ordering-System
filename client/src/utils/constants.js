@@ -26,10 +26,10 @@ export const APIURL = process.env.REACT_APP_API_URL
 export const PopularFood =
     [
         { id: 'f1', image: Chinese, name: "Lobster", category: "chinese", price: 1500 },
-        { id: 'f2', image: Pizza, name: "Laziz pizza pizza pizza pizza pizza", category: "pizzas", price: 799 },
+        { id: 'f2', image: Pizza, name: "Laziz pizza ", category: "pizzas", price: 799 },
         { id: 'f3', image: Soup, name: "Legumes", category: "soups", price: 680 },
         { id: 'f4', image: Pasta, name: "Penne pasta", category: "pastas", price: 320 },
-        { id: 'f5', image: Drinks, name: "Vigin mojito", category: "drinks", price: 220 },
+        { id: 'f5', image: Drinks, name: "Mojito", category: "drinks", price: 220 },
         { id: 'f6', image: Burger, name: "Turkey burger", category: "burgers", price: 190 },
     ];
 

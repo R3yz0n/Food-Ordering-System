@@ -60,7 +60,7 @@ const CartItem = ({ item }) => {
     <motion.section className='w-full flex items-center justify-start bg-zinc-800 rounded-md drop-shadow-md px-2 sm:pl-2 xs:pr-3 sm:pr-4 gap-4'>
 
       <div className='h-20  w-20 sm:w-28 sm:h-24 py-2 flex'>
-        <LazyLoadImage src={`${APIURL}/file/${item.image}`} className='w-full h-full object-contain m-auto' alt="Cart Item" effect='opacity' />
+        <LazyLoadImage src={`${APIURL}/file/${item.image}`} className='w-full h-full object-contain m-auto ' alt="Cart Item" effect='opacity' />
       </div>
 
       <div className='flex items-center justify-start gap-1 w-full h-20 '>

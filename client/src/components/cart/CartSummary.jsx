@@ -4,6 +4,7 @@ import { HiCurrencyRupee } from 'react-icons/hi'
 import { calculateTotalPrice } from '../../store/cart/cartSlice'
 import { btnClick } from '../../animations'
 import { motion } from 'framer-motion'
+import { toast } from 'react-hot-toast'
 
 
 const CartSummary = ({ shopMealNow }) => {
@@ -15,8 +16,14 @@ const CartSummary = ({ shopMealNow }) => {
 
     }, [cartItems])
 
+    const handleProceed = () => {
+        toast.success("Your order has been placed.")
+
+
+    }
+
     return (
-        <section className='bg-zinc-800 rounded-t-[40px] w-full h-[130px]    px-4  pt-5 pb-3  absolute bottom-14 md:bottom-12'>
+        <section className='bg-zinc-800 rounded-t-[40px] w-full h-[130px]    px-4  pt-5 pb-3  absolute bottom-14 md:bottom-14'>
 
 
             <div className='flex justify-evenly'>
@@ -37,7 +44,7 @@ const CartSummary = ({ shopMealNow }) => {
                 <motion.button {...btnClick} className='   bg-green-700 font-medium py-2 pl-6 pr-3 sm:pl-8 sm:pr-3 rounded-l-full text-gray-300 sm:font-semibold sm:tracking-wide hover:bg-green-600' onClick={shopMealNow}>
                     Back to Shopping
                 </motion.button>
-                <motion.button {...btnClick} className='  bg-blue-800  sm:font-semibold pr-6 pl-3 sm:pl-3 sm:pr-8 py-2 text-gray-200 hover:bg-blue-700 font-medium sm:tracking-wide rounded-r-full'>
+                <motion.button {...btnClick} className='  bg-blue-800  sm:font-semibold pr-6 pl-3 sm:pl-3 sm:pr-8 py-2 text-gray-200 hover:bg-blue-700 font-medium sm:tracking-wide rounded-r-full' onClick={handleProceed}>
                     Proceed to Checkout
                 </motion.button>
 

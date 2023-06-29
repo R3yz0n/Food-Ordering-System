@@ -7,7 +7,7 @@ const getLatestItems = async (req, res) => {
     console.log('getting');
     try {
         const now = new Date();
-        const twelveHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const twelveHoursAgo = new Date(now.getTime() - 10 * 60 * 60 * 1000);
 
         const totalItems = await models.items.count();
 
@@ -43,7 +43,7 @@ const getLatestUsers = async (req, res) => {
     console.log('getting');
     try {
         const now = new Date();
-        const twelveHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        const twelveHoursAgo = new Date(now.getTime() - 10 * 60 * 60 * 1000);
 
         const totalUsers = await models.users.count();
 

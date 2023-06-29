@@ -19,6 +19,7 @@ import { PieChart, Pie, Cell } from 'recharts';
 import { getAllItems } from '../../../store/product/productAction';
 import { clearFields as clearProductFields } from '../../../store/product/productSlice';
 import { clearFields } from '../../../store/user/authSlice';
+import { getToken } from '../../../store/getToken';
 
 
 
@@ -38,10 +39,10 @@ const Home = () => {
             dispatch(clearProductFields())
             dispatch(clearFields())
 
-            const userStats = await axios.get(`${APIURL}/latest/users`)
+            const userStats = await axios.get(`${APIURL}/latest/users`, getToken())
             // console.log(userStats.data);
             setUserStats(userStats.data)
-            const itemStats = await axios.get(`${APIURL}/latest/items`)
+            const itemStats = await axios.get(`${APIURL}/latest/items`, getToken())
             setitemStats(itemStats.data)
 
 
@@ -77,7 +78,7 @@ const Home = () => {
                 <Card title="Food Item" count={itemStats?.totalItems} latest={itemStats?.latestItemCount} per={itemStats?.percentage}
                     icon={<MdFoodBank size={37} />} style='bg-[rgb(58,203,232)]' />
 
-                <Card title="Verified Users" count={7} icon={<MdVerified size={33} latest={10} per={2} />} style='bg-[rgb(245,197,37)]' />
+                <Card title="Verified Users" count={7} icon={<MdVerified size={33} latest={1} per={30} />} style='bg-[rgb(245,197,37)]' />
                 <Card title="Orders" count={2} icon={<BsFillCartCheckFill size={32} latest={8} per={1} />} style='bg-[rgb(255,144,98)]' />
 
             </aside >
@@ -89,7 +90,7 @@ const Home = () => {
                     <div className='bg-gray-100 shadow-md max-w-[430px] py-4 px-7 flex gap-7 rounded-3xl border-gray-300'>
 
                         {usersList?.slice(0, 5).map((user, index) =>
-                            <motion.div {...straggerFadeInOut(index)}>
+                            <motion.div {...straggerFadeInOut(index)} key={usersList?.id}>
                                 <img src={user?.image ? user.image : Avatar} className='w-12 h-12 rounded-full' alt="user" />
                                 <p className='text-textColor font-semibold font-sans text-sm'>{user?.userName}</p>
 
@@ -107,8 +108,8 @@ const Home = () => {
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[rgb(255,99,132)]'></p>Drinks</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#36A2EB]'></p>Pizza</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#FFCE56]'></p>Soups</div>
-                        <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#8E44AD]'></p>Chinese</div>
-                        <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#34992B]'></p>Burgers</div>
+                        <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#8E44AD]'></p>Burgers</div>
+                        <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#34992B]'></p>Chinese</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[rgb(111,3,84)]'></p>Pasta</div>
                     </div>
 
@@ -135,7 +136,7 @@ export default Home
 
 
 export const Card = ({ title, latest, style, icon, count, per }) => {
-    console.log(per);
+    // console.log(per);
     return (
         <div className={`px-2 pt-3 pb-2 w-52 rounded-xl  ${style} text-gray-900 flex justify-around  shadow-lg`}>
 
@@ -148,11 +149,11 @@ export const Card = ({ title, latest, style, icon, count, per }) => {
             </aside>
 
             <aside className='flex flex-col gap-3'>
-                <CircularProgressbar strokeWidth={15} value={per || 1} className='w-8 h-8  ' color='red' styles={buildStyles({
+                <CircularProgressbar strokeWidth={15} value={per || 10} className='w-8 h-8  ' color='red' styles={buildStyles({
                     pathColor: 'white',
                     trailColor: "#4338CA"
                 })} />
-                <p className='font-bold text-lg'>+{latest || 2}</p>
+                <p className='font-bold text-lg cursor-pointer' title='Recenly added'>+{latest || 4}</p>
 
             </aside>
 

@@ -72,7 +72,7 @@ const Cart = () => {
                     }
 
                     {cartItems?.length > 0 &&
-                        <CartSummary />
+                        <CartSummary shopMealNow={shopMealNow} />
                     }
 
 
