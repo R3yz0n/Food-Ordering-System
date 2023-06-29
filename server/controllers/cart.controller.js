@@ -4,7 +4,7 @@ const models = require('../models')
 
 
 const addItemToCart = async (req, res) => {
-    const { userId, quantity, itemId } = req.body;
+    const { userId, itemId } = req.body;
     try {
         let cartExists = await models.cart.findOne({
             where: {
@@ -47,13 +47,13 @@ const addItemToCart = async (req, res) => {
             })
 
 
-            console.log(itemInCart);
+            // console.log(itemInCart);
             // return res.json(itemInCart)
 
             if (itemInCart) {
                 // console.log('here');
 
-                return updateQuantity(req, res)
+                return incrementQuantity(req, res)
             } else {
                 console.log('here');
                 await models.cartItem.create(
@@ -76,10 +76,10 @@ const addItemToCart = async (req, res) => {
 
 
     catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
         res.status(500).json({
             message: 'Failed to create cart.',
-            error: error.message,
+            error: error
         });
     }
 
@@ -88,26 +88,127 @@ const addItemToCart = async (req, res) => {
 
 
 
-const updateQuantity = async (req, res) => {
-    const { cartId, itemId } = req.body;
+const incrementQuantity = async (req, res) => {
+    const { userId } = req.body;
+    const itemId = req.params.itemId || req.body.itemId
+
 
     try {
-        const cartItem = await models.cartItem.findOne({
-            where: { cartId: 24, itemId: itemId }
+        let cartExists = await models.cart.findOne({
+            where: {
+                userId: userId
+            }
         });
 
-        if (cartItem) {
-            // Increment the quantity
-            cartItem.quantity += 1;
-            await cartItem.save();
+        if (!cartExists) {
+            return res.status(404).json({ message: 'Cart not found.' });
+        }
 
-            return res.json({ message: 'Quantity incremented.', item: cartItem });
+
+
+
+        const cartItem = await models.cartItem.findOne({
+            where: { cartId: cartExists.id, itemId: itemId }
+        });
+
+        console.log(cartItem);
+
+        if (cartItem) {
+            const updatedCartItem = { ...cartItem, quantity: cartItem.quantity + 1 };
+
+            await models.cartItem.update(updatedCartItem, {
+                where: {
+                    cartId: cartExists.id,
+                    itemId: itemId,
+                },
+            });
+            return res.status(200).json({
+                message: "Quantity updated successfully."
+            })
         } else {
-            return res.status(404).json({ error: 'Item not found in the cart.' });
+
+            return res.status(404).json(
+
+                { message: 'Item not found in the cart.' }
+            );
         }
     } catch (error) {
-        console.error('Error incrementing quantity:', error);
-        return res.status(500).json({ error: 'Error incrementing quantity.' });
+        console.log(error.message);
+
+        res.status(500).json(
+            {
+                message: 'Error updating quantity.',
+                error: error
+            }
+        );
+    }
+
+}
+
+const decrementQuantity = async (req, res) => {
+    const { userId } = req.body;
+    const itemId = req.params.itemId || req.body.itemId
+
+
+    try {
+        let cartExists = await models.cart.findOne({
+            where: {
+                userId: userId
+            }
+        });
+
+        if (!cartExists) {
+            return res.status(404).json({ message: 'Cart not found.' });
+        }
+
+
+
+
+        const cartItem = await models.cartItem.findOne({
+            where: { cartId: cartExists.id, itemId: itemId }
+        });
+
+        console.log(cartItem);
+        if (cartItem.quantity === 1) {
+            await models.cartItem.destroy({
+                where: {
+                    cartId: cartExists.id,
+                    itemId: itemId,
+                },
+            });
+            return res.status(200).json({
+                message: "Item removed from cart successfully."
+            })
+        }
+
+        if (cartItem) {
+            const updatedCartItem = { ...cartItem, quantity: cartItem.quantity - 1 };
+
+            await models.cartItem.update(updatedCartItem, {
+                where: {
+                    cartId: cartExists.id,
+                    itemId: itemId,
+                },
+            });
+            return res.status(200).json({
+                message: "Quantity updated successfully."
+            })
+        } else {
+
+            return res.status(404).json(
+
+                { message: 'Item not found in the cart.' }
+            );
+        }
+    } catch (error) {
+        console.log(error.message);
+
+        res.status(500).json(
+            {
+                message: 'Error updating quantity.',
+                error: error
+            }
+        );
     }
 
 }
@@ -115,37 +216,59 @@ const updateQuantity = async (req, res) => {
 
 
 const getCartItems = async (req, res) => {
-    console.log(req.params);
-
-
-
     try {
-
-        const items = await models.cart.findOne({
+        const cart = await models.cart.findOne({
             where: {
                 userId: req.params.userId,
             },
-            attributes: [],
+            attributes: ['id'],
             include: {
                 model: models.cartItem,
-                attributes: ['itemId', 'quantity']
+                attributes: ['itemId', 'quantity'],
+            },
+        });
 
-            }
+        const cartItems = cart ? cart.cartItems : [];
 
+        if (!cartItems.length) {
+            return res.status(200).json(cartItems);
+        }
 
+        const itemIds = cartItems?.map(cartItem => cartItem.itemId);
 
-        })
+        const items = await models.items.findAll({
+            where: {
+                id: itemIds,
+            },
+            attributes: ['id', 'price', 'name', 'image', 'category'],
+            include: {
+                model: models.cartItem,
+                attributes: ['quantity'],
+                where: {
+                    cartId: cart.id,
+                },
+            },
+        });
 
-        console.log(items);
+        const itemsWithQuantity = items?.map(item => ({
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            image: item.image,
+            category: item.category,
+            quantity: item?.cartItems[0]?.quantity,
+        }));
 
-
-        res.status(200).json(items.cartItems);
+        res.status(200).json(itemsWithQuantity);
     } catch (error) {
         console.log(error.message);
-        // console.error('Failed to fetch cart items:', error);
-        res.status(500).json({ message: 'Failed to fetch cart items' });
+        res.status(500).json({
+            message: 'Failed to get cart items',
+            error: error,
+        });
     }
 };
+
 
 
 
@@ -171,6 +294,8 @@ const getCartItems = async (req, res) => {
 
 module.exports = {
     addItemToCart: addItemToCart,
-    getCartItems: getCartItems
+    getCartItems: getCartItems,
+    incrementQuantity: incrementQuantity,
+    decrementQuantity: decrementQuantity,
 
 }

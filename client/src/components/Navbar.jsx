@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import FoodZone from '../assests/FoodZone.png'
 import { isActiveStyles, isNotActiveStyles } from '../utils/nav'
@@ -9,22 +9,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../assests/Avatar.png'
 import { logout } from '../store/user/authSlice'
 import { clearUserData } from '../store/user/currUserSlice'
-import { showCart } from '../store/cart/cartSlice'
+import { calculateTotalQuantity, clearCartData, clearFields, showCart } from '../store/cart/cartSlice'
+import { getAllCartItems } from '../store/cart/cartAction'
 
 const Header = () => {
 
     const [isMenu, setIsMenu] = useState(false)
+    const { totalQuantity, cartItems } = useSelector(state => state.cart)
     const { userData } = useSelector(state => state.currUser)
     const navigate = useNavigate()
-    // console.log(userData);
     const dispatch = useDispatch()
 
     const handleLogout = async () => {
         dispatch(logout())
         dispatch(clearUserData())
+        dispatch(clearCartData())
+
         navigate('/')
 
     }
+
 
 
 
@@ -48,17 +52,20 @@ const Header = () => {
                 </ul>
 
 
-                <motion.div {...btnClick} className='relative cursor-pointer' onClick={() => dispatch(showCart())} >
+                {
+                    userData?.role && localStorage.getItem('userToken') &&
+                    <motion.div {...btnClick} className='relative cursor-pointer' onClick={() => dispatch(showCart())} >
 
-                    <p> <MdShoppingCart className='text-3xl text-textColor' /></p>
-                    <div className='w-6 h-6 rounded-full bg-red-500 flex items-center justify-center absolute -top-4 -right-1'>
-                        <p className='text-primary text-base font-semibold'>2</p>
-                    </div>
+                        <p> <MdShoppingCart className='text-[32px] text-textColor' /></p>
+                        <div className='w-[25px] h-[25px] rounded-full bg-red-500 flex items-center justify-center absolute -top-[18px] -right-2 '>
+                            <p className='text-primary text-base font-sans font-semibold '>{totalQuantity}</p>
+                        </div>
 
-                </motion.div>
+                    </motion.div>
+                }
 
                 {
-                    userData?.userName ?
+                    userData?.userName && localStorage.getItem('userToken') ?
                         <div className='relative cursor-pointer ' onMouseEnter={() => setIsMenu(true)} onMouseLeave={() => setIsMenu(false)} >
                             <div className='w-14 h-14 rounded-full shadow-md cursor-pointer overflow-hidden bg-green-200 flex items-center justify-center border-[1px] border-orange-700'>
 
@@ -73,7 +80,7 @@ const Header = () => {
                                     {
                                         userData.role === 'admin' &&
 
-                                        <Link className='hover:text-red-500 text-xl text-textColor ' to='/dashboard'>
+                                        <Link className='hover:text-red-500 text-xl text-textColor ' to='/dashboard/home'>
                                             Dashboard
                                         </Link>
 
@@ -103,7 +110,7 @@ const Header = () => {
                         :
 
                         <NavLink to='/login'>
-                            <motion.button {...btnClick} className='px-5 py-2 rounded-md shadow-md bg-gray-200 underline border-red-300 cursor-pointer' >Login</motion.button>
+                            <motion.button {...btnClick} className='px-6  font-semibold text-white tracking-wide py-[6px] rounded-md shadow-lg hover:bg-red-600 bg-red-500 active:bg-orange-500  border-red-300 cursor-pointer' >Login</motion.button>
 
                         </NavLink>
                 }

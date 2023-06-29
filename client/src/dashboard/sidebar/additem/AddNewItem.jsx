@@ -16,7 +16,7 @@ import { HiCurrencyRupee } from 'react-icons/hi';
 
 
 
-const initialValues = { name: 'Pizza', category: 'drinks', price: '1200', file: null };
+const initialValues = { name: '', category: '', price: '', file: null };
 // I did a very challanging thing here i mapped a p tag and used it with formik thank to stackoverflow
 const AddNewItem = () => {
     const dispatch = useDispatch()
@@ -39,7 +39,7 @@ const AddNewItem = () => {
 
 
 
-                    }, 3000);
+                    }, 1200);
 
                 }).catch((err) => {
                     console.log(err);

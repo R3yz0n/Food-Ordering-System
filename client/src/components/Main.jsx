@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Home from '../components/home/Home'
 import { Route, Routes } from 'react-router-dom'
@@ -7,11 +7,32 @@ import Profile from './profile/Profile'
 import Contact from './contact/Contact'
 import PageNotFound from './PageNotFound'
 import Cart from './cart/Cart'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { calculateTotalQuantity, clearFields } from '../store/cart/cartSlice'
+import { getAllCartItems } from '../store/cart/cartAction'
 
 
 const Main = () => {
-    const { isCartOn } = useSelector(state => state.cart)
+    const { isCartOn, cartItems } = useSelector(state => state.cart)
+    const dispatch = useDispatch()
+    const { userData } = useSelector(state => state.currUser)
+
+    useEffect(() => {
+        if (userData?.role && localStorage.getItem('userToken')) {
+
+            dispatch(getAllCartItems(userData?.id)).then(() => {
+                dispatch((clearFields()))
+
+            })
+
+        }
+
+    }, [userData, dispatch]);
+
+    useEffect(() => {
+
+        dispatch(calculateTotalQuantity())
+    }, [cartItems])
 
     return (
         <main className='w-full min-h-screen  bg-primary'>

@@ -61,7 +61,7 @@ const Menu = () => {
             <div className='mt-10 max-w-screen-lg xl:max-w-screen-xl gap-x-0  mx-auto   grid  xs:grid-cols-2 md:grid-cols-3  lg:grid-cols-3 xl:grid-cols-4 gap-y-5   lg:p-0 '>
                 {
                     items.length > 0 ? items?.map((item) => <FoodItemCard key={item.id} item={item} />)
-                        : <motion.p {...fadeInOut} className='text-xl  w-72 font-semibold -mt-12 ml-20' >{!loading &&
+                        : <motion.p {...fadeInOut} className='text-xl ml-10 -mt-2 w-72 font-semibold lg:-mt-12 lg:ml-20' >{!loading &&
                             (search.searchValue.length > 0 ? 'No Searched Meal Found' : 'No Meal Available')}</motion.p>
 
                 }

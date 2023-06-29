@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createCart } from "./cartAction";
-import { useDispatch } from "react-redux";
+import { addToCart, getAllCartItems } from "./cartAction";
 
 const initialState = {
 
@@ -9,7 +8,8 @@ const initialState = {
     success: false,
     isCartOn: false,
     cartItems: [],
-    totalPrice: 0,
+    totalQuantity: 0,
+    totalPrice: 0
 
 
 
@@ -23,7 +23,17 @@ const cartSlice = createSlice({
 
     reducers: {
 
+        clearCartData: (state) => {
+            state.cartItems = []
+            state.isCartOn = false
+            state.totalQuantity = 0
+            state.error = null
+            state.loading = false
+            state.success = false
+            // localStorage.removeItem("cartItemsTotal");
 
+
+        },
         clearFields: (state, { payload }) => {
             state.success = false;
             state.loading = false;
@@ -35,28 +45,100 @@ const cartSlice = createSlice({
 
         },
 
-        addToCart: (state, { payload }) => {
-            const newItem = payload.itemId;
-            console.log(newItem);
-            const existingItem = state.cartItems.find(item => item.id === newItem.id);
-            if (!existingItem) {
-
-                //create brand new cart
+        calculateTotalQuantity: (state, { payload }) => {
+            if (payload && state.error === null) {
+                // console.log(state.error);
+                state.totalQuantity = state.totalQuantity + 1
+                // console.log(state.totalQuantity);
             }
 
-            else {
+            else if (state.cartItems.length >= 0) {
+                // console.log('here');
+                state.totalQuantity = state.cartItems.reduce((total, item) => {
+                    return total + item.quantity
+                }, 0)
 
-                // update the quantity
+
+
             }
 
+        },
+        calculateTotalPrice: (state, { payload }) => {
 
+            state.totalPrice = state.cartItems.reduce((accumulator, cartItem) => {
+                const { quantity, price } = cartItem;
+                const itemTotal = quantity * price;
+                return accumulator + itemTotal;
+            }, 0);
+            console.log(state.totalPrice);
 
         }
 
 
 
 
+
+
+
     },
+
+    extraReducers: {
+
+        [addToCart.fulfilled]: (state, { payload }) => {
+            state.success = payload.item;
+            state.error = null;
+            state.loading = false
+
+
+
+
+
+        },
+        [addToCart.pending]: (state) => {
+
+            state.loading = true;
+            state.error = null;
+            state.success = false
+
+
+        },
+        [addToCart.rejected]: (state, { payload }) => {
+            state.error = payload
+            state.loading = false
+            state.success = false;
+
+
+        },
+
+        [getAllCartItems.fulfilled]: (state, { payload }) => {
+            // console.log(payload);
+            state.success = true
+            state.cartItems = payload
+            state.error = null;
+            state.loading = false
+
+
+
+
+
+        },
+        [getAllCartItems.pending]: (state) => {
+
+            state.loading = true;
+            state.error = null;
+            state.success = false
+
+
+        },
+        [getAllCartItems.rejected]: (state, { payload }) => {
+            state.error = payload
+            state.loading = false
+            state.success = false;
+
+
+        },
+
+    }
 })
 
 
@@ -68,4 +150,4 @@ const cartSlice = createSlice({
 
 
 export default cartSlice.reducer;
-export const { clearFields, showCart, addToCart } = cartSlice.actions;
+export const { clearFields, showCart, calculateTotalQuantity, clearCartData, calculateTotalPrice } = cartSlice.actions;
