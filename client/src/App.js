@@ -26,7 +26,6 @@ const App = () => {
 
 
 
-  // console.log(currUser);
 
   useEffect(() => {
     // console.log('fetching user data...');
