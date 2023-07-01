@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
       cart.belongsTo(models.users);
 
-      cart.belongsToMany(models.items, { through: models.cartItem });
+      cart.belongsToMany(models.items, { through: models.cartItem, onDelete: 'CASCADE' });
 
 
       cart.hasMany(models.cartItem);
