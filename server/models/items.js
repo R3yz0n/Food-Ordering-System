@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
 
       items.hasMany(models.cartItem);
 
+      items.belongsToMany(models.orders, { through: models.orderItems, onDelete: 'CASCADE' });
+
 
 
 
