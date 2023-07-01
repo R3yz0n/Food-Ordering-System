@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
       models.users.hasOne(models.cart);
+      models.users.hasMany(models.orders)
 
 
     }
