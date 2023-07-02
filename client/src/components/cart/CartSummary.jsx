@@ -33,8 +33,8 @@ const CartSummary = ({ shopMealNow }) => {
                 <div>
                     <p className='flex gap-1 items-center text-lg sm:text-xl font-semibold text-zinc-300'>
                         <span className='pr-2'>Total :</span>
-                        <HiCurrencyRupee className='text-orange-600 ' />
-                        <span className='text-orange-600 text-base sm:text-lg'> {totalPrice}</span>
+                        <HiCurrencyRupee className='text-red-500 ' />
+                        <span className='text-red-400 text-base sm:text-lg'> {totalPrice}</span>
                     </p>
                 </div>
             </div>
