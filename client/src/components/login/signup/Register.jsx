@@ -96,7 +96,7 @@ const Register = () => {
 
                 <form className='w-full flex flex-col items-center justify-center gap-4 px-4 md:px-12 py-4' onSubmit={handleSubmit}>
 
-                    <FormInput placeholder='Username' type='text' icon={<FaUser className='text-xl text-textColor' />}
+                    <FormInput placeholder='Full Name' type='text' icon={<FaUser className='text-xl text-textColor' />}
                         value={values.userName} onChange={handleChange} name='userName' onBlur={handleBlur}
                         errors={errors.userName} touched={touched.userName}
                     />
