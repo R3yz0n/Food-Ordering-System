@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 export const registrationSchema = Yup.object({
 
     userName: Yup.string()
-        .matches(/^[a-zA-Z]+$/, 'Username can only contain alphabetical characters.')
-        .min(5, 'Username must be at least 5 characters long.')
-        .max(15, 'Username cannot be longer than 15 characters.')
-        .required('Username is required.'),
+        .matches(/^[a-zA-Z\s]+$/, 'Name can only contain alphabetical characters.')
+        .min(5, 'Fullname must be at least 5 characters long.')
+        .max(30, 'Fullname cannot be longer than 30 characters.')
+        .required('Fullname is required.'),
 
     email: Yup.string()
         .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email must have \'@\' followed by \'.com\'.')

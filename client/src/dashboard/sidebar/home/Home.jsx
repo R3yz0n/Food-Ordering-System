@@ -92,7 +92,7 @@ const Home = () => {
                         {usersList?.slice(0, 5).map((user, index) =>
                             <motion.div {...straggerFadeInOut(index)} key={usersList?.id}>
                                 <img src={user?.image ? user.image : Avatar} className='w-12 h-12 rounded-full' alt="user" />
-                                <p className='text-textColor font-semibold font-sans text-sm'>{user?.userName}</p>
+                                <p className='text-textColor font-semibold font-sans text-sm text-center'>{user?.userName.split(' ')[0]}</p>
 
                             </motion.div>
 
