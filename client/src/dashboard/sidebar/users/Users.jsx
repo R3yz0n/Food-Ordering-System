@@ -54,9 +54,9 @@ const Users = () => {
 
 
                 <table className="min-w-full static" >
-                    <thead className="  text-[17px] text-gray-800 shadow-md font-sans bg-[rgb(218,221,228)]">
+                    <thead className="  text-[17px] text-gray-800 shadow-md font-sans bg-[rgb(218,221,228)] font-sans">
                         <tr>
-                            <th className="py-3 px-6 text-left">User Name</th>
+                            <th className="py-3 px-6 text-left">Full Name</th>
                             <th className="py-3 px-6 text-left">Email Address</th>
                             <th className="py-3 px-6 text-left">Phone Number</th>
                             <th className="py-3 px-6 text-left">Address</th>

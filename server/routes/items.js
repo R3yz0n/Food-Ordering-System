@@ -17,7 +17,7 @@ router.delete('/:id', checkAuthentication, checkRole, itemController.deleteItem)
 
 router.put('/:id', checkAuthentication, checkRole, itemController.updateItem)
 router.get('/search/', searchController.searchItems)
-router.get('/latest/', getLatestItems)
+
 
 
 

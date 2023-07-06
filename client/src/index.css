@@ -40,7 +40,7 @@ body::-webkit-scrollbar {
   box-shadow: 1px 1px 3px rgb(181, 176, 176) !important;
 }
 
-.card1 {
-  box-shadow: 1px 2px 6px rgb(100, 86, 86) !important;
+.profilecard {
+  box-shadow: 0px 0px 2px rgb(141, 137, 137) !important;
 
 }
