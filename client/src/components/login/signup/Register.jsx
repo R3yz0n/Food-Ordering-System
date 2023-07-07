@@ -23,6 +23,7 @@ const initialValues = { email: 'admin@test.com', password: 'admin123$', userName
 const Register = () => {
 
     const auth = useSelector(state => state.auth)
+    console.log();
 
     const dispatch = useDispatch()
 
