@@ -90,7 +90,7 @@ const Register = () => {
 
 
 
-                <p className='text-3xl text-black mb-4 font-semibold'>Sign up with following</p>
+                <h3 className='text-3xl text-black mb-4 font-semibold'>Sign up with following</h3>
 
                 {/* input section */}
 

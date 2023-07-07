@@ -53,12 +53,12 @@ function Contact() {
     return (
         <div className="contact global flex flex-col items-center justify-center  relative pt-28 pb-8 bg-gradient-to-b from-gray-100 to-zinc-300 " >
             <Social />
-            <div className="contact-stripe  right-0 h-[630px] md:h-[710px]  absolute  z-50"></div>
+            <aside className="contact-stripe  right-0 h-[630px] md:h-[710px]  absolute  z-50"></aside>
             <div className="bg-stone-300 w-[70vw] left-[196px]   h-[630px] md:h-[664px]  absolute  z-0"></div>
             <div className="absolute bottom-0  foodzone font-bold  font-sans text-xs  md:text-base">FOODZONE<span className="md:text-lg ">©</span>2023</div>
             <div className="bg-white z-1 rounded  mt-3  pb-6 flex flex-col items-center w-[90%] md:w-[70%] z-20">
                 <div className=" flex flex-col justify-center items-center gap-2 mt-2">
-                    <span className="text-3xl md:text-[36px] font-extrabold tracking-widest">Stay Connected</span>
+                    <h2 className="text-3xl md:text-[36px] font-extrabold tracking-widest">Stay Connected</h2>
                     <p className="text-md text-blue-800">Have a feedback about our service? Write down.</p>
                 </div>
                 <div className="form-body flex items-center justify-between  w-full">

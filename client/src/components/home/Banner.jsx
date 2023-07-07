@@ -20,8 +20,8 @@ const Banner = () => {
 
                 <div className='flex flex-col h-full py-8 justify-center w-3/5 gap-5'>
 
-                    <p className='text-[44px] font-bold'>Enjoy Our Delicious Meal</p>
-                    <p className='font-semibold opacity-90 text-lg lg:pr-8'>A restaurant is a place where people go to enjoy a meal, typically with friends, family, or colleagues.</p>
+                    <h3 className='text-[44px] font-bold'>Enjoy Our Delicious Meal</h3>
+                    <h5 className='font-semibold opacity-90 text-lg lg:pr-8'>A restaurant is a place where people go to enjoy a meal, typically with friends, family, or colleagues.</h5>
 
                     <motion.button {...btnClick} className='bg-orange-500 hover:bg-orange-600 px-4 py-2 w-52 rounded-md tracking-wider text-headingColor text-xl font-bold'>
                         <Link to='/menu'>See Our Menu</Link>

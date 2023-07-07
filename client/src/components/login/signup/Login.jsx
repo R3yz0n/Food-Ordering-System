@@ -100,8 +100,8 @@ const Login = () => {
 
 
                 </div>
-                <p className="text-black font-semibold text-3xl">Welcome Back!</p>
-                <p className='text-xl text-textColor mb-4 mt-1 font-semibold'>Login with following</p>
+                <h3 className="text-black font-semibold text-3xl">Welcome Back!</h3>
+                <h6 className='text-xl text-textColor mb-4 mt-1 font-semibold'>Login with following</h6>
 
                 {/* input section */}
 

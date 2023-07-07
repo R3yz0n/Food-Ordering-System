@@ -22,9 +22,9 @@ const Home = () => {
                 <main className='flex flex-col items-start justify-start gap-6 '>
                     <aside className='px-4 py-1 flex items-center justify-center gap-2 bg-orange-300 rounded-full'>
 
-                        <p className='text-lg font-semibold text-orange-600'>
+                        <h3 className='text-lg font-semibold text-orange-600'>
                             Free Delivery
-                        </p>
+                        </h3>
 
                         <div className='w-10 h-10 flex items-center justify-center rounded-full bg-primary shawo-md'>
 
@@ -34,19 +34,19 @@ const Home = () => {
 
                     </aside>
 
-                    <p className='text-[40px] text-headingColor md:text-[60px] font-sans font-extrabold tracking-wider'>
+                    <h1 className='text-[40px] text-headingColor md:text-[60px] font-sans font-extrabold tracking-wider'>
                         The Best Quality Food in {" "}
 
                         <span className='text-orange-600'>Your City</span>
 
-                    </p>
+                    </h1>
 
-                    <p className='text-textColor text-lg'>
+                    <article className='text-textColor text-lg'>
                         Welcome to Food Zone, your one-stop destination for delicious food delivered right
                         to your doorstep. We bring you an extensive range of cuisines from the best local restaurants in your area,
                         all in one convenient platform. Our goal is to make ordering food an effortless and enjoyable process,
                         offering you a wide variety of cuisines to suit your taste buds.
-                    </p>
+                    </article>
 
 
                     <motion.button {...btnClick} className='bg-orange-400 px-10 py-2 text-xl rounded-md tracking-wide text-headingColor font-semibold shadow-md '>

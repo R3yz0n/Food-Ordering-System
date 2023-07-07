@@ -58,7 +58,7 @@ const Cart = () => {
                     {/* if use loading here it will re-render */}
                     {
                         cartItems?.length > 0 &&
-                        <aside className='flex flex-col w-full items-start justify-start  gap-3 h-[78%] md:h-[74%] overflow-y-scroll scroll-auto scrollbar-none px-3'>
+                        <ul className='flex flex-col w-full items-start justify-start  gap-3 h-[78%] md:h-[74%] overflow-y-scroll scroll-auto scrollbar-none px-3'>
 
                             {
                                 cartItems.map((item) =>
@@ -67,7 +67,7 @@ const Cart = () => {
                             }
 
 
-                        </aside>
+                        </ul>
 
                     }
 

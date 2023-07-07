@@ -27,15 +27,15 @@ const CartSummary = ({ shopMealNow }) => {
 
 
             <div className='flex justify-evenly'>
-                <div className='text-zinc-300 font-semibold text-lg sm:text-xl'>
+                <h4 className='text-zinc-300 font-semibold text-lg sm:text-xl'>
                     Subtotal ({totalQuantity}) items
-                </div>
+                </h4>
                 <div>
-                    <p className='flex gap-1 items-center text-lg sm:text-xl font-semibold text-zinc-300'>
+                    <h4 className='flex gap-1 items-center text-lg sm:text-xl font-semibold text-zinc-300'>
                         <span className='pr-2'>Total :</span>
                         <HiCurrencyRupee className='text-red-500 ' />
                         <span className='text-red-400 text-base sm:text-lg'> {totalPrice}</span>
-                    </p>
+                    </h4>
                 </div>
             </div>
 

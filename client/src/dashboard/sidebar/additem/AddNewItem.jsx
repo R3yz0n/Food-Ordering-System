@@ -89,9 +89,9 @@ const AddNewItem = () => {
                 <section className='flex gap-10 w-full mt-4 px-3'>
 
                     {/* category */}
-                    <div className='w-1/3 flex flex-col  gap-3 ' >
+                    <aside className='w-1/3 flex flex-col  gap-3 ' >
 
-                        <motion.p {...fadeInOut} className='text-2xl text-gray-700 font-semibold'> Categories</motion.p>
+                        <motion.div {...fadeInOut} className='text-2xl text-gray-700 font-semibold'> Categories</motion.div>
                         {
                             Category.map((item, i) =>
                                 <motion.p {...fade} key={item.id} name={item.category} value={values.name} className={`${item.category === values.category ? 'bg-red-500 text-white' : 'bg-transparent'} w-1/2 px-5 py-2 rounded-md text-lg text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-500 backdrop-blur-md`} onClick={() => {
@@ -106,7 +106,7 @@ const AddNewItem = () => {
                                 </motion.p>
                             )
                         }
-                    </div>
+                    </aside>
 
                     <motion.section  {...fadeInOut} className='w-2/3 overflow-hidden'>
                         {/* image uploader */}

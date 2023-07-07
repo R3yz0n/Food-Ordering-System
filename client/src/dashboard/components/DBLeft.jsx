@@ -10,7 +10,7 @@ const DBLeft = () => {
 
             <NavLink to='/' className='flex items justify-start gap-4 items-center text-2xl'>
                 <img src={FoodZone} className='w-20' alt="FoodZone" />
-                <p className='font-semibold text-2xl '>Foodie.</p>
+                <h4 className='font-semibold text-2xl '>Foodie.</h4>
             </NavLink>
             <hr className='border-gray-400' />
 
