@@ -47,9 +47,9 @@ const DBHeader = () => {
         <section className='w-full flex items-center justify-between gap-3  px-3 '>
 
             {/* left */}
-            <p className='text-2xl text-headingColor font-extrabold  font-sans ' >DASHBOARD
-                {userData && <span className='block text-base text-black font-semibold'>Welcome {userData?.userName} to the dashboard .</span>}
-            </p>
+            <h3 className='text-2xl text-headingColor font-extrabold  font-sans ' >DASHBOARD
+                {userData && <h6 className='block text-base text-black font-semibold'>Welcome {userData?.userName} to the dashboard .</h6>}
+            </h3>
 
             {/* right */}
 

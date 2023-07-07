@@ -57,14 +57,14 @@ const CartItem = ({ item }) => {
 
 
   return (
-    <motion.section className='w-full flex items-center justify-start bg-zinc-800 rounded-md drop-shadow-md px-2 sm:pl-2 xs:pr-3 sm:pr-4 gap-4'>
+    <motion.li className='w-full flex items-center justify-start bg-zinc-800 rounded-md drop-shadow-md px-2 sm:pl-2 xs:pr-3 sm:pr-4 gap-4'>
 
       <div className='h-20  w-20 sm:w-28 sm:h-24 py-2 flex'>
         <LazyLoadImage src={`${APIURL}/file/${item.image}`} className='w-full h-full object-contain m-auto ' alt="Cart Item" effect='opacity' />
       </div>
 
       <div className='flex items-center justify-start gap-1 w-full h-20 '>
-        <p className='text-[15px] xs:text-base md:text-lg text-primary font-semibold h-auto   w-28 xs:w-40 '>
+        <h3 className='text-[15px] xs:text-base md:text-lg text-primary font-semibold h-auto   w-28 xs:w-40 '>
           <span className='line-clamp-2 font-sans'>
             {item.name}
           </span>
@@ -72,7 +72,7 @@ const CartItem = ({ item }) => {
             {item.category}
           </span>
 
-        </p>
+        </h3>
 
         <p className='text-sm font-semibold text-red-400 ml-auto flex items-center justify-center gap-1 md:text-base font-sans'>
           <HiCurrencyRupee className='text-red-500 text-[19px]' />
@@ -95,7 +95,7 @@ const CartItem = ({ item }) => {
 
       </div>
 
-    </motion.section>
+    </motion.li>
 
   )
 }

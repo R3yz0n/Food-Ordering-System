@@ -7,15 +7,15 @@ import { FooterItems } from '../../utils/constants'
 const Footer = () => {
     return (
 
-        <section className='w-full lg:h-370 bg-[rgb(18,22,24)] '>
+        <footer className='w-full lg:h-370 bg-[rgb(18,22,24)] '>
 
 
             <div className='text-white my-auto flex flex-col h-full py-10 gap-16'>
 
-                <p className='text-4xl flex gap-3 font-semibold  mx-auto pt-6'>
+                <h1 className='text-4xl flex gap-3 font-semibold  mx-auto pt-6'>
                     <span>GET FOOD</span>
                     <span className='bg-orange-500 text-black px-3 rounded-sm -mt-1 py-1 tracking-wide'>DELIVERED</span>
-                </p>
+                </h1>
 
                 <aside className='grid grid-cols-2 lg:flex w-full lg:w-4/5 mx-auto  '>
                     {
@@ -32,7 +32,7 @@ const Footer = () => {
             </div>
 
 
-        </section>
+        </footer>
 
     )
 }

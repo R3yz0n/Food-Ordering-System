@@ -104,14 +104,14 @@ const Home = () => {
 
                 <section className='flex  relative pt-5'>
                     <p className='text-gray-200 text-2xl absolute top-0 font-semibold left-0 -mt-6 px-3 py-1 shadow-lg bg-orange-600 rounded-lg'>Food Categories</p>
-                    <div className='flex flex-col gap-1 mt-3'>
+                    <aside className='flex flex-col gap-1 mt-3'>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[rgb(255,99,132)]'></p>Drinks</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#36A2EB]'></p>Pizza</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#FFCE56]'></p>Soups</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#8E44AD]'></p>Burgers</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[#34992B]'></p>Chinese</div>
                         <div className='flex gap-2'> <p className='w-5 h-5 rounded-full  bg-[rgb(111,3,84)]'></p>Pasta</div>
-                    </div>
+                    </aside>
 
                     <PieChartt width={200} height={200} items={items} className='  ' />
                 </section>
