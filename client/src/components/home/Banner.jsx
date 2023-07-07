@@ -4,8 +4,9 @@ import BannerRight from '../../assests/BannerRight.png'
 import { motion } from 'framer-motion'
 import { btnClick } from '../../animations'
 import { Link } from 'react-router-dom'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 
 const Banner = () => {
@@ -29,7 +30,7 @@ const Banner = () => {
 
                 </div>
 
-                <img src={BannerRight} alt="Banner Right" className="w-96 h-96 z-30  flex my-auto mx-auto opacity-90 object-cover p-3 " />
+                <LazyLoadImage src={BannerRight} alt="Banner Right" className="w-96 h-96 z-30  flex my-auto mx-auto opacity-90 object-cover p-3 " effect='opacity' />
             </aside>
 
 

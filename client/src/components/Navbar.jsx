@@ -37,19 +37,19 @@ const Header = () => {
         <header className='fixed backdrop-blur-sm bg-gray-100 bg-opacity-80 z-40 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20  pt-2 w-full border-[1px] border-b-gray-300'>
 
             <NavLink to='/' className='flex items justify-center gap-4 '>
-                <img src={FoodZone} className='w-[70px]' alt="FoodZone" />
+                <img src={FoodZone} className='w-[70px] h-[70px]' alt="FoodZone" />
                 <p className='font-semibold text-xl'>Foodie.</p>
             </NavLink>
 
 
             <nav className='flex items-center justify-center gap-8'>
 
-                <ul className='hidden md:flex items-center justify-center gap-16 '>
+                <nav className='hidden md:flex items-center justify-center gap-16 '>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/'}>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/menu'}>Menu</NavLink>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/about'}>About</NavLink>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/contact'}>Contact</NavLink>
-                </ul>
+                </nav>
 
 
                 {
