@@ -1,5 +1,5 @@
 import MainLoader from '../../../animations/MainLoader';
-import LoginBg from '../../../assests/LoginBg.png'
+import LoginBg from '../../../assests/LoginBg.jpg'
 import React, { useEffect } from 'react';
 import { FaLock, FaEnvelope, FaUser } from 'react-icons/fa'
 import { useFormik } from 'formik'
@@ -23,6 +23,7 @@ const initialValues = { email: 'admin@test.com', password: 'admin123$', userName
 const Register = () => {
 
     const auth = useSelector(state => state.auth)
+    console.log();
 
     const dispatch = useDispatch()
 

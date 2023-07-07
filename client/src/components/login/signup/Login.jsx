@@ -1,6 +1,6 @@
 
 import FormInput from '../../../common/FormInput'
-import LoginBg from '../../../assests/LoginBg.png'
+import LoginBg from '../../../assests/LoginBg.jpg'
 import React, { useEffect, } from 'react';
 import { FaLock, FaEnvelope } from 'react-icons/fa'
 import { useFormik } from 'formik'
