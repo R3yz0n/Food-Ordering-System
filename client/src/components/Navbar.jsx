@@ -110,7 +110,7 @@ const Header = () => {
                         :
 
                         <NavLink to='/login'>
-                            <motion.button {...btnClick} className='px-6  font-semibold text-white tracking-wide py-[6px] rounded-md shadow-lg hover:bg-red-600 bg-red-500 active:bg-orange-500  border-red-300 cursor-pointer' >Login</motion.button>
+                            <motion.button {...btnClick} className='px-6  font-semibold text-white tracking-wide py-[6px] rounded-md shadow-sm shadow-red-400 hover:bg-red-600 bg-red-500 active:bg-orange-500  border-red-300 cursor-pointer' >Login</motion.button>
 
                         </NavLink>
                 }

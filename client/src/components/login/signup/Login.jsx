@@ -27,6 +27,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const auth = useSelector(state => state.auth)
     const { loading } = useSelector(state => state.auth)
+    const handleNavigate =()=>navigate('/')
 
 
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
@@ -94,7 +95,7 @@ const Login = () => {
                 {/* //top section */}
                 <div className='flex items-center justify-start gap-4 w-full mb-4  sm:mb-2'>
 
-                    <img src={FoodZone} alt="Food Zone" className='w-28' />
+                    <img src={FoodZone} alt="Food Zone" className='w-28 h-28 cursor-pointer' onClick={handleNavigate} />
                     <p className='border-b-2 border-green-700 w-3/4' ></p>
 
 
