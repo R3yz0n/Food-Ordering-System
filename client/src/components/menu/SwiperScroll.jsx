@@ -58,7 +58,7 @@ export const CategoryCard = ({ item, index, category, handleFilter }) => {
     };
 
     return (
-        <motion.div key={index} {...straggerFadeInOut(index)} className={`hover:bg-red-500 hover:text-white  border-gray-300 border-2    group sm:w-28 min-w-[60px] cursor-grab rounded-lg  pt-2 pb-1 ${category === item.category ? 'bg-red-600 border-transparent ' : 'bg-stone-100 '} justify-center gap-4 `} onClick={handleClick}>
+        <motion.div key={index} {...straggerFadeInOut(index)} className={`hover:bg-red-600 hover:text-white  border-gray-300 border-2    group sm:w-28 min-w-[60px] cursor-grab rounded-lg  pt-2 pb-1 ${category === item.category ? 'bg-red-500 border-transparent ' : 'bg-stone-100 '} justify-center gap-4 `} onClick={handleClick}>
             <div className={`w-14 flex-col mx-auto h-14 rounded-full shadow-md flex items-center justify-center  group-hover:bg-white ${category === item.category ? 'bg-white border-none' : ''}`} >
                 <img src={item.image} className='object-contain w-full h-full ' alt="Food Item" />
             </div>

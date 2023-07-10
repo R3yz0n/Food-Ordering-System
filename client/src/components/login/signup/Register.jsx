@@ -26,6 +26,7 @@ const Register = () => {
     console.log();
 
     const dispatch = useDispatch()
+    const handleNavigate =()=>navigate('/')
 
     const navigate = useNavigate()
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
@@ -62,6 +63,9 @@ const Register = () => {
 
 
 
+
+
+
     useEffect(() => {
         // console.log(values);
         // dispatch(setError())
@@ -84,7 +88,7 @@ const Register = () => {
                 {/* //top section */}
                 <div className='flex items-center justify-start gap-4 w-full'>
 
-                    <img src={FoodZone} alt="Food Zone" className='w-24' />
+                    <img src={FoodZone} alt="Food Zone" className='w-24 h-24 cursor-pointer' onClick={handleNavigate}/>
                     <p className='border-b-2 border-green-700 w-3/4' ></p>
 
                 </div>
