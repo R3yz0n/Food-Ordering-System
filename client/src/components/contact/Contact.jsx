@@ -71,7 +71,7 @@ function Contact() {
                             <input data-aos="fade-left" data-aos-delay={200} placeholder="Your Email" type="email" required name="email" value={formValues.email} onChange={changeHandler} />{" "}
                             <input data-aos="fade-left" data-aos-delay={300} placeholder="Title" type="text" required name="title" value={formValues.title} onChange={changeHandler} />
                             <textarea data-aos="fade-left" data-aos-delay={400} placeholder="Your Message" type="text" required name="message" value={formValues.message} onChange={changeHandler} />
-                            <motion.button {...btnClick} className=" b w-40 py-1 text-white bg-black hover:bg-white hover:text-black duration-200" type="submit" value="send">
+                            <motion.button {...btnClick} className=" hover:border-black border-2 w-40 py-1 text-white bg-black hover:bg-white hover:text-black duration-200" type="submit" value="send">
                                 {sending ? "Sending..." : "Send Message"}
                             </motion.button>
                         </form>

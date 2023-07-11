@@ -11,7 +11,16 @@ const Profile = () => {
 
   const handleEdit =()=>{
     setIsEdit(!isEdit)
+    // submitHandler()
   
+  
+  }
+
+  const submitHandler =(onSubmit)=>{
+    console.log(1);
+// onSubmit()
+console.log(onSubmit);
+handleSubmit();
   
   }
 
@@ -21,7 +30,7 @@ const Profile = () => {
         <div className="h-[95%]">
           <img src={Avatar} alt="Avatar" className="w-40 h-40 mx-auto" />
 
-        <motion.button {...btnClick} className=" bg-red-500 px-7 py-1 text-white rounded-sm font-medium mt-8 flex mx-auto hover:bg-red-600" onClick={handleEdit}>
+        <motion.button type="submit" {...btnClick} className=" bg-red-500 px-7 py-1 text-white rounded-sm font-medium mt-8 flex mx-auto hover:bg-red-600" onClick={handleEdit}>
 
       {
         isEdit? <span>Edit Profile</span>: <span>Update Profile</span>
@@ -31,7 +40,7 @@ const Profile = () => {
        
             
         </div>
-        <Form />
+        <Form submitHandler={submitHandler} />
       </section>
     </main>
   );
