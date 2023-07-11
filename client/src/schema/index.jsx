@@ -60,5 +60,25 @@ export const addItemSchema = Yup.object().shape({
 
 
 
+export const profileSchema = Yup.object({
 
+    userName: Yup.string()
+        .matches(/^[a-zA-Z\s]+$/, 'Name can only contain alphabetical characters.')
+        .min(5, 'Fullname must be at least 5 characters long.')
+        .max(30, 'Fullname cannot be longer than 30 characters.')
+        .required('Fullname is required.'),
+
+    email: Yup.string()
+        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email must have \'@\' followed by \'.com\'.')
+        .required('Email is required.'),
+
+   
+    phoneNumber: Yup.string()
+    .min(10, 'Phonenumber must be at least 10 digits long.')
+    .max(10, 'Phonenumber cannot be longer than 10 digits.')
+    .matches(/^98/, 'Phone number must start with 98.')
+    .required('Phone number is required.'),
+
+
+})
 

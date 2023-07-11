@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../../assests/Avatar.png";
 import Form from "./Form";
@@ -7,7 +7,22 @@ import { motion } from "framer-motion";
 
 const Profile = () => {
   const { userData } = useSelector((state) => state.currUser);
-  console.log();
+  const [isEdit,setIsEdit]=useState(false)
+
+  const handleEdit =()=>{
+    setIsEdit(!isEdit)
+    // submitHandler()
+  
+  
+  }
+
+  const submitHandler =(onSubmit)=>{
+    console.log(1);
+// onSubmit()
+console.log(onSubmit);
+handleSubmit();
+  
+  }
 
   return (
     <main className=" pt-28 sm:pt-40  w-full h-auto sm:h-screen pb-8 bg-gray-100 px-8 md:px-0 b">
@@ -15,12 +30,17 @@ const Profile = () => {
         <div className="h-[95%]">
           <img src={Avatar} alt="Avatar" className="w-40 h-40 mx-auto" />
 
-        <motion.button {...btnClick} className=" bg-red-500 px-7 py-1 text-white rounded-sm font-medium mt-8 flex mx-auto hover:bg-red-600">
+        <motion.button type="submit" {...btnClick} className=" bg-red-500 px-7 py-1 text-white rounded-sm font-medium mt-8 flex mx-auto hover:bg-red-600" onClick={handleEdit}>
 
-            Edit Profile
+      {
+        isEdit? <span>Edit Profile</span>: <span>Update Profile</span>
+      }
+
           </motion.button>
+       
+            
         </div>
-        <Form />
+        <Form submitHandler={submitHandler} />
       </section>
     </main>
   );
