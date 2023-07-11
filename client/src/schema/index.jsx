@@ -19,7 +19,12 @@ export const registrationSchema = Yup.object({
             'Password must contain at least one number and one special character.')
         .required('Password is required.'),
 
-    confirmPassword: Yup.string().required('Confirm password is required.').oneOf([Yup.ref('password'), null], "Password must match.")
+    // confirmPassword: Yup.string().required('Confirm password is required.').oneOf([Yup.ref('password'), null], "Password must match."),
+    phoneNumber: Yup.string()
+    .min(10, 'Phonenumber must be at least 10 digits long.')
+    .max(10, 'Phonenumber cannot be longer than 10 digits.')
+    .matches(/^98/, 'Phone number must start with 98.')
+    .required('Phone number is required.'),
 
 
 })

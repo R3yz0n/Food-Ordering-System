@@ -15,7 +15,7 @@ import { registrationSchema } from '../../../schema';
 import FormInput from '../../../common/FormInput';
 
 
-const initialValues = { email: 'admin@test.com', password: 'admin123$', userName: 'admin', confirmPassword: 'admin123$' };
+const initialValues = { email: 'admin@test.com', password: 'admin123$', userName: 'admin', phoneNumber: '+977985640172' };
 
 
 
@@ -34,7 +34,7 @@ const Register = () => {
         validationSchema: registrationSchema,
         onSubmit: async (values, action) => {
 
-            // console.log(values);
+            console.log(values);
 
             const a = await dispatch(userRegister(values)).unwrap()
             console.log(a);
@@ -112,16 +112,17 @@ const Register = () => {
                         errors={errors.email} touched={touched.email}
                     />
 
+                    <FormInput placeholder='Phone number' type='text' icon={<FaLock className='text-xl text-textColor' />}
+                        value={values.phoneNumber} onChange={handleChange} name='phoneNumber' onBlur={handleBlur}
+                        errors={errors.phoneNumber} touched={touched.phoneNumber}
+                    />
 
                     <FormInput placeholder='Password' type='text' icon={<FaLock className='text-xl text-textColor' />}
                         value={values.password} onChange={handleChange} name='password' onBlur={handleBlur}
                         errors={errors.password} touched={touched.password}
                     />
 
-                    <FormInput placeholder='Confirm Password' type='text' icon={<FaLock className='text-xl text-textColor' />}
-                        value={values.confirmPassword} onChange={handleChange} name='confirmPassword' onBlur={handleBlur}
-                        errors={errors.confirmPassword} touched={touched.confirmPassword}
-                    />
+                    
 
                     {auth.error?.length > 1 &&
                         <motion.div className='-mt-6 text-red-600' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }} >
