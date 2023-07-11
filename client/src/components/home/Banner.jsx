@@ -10,7 +10,7 @@ import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 
 const Banner = () => {
-    const styles = { backgroundImage: `url(${BannerBg})`, backgroundAttachment: 'fixed', backgroundRepeat: 'no-repeat', }
+    const styles = { backgroundImage: `url(${BannerBg})`, }
 
     return (
 
@@ -28,7 +28,7 @@ const Banner = () => {
                         <Link to='/menu'>See Our Menu</Link>
                     </motion.button>
 
-                </div>
+            </div>
 
                 <LazyLoadImage src={BannerRight} alt="Banner Right" className="w-96 h-96 z-30 hidden md:flex  mt-12 mx-auto  opacity-90 object-cover p-3 " effect='opacity' />
             </aside>
@@ -36,7 +36,7 @@ const Banner = () => {
 
             {/* background image */}
             {/* <img src={BannerBg} className="h-full w-full absolute top-0 right-0 z-0 backdrop-filter  opacity-40 blur-[1px] " alt="Banner Bg" /> */}
-            <div className="h-full w-full  absolute top-0 right-0 z-0   opacity-30 " alt="Banner Bg" style={{ ...styles }} />
+            <div className="h-full w-full  absolute top-0 right-0 z-0   opacity-30 bg-scroll bg-no-repeat md:bg-fixed" alt="Banner Bg" style={{ ...styles }} />
         </section>
     )
 }

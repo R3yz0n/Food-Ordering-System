@@ -53,7 +53,7 @@ const register = async (req, res) => {
     // console.log(password);
     const hash = bcrypt.hashSync(req.body.password, salt)
 
-    const userData = { email: req.body.email, userName: req.body.userName, password: hash, role: 'customer' }
+    const userData = { email: req.body.email, userName: req.body.userName, phoneNumber: req.body.phoneNumber, password: hash, role: 'customer' }
 
     try {
         const user = await models.users.create(userData);

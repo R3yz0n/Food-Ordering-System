@@ -14,24 +14,24 @@ const Form = () => {
           </aside>
 
           <aside className="flex flex-col  h-20 gap-1  md:w-[48%] ">
-            <label htmlFor="">Phone number</label>
-            <input  className=" border-gray-400 bg-gray-50 border rounded focus:outline-transparent px-3 text-base font-normal py-[3px]"  type="text" placeholder="+977987812319"/>
+            <label htmlFor="">Address</label>
+            <input  className=" border-gray-400 bg-gray-50 border rounded focus:outline-transparent px-3 text-base font-normal py-[3px]"  type="text" placeholder="Kalikanagar, Butwal"/>
             {/* <p className="text-red-500 text-sm font-medium ">Error</p> */}
           </aside>
         </div>
 
       
           <aside className="flex flex-col gap-1 h-[85px]">
-            <label htmlFor="">Address</label>
-            <input    className=" border-gray-400 bg-gray-50 border rounded h-8"   type="text"   />
+            <label htmlFor="">Email Address</label>
+            <input  placeholder="myemailaddress@email.com"  className=" border-gray-400 bg-gray-50 border rounded h-8 focus:outline-none text-base px-3 font-normal"   type="text" />
             {/* <p className="text-red-500 text-sm font-medium ">Error</p> */}
           </aside>
      
 
       
               <aside className="flex flex-col h-[85px] gap-1">
-            <label htmlFor="">Address</label>
-            <input    className=" border-gray-400 bg-gray-50 border rounded h-8"   type="text"   />
+            <label htmlFor="">Phone number</label>
+            <input placeholder="+97798765432132"   className=" border-gray-400 bg-gray-50 border rounded h-8 focus:outline-none px-3 text-base font-normal"   type="text"   />
             {/* <p className="text-red-500 text-sm font-medium ">Error</p> */}
           </aside>
         

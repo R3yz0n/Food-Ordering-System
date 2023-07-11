@@ -44,7 +44,7 @@ const Header = () => {
 
             <nav className='flex items-center justify-center gap-8'>
 
-                <nav className='hidden md:flex items-center justify-center gap-16 '>
+                <nav className='hidden md:flex items-center justify-center gap-16 font-sans'>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/'}>Home</NavLink>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/menu'}>Menu</NavLink>
                     <NavLink className={({ isActive }) => isActive ? isActiveStyles : isNotActiveStyles} to={'/about'}>About</NavLink>
