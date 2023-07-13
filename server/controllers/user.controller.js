@@ -49,6 +49,8 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
 
+    console.log('here');
+
     try {
         const user = await models.users.findOne({
             where: { id: req.params.id },
@@ -74,6 +76,83 @@ const getUser = async (req, res) => {
 };
 
 
+const updateUser =async(req,res)=>{
+
+
+    const id = req.params.id;
+
+
+
+    try {
+        const isExists = await models.users.findOne({ where: { id: id } })
+        // console.log(isExists);
+        if (!isExists)
+            return res.status(404).json({
+                message: "User not found."
+            })
+    }
+    catch (error) {
+
+        res.status(500).json({
+            message: "Something went wrong",
+            error: error
+        })
+
+    }
+    console.log(req.body);
+
+    const userToUpdate = {
+        userName: req.body.userName,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address,
+    }
+    // console.log(postToCreate);
+    // console.log(userToUpdate);
+
+
+    try {
+        const result = await models.users.update(userToUpdate, {
+            where: { id: id },
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+
+        })
+
+        if (!result[0]) {
+
+
+            return res.status(409).json(
+                {
+                    message: "Update unsuccessful."
+                }
+            )
+
+
+        }
+        console.log('updated sucessful');
+        console.log(result);
+
+        return res.status(200).json(
+            {
+                message: "Update successfull.",
+                updatedUser: userToUpdate
+            }
+        )
+
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            message: "Something went wrong.",
+            error: error
+        })
+
+
+    }
+
+
+
+}
 
 
 
@@ -84,5 +163,6 @@ const getUser = async (req, res) => {
 
 module.exports = {
     getAllUsers: getAllUsers,
-    getUser: getUser
+    getUser: getUser,
+    updateUser:updateUser
 }

@@ -27,12 +27,12 @@ const Main = () => {
 
         }
 
-    }, [userData, dispatch]);
+    }, [userData?.id, userData?.role, dispatch]);
 
     useEffect(() => {
 
         dispatch(calculateTotalQuantity())
-    }, [cartItems])
+    }, [cartItems, dispatch])
 
     return (
         <main className='w-full min-h-screen  bg-primary'>

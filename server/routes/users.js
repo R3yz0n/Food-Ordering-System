@@ -7,6 +7,7 @@ const userController = require('../controllers/user.controller')
 
 router.get('/', checkAuthentication, checkRole, userController.getAllUsers)
 router.get('/:id', checkAuthentication, userController.getUser)
+router.patch('/:id', checkAuthentication, userController.updateUser)
 
 
 module.exports = router;
