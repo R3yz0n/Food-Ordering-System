@@ -49,10 +49,10 @@ const Home = () => {
                     </article>
 
 
-                 <Link to='/menu'>
-                 <motion.button {...btnClick} className='bg-orange-600 px-10 py-2 text-xl rounded-md tracking-wide hover:bg-orange-500 shadow-orange-500 text-white font-semibold shadow-sm font-sans'>
-                     Order Now 
-                    </motion.button>
+                    <Link to='/menu'>
+                        <motion.button {...btnClick} className='bg-orange-500 px-10 py-2 text-xl rounded-md tracking-wide hover:bg-orange-400 shadow-orange-500 text-white font-semibold shadow-sm font-sans'>
+                            Order Now
+                        </motion.button>
                     </Link>
 
                 </main>
@@ -62,7 +62,7 @@ const Home = () => {
 
 
                     <main className=' w-full md:w-460 ml-0 grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center  justify-center gap-6 gap-y-8  h-full relative  '>
-                    
+
                         {
                             PopularFood.map(
                                 (food, i) =>

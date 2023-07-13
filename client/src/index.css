@@ -41,6 +41,6 @@ body::-webkit-scrollbar {
 }
 
 .profilecard {
-  box-shadow: 0px 0px 2px rgb(141, 137, 137) !important;
+  box-shadow: 0px 0px 1px rgb(141, 137, 137) !important;
 
 }

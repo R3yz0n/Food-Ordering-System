@@ -48,7 +48,7 @@ const Cart = () => {
 
         <CartOverlay>
 
-            <motion.main className='fixed z-50 top-0 right-0 w-full sm:w-508   shadow-md h-screen bg-gradient-to-r from-rose-100 to-teal-100 '  {...slideLeft}>
+            <motion.main className='fixed z-50 top-0 right-0 w-full sm:w-508   shadow-md h-screen bg-gradient-to-r from-rose-100 to-teal-100  select-text'  {...slideLeft}>
 
                 <CartHeader />
 
@@ -80,7 +80,7 @@ const Cart = () => {
 
                     {
 
-                        !loading && cartItems.length === 0 && <motion.aside {...fadeInOut} className='w-full flex mt-28 flex-col gap-2 '>
+                        !loading && cartItems.length === 0 && <motion.aside {...fadeInOut} className='w-full flex mt-28 flex-col gap-2  select-none'>
 
                             <img className='w-40  mx-auto' src={EmptyCart} alt="Empty Cart" />
                             <p className='text-gray-200 font-semibold text-center text-lg' >Your cart is empty</p>
