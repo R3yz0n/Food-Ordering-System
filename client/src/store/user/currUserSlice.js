@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUser, updateUser } from "./currUserAction";
+import { getUser } from "./currUserAction";
 
 const initialState = {
   loading: false,
@@ -14,7 +14,7 @@ const currUserSlice = createSlice({
 
   reducers: {
     clearFields: (state, { payload }) => {
-      console.log("clearing fields");
+      // console.log("clearing fields");
       state.success = false;
       state.loading = false;
       state.error = null;
