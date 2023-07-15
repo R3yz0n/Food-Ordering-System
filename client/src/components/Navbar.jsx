@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import FoodZone from '../assests/FoodZone.png'
 import { isActiveStyles, isNotActiveStyles } from '../utils/nav'
@@ -9,13 +9,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../assests/Avatar.png'
 import { logout } from '../store/user/authSlice'
 import { clearUserData } from '../store/user/currUserSlice'
-import { calculateTotalQuantity, clearCartData, clearFields, showCart } from '../store/cart/cartSlice'
-import { getAllCartItems } from '../store/cart/cartAction'
+import { clearCartData, showCart } from '../store/cart/cartSlice'
+import { APIURL } from '../utils/constants'
 
 const Header = () => {
 
     const [isMenu, setIsMenu] = useState(false)
-    const { totalQuantity, cartItems } = useSelector(state => state.cart)
+    const { totalQuantity } = useSelector(state => state.cart)
     const { userData } = useSelector(state => state.currUser)
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -69,7 +69,7 @@ const Header = () => {
                         <div className='relative cursor-pointer ' onMouseEnter={() => setIsMenu(true)} onMouseLeave={() => setIsMenu(false)} >
                             <div className='w-14 h-14 rounded-full shadow-md cursor-pointer overflow-hidden bg-green-200 flex items-center justify-center border-[1px] border-orange-700'>
 
-                                <motion.img className='w-full h-full object-cover' src={userData?.image ? userData.image : Avatar}
+                                <motion.img className='w-full h-full object-cover' src={userData?.image ? `${APIURL}/file/${userData.image}` : Avatar}
                                     whileHover={{ scale: 1.1 }} referrerPolicy='no-referrers' />
 
                             </div>
