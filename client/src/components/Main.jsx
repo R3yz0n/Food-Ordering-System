@@ -10,6 +10,7 @@ import Cart from './cart/Cart'
 import { useDispatch, useSelector } from 'react-redux'
 import { calculateTotalQuantity, clearFields } from '../store/cart/cartSlice'
 import { getAllCartItems } from '../store/cart/cartAction'
+import LoggedInUserRoute from '../helpers/LoggedInUserRoute'
 
 
 const Main = () => {
@@ -42,7 +43,13 @@ const Main = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/menu' element={<Menu />} />
-                <Route path='/profile' element={<Profile />} />
+                <Route path='/profile' element={
+                    <LoggedInUserRoute>
+
+                        <Profile />
+                    </LoggedInUserRoute>
+                }
+                />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='*' element={<PageNotFound />} />
 

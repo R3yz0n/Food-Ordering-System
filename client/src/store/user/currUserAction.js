@@ -3,16 +3,11 @@ import axios from "axios";
 import { APIURL } from "../../utils/constants";
 import { toast } from "react-hot-toast";
 import { getToken } from "../getToken";
-const token = localStorage.getItem("userToken");
-const authHeaders = { headers: { Authorization: `Bearer ${token}` } };
 
 export const getUser = createAsyncThunk(
   "currUser-fetch",
   async (values, { rejectWithValue }) => {
     try {
-      const authHeaders = {
-        headers: { Authorization: `Bearer ${values.token}` },
-      };
       const res = await axios.get(
         `${APIURL}/user/${values.userId}`,
         getToken()
@@ -67,14 +62,18 @@ export const updateProfilePicture = createAsyncThunk(
   "currUser-profilePicture",
   async (values, { rejectWithValue }) => {
     try {
-      //   console.log(values);
-      const res = await axios.patch(
-        `${APIURL}/user/${values.id}`,
-        values,
+      const fileRes = await axios.post(
+        `${APIURL}/file/user`,
+        values.formData,
         getToken()
       );
-      //   console.log(res);
-      toast.success("Profile updated.");
+      const image = fileRes.data.url;
+      const res = await axios.patch(
+        `${APIURL}/user/picture/${values.userId}`,
+        { image: image },
+        getToken()
+      );
+      toast.success("Profile Picture updated.");
       return res.data;
     } catch (error) {
       // console.log(error);

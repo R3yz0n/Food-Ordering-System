@@ -9,9 +9,10 @@ import Avatar from '../../assests/Avatar.png'
 import { logout } from '../../store/user/authSlice'
 import { clearUserData } from '../../store/user/currUserSlice'
 import { useLocation } from 'react-router-dom'
-import { searchItems } from '../../store/product/productAction'
-import { clearFields } from '../../store/product/productSlice'
+// import { searchItems } from '../../store/product/productAction'
+// import { clearFields } from '../../store/product/productSlice'
 import { clearSearchFields, getSearchInput } from '../../store/searchSlice'
+import { APIURL } from '../../utils/constants'
 
 const DBHeader = () => {
     const [search, setSearch] = useState({ searchKeyword: '', category: 'all', status: false })
@@ -28,7 +29,7 @@ const DBHeader = () => {
         dispatch(clearSearchFields())
 
         setSearch({ searchKeyword: '', category: 'all', status: false })
-    }, [pathname])
+    }, [pathname, dispatch])
 
     useEffect(() => {
         const { searchKeyword } = search
@@ -72,8 +73,9 @@ const DBHeader = () => {
 
                     <div className='flex items-center  justify-center gap-2'>
 
+
                         <div className='w-10 h-10 rounded-md shadow-md cursor-pointer overflow-hidden'>
-                            <motion.img className='w-full h-full object-cover rounded-md' src={userData?.image ? userData.image : Avatar}
+                            <motion.img className='w-full h-full object-cover rounded-md' src={userData?.image ? `${APIURL}/file/${userData.image}` : Avatar}
                                 whileHover={{ scale: 1.1 }} referrerPolicy='no-referrers' />
                         </div>
 
