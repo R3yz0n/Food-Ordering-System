@@ -49,7 +49,7 @@ const DBHeader = () => {
 
             {/* left */}
             <h3 className='text-2xl text-headingColor font-extrabold  font-sans ' >DASHBOARD
-                {userData && <h6 className='block text-base text-black font-semibold'>Welcome {userData?.userName} to the dashboard .</h6>}
+                {userData && <p className='block text-base text-black font-semibold'>Welcome {userData?.userName} to the dashboard .</p>}
             </h3>
 
             {/* right */}

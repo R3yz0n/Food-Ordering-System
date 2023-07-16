@@ -3,7 +3,7 @@ import Overlay from '../../../common/Overlay'
 import { useFormik } from 'formik';
 import { addItemSchema } from '../../../schema/index'
 import { motion } from 'framer-motion';
-import { btnClick, error, fade, fadeInOut, slideTop, straggerFadeInOut } from '../../../animations';
+import { btnClick, fade, fadeInOut, slideTop } from '../../../animations';
 import DragDrop from '../../../utils/DragDrop'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateItem } from '../../../store/product/productAction';
@@ -18,27 +18,26 @@ const EditItem = ({ hideEditModal, selectItem }) => {
     const initialValues = { name: selectItem.name, category: selectItem.category, price: selectItem.price, file: selectItem.image };
 
     const dispatch = useDispatch()
-    const product = useSelector(state => state.product)
     const { userData } = useSelector(state => state.currUser)
     const [isFile, setIsFile] = useState('one')
 
-    const { values, errors, handleBlur, touched, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
+    const { values, errors, handleBlur, touched, handleChange, handleSubmit, setFieldValue } = useFormik({
         initialValues: initialValues,
         validationSchema: addItemSchema,
         onSubmit: async (values, action) => {
             // console.log(values);
             values.userId = userData.id
             values.id = selectItem.id
-
+            // console.log(values);
+            values.image = selectItem.image
             dispatch(updateItem(values)).then(() => {
 
-                console.log('hello');
 
                 setTimeout(() => {
                     dispatch(clearFields())
                     hideEditModal(true)
 
-                }, 10);
+                }, 1800);
             })
 
 
@@ -140,7 +139,7 @@ const EditItem = ({ hideEditModal, selectItem }) => {
                                 }
                                 {
                                     (isFile === 'three') && values?.file &&
-                                    <div className='backdrop-blur-md  w-full h-[300px] bg-black rounded-md cursor-pointer flex flex-col relative b'>
+                                    <div className='backdrop-blur-md  w-full h-[300px] bg-black rounded-md cursor-pointer flex flex-col relative '>
 
                                         <FaTrash className='right-1 top-1 z-30 absolute p-[6px] text-3xl text-gray-200 rounded-full bg-red-600' onClick={() => { setFieldValue('file', null); setIsFile('two') }} />
 

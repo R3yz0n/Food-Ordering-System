@@ -28,4 +28,11 @@ router.post(
   fileController.uploadFile
 );
 
+router.put(
+  "/:filename",
+  checkAuthentication,
+  fileUploader.update,
+  fileController.updateFile
+);
+
 module.exports = router;

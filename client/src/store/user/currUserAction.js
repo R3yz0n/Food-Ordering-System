@@ -62,11 +62,19 @@ export const updateProfilePicture = createAsyncThunk(
   "currUser-profilePicture",
   async (values, { rejectWithValue }) => {
     try {
-      const fileRes = await axios.post(
-        `${APIURL}/file/user`,
-        values.formData,
-        getToken()
-      );
+      // console.log(values);
+      var fileRes = null;
+      if (values.prevFile) {
+        fileRes = await axios.put(
+          `${APIURL}/file/${values.prevFile}`,
+          values.formData,
+          getToken()
+        );
+        // console.log(values.prevFile);
+        // console.log(fileRes);
+      }
+      fileRes = await axios.post(`${APIURL}/file`, values.formData, getToken());
+
       const image = fileRes.data.url;
       const res = await axios.patch(
         `${APIURL}/user/picture/${values.userId}`,

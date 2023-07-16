@@ -35,9 +35,9 @@ const App = () => {
   useEffect(() => {
     // console.log(currUser.error);
     if (currUser.error) {
-      dispatch(logout());
-      dispatch(clearUserData());
-      navigate("/login");
+      // dispatch(logout());
+      // dispatch(clearUserData());
+      // navigate("/login");
     }
   }, [currUser.error, dispatch, navigate]);
 
