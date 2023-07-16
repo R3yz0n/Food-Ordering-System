@@ -42,12 +42,15 @@ const Profile = () => {
 
   const uploadPicture = async () => {
     if (file === null)
-      toast.error("Please select picture")
+      return toast.error("Please select picture")
     const formData = new FormData()
     formData.append('file', file)
     try {
       const userId = userData.id
-      await dispatch(updateProfilePicture({ formData, userId })).unwrap()
+      // console.log(userData.image);
+      let prevFile = userData.image ? userData.image : null
+
+      await dispatch(updateProfilePicture({ formData, userId, prevFile })).unwrap()
       await dispatch(getUser({ userId })).unwrap()
       setFile(null)
       dispatch(clearFields())

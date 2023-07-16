@@ -15,7 +15,7 @@ const Items = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectItem, setSelectItem] = useState('');
     const dispatch = useDispatch()
-    const { items, loading, success } = useSelector(state => state.product)
+    const { items, loading } = useSelector(state => state.product)
     const { searchValue } = useSelector(state => state.search)
 
 
@@ -40,7 +40,6 @@ const Items = () => {
         setShowEditModal(state => !state)
         // the fetching items will only be called after successful deleteion
 
-        console.log('ran');
         if (status === true)
             await dispatch(getAllItems()).then(() => dispatch(clearFields()))
 
