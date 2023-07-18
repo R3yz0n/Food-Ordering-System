@@ -49,6 +49,7 @@ const Banner = () => {
         alt="Banner Bg"
         style={{ ...styles }}
       />
+      {}
     </section>
   );
 };
