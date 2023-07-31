@@ -8,6 +8,10 @@ env.config({ path: ".env.local" });
 
 const register = async (req, res) => {
   try {
+   
+
+
+
     //check existing user
     const user = await models.users.findOne({
       where: {
