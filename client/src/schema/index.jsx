@@ -5,7 +5,7 @@ export const registrationSchema = Yup.object({
 
     userName: Yup.string()
         .matches(/^[a-zA-Z\s]+$/, 'Name can only contain alphabetical characters.')
-        .min(5, 'Fullname must be at least 5 characters long.')
+        .min(4, 'Fullname must be at least 4 characters long.')
         .max(30, 'Fullname cannot be longer than 30 characters.')
         .required('Fullname is required.'),
 

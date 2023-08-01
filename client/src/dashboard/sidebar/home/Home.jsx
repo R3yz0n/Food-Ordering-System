@@ -44,6 +44,7 @@ const Home = () => {
             setUserStats(userStats.data)
             const itemStats = await axios.get(`${APIURL}/latest/items`, getToken())
             setitemStats(itemStats.data)
+            console.log(itemStats);
 
 
 
@@ -62,6 +63,8 @@ const Home = () => {
         fetchDatas()
 
     }, [])
+
+    console.log(itemStats);
 
 
 

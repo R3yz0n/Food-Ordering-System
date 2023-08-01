@@ -23,7 +23,6 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // console.log('fetching user data...');
 
     if (token && userId) {
       dispatch(getUser({ token, userId })).then((res) => {
@@ -33,11 +32,11 @@ const App = () => {
   }, [token, userId, dispatch]);
 
   useEffect(() => {
-    // console.log(currUser.error);
+    console.log(currUser.error);
     if (currUser.error) {
-      // dispatch(logout());
-      // dispatch(clearUserData());
-      // navigate("/login");
+      dispatch(logout());
+      dispatch(clearUserData());
+      navigate("/login");
     }
   }, [currUser.error, dispatch, navigate]);
 
@@ -49,10 +48,8 @@ const App = () => {
     <main className="">
       {currUser.loading && <MainLoader />}
       <ProgressBar />
-
       <Routes>
         <Route path="/*" element={<Main />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
