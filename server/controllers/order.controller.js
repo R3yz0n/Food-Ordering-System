@@ -4,34 +4,86 @@ const { Op } = require('sequelize');
 
 
 const createOrder = async (req, res) => {
-    console.log();
-    // Retrieve cart items
-    const cartItems = await models.cartItem.findAll({
-        where: { cartId: 1 },
-        // include: { model: models. },
-        attributes: ['itemId', 'quantity']
-    });
-    console.log(cartItems);
-    // res.json(cartItems)
+    const transaction = await models.sequelize.transaction(); // Start a transaction
+    // console.log(transaction);
+    try {
+        // Retrieve cart items
+        const cartItems = await models.cartItem.findAll({
+            where: { cartId: 1 },
+            // include: { model: models. },
+            attributes: ['itemId', 'quantity']
+        });
+        // console.log(cartItems);
+        // res.json(cartItems)
 
 
-    const itemIds=cartItems.map((item=>item.itemId))
-    const allItems=await models.items.findAll({
-        where:{id:itemIds},
-        attributes:['id', 'name','price','image','category']
-    })
+        const itemIds = cartItems.map((item => item.itemId))
+        const allItems = await models.items.findAll({
+            where: { id: itemIds },
+            attributes: ['id', 'name', 'price', 'image', 'category']
+        })
 
-    console.log(allItems);
-    return res.json(allItems)
-    // const order = await models.order.create(
-    //     {
-    //         userId: 1,
-    //         totalAmount: 1
-    //     }
-    // )
+        const itemsWithQuantities = allItems.map(item => {
+            const cartItem = cartItems.find(cartItem => cartItem.itemId === item.id);
+            return {
+                id: item.id,
+                price: item.price,
+                quantity: cartItem ? cartItem.quantity : 0
+            };
+        });
 
 
-    const orderItems = await models.orderItems.create
+
+        const totalAmount = itemsWithQuantities.reduce((sum, item) => {
+            const itemTotal = item.quantity * item.price;
+            // console.log(`${item.name} - Price: ${item.price}, Quantity: ${item.quantity}, Total: ${itemTotal}`);
+            return sum + itemTotal;
+        }, 0);
+
+        // console.log(`Total Amount: ${totalAmount}`);
+
+
+        // res.json(orderItemsToCreate)
+        const order = await models.orders.create({
+            userId: 1,
+            totalAmount: totalAmount,
+            status: "Preparing"
+
+        }, { transaction })
+
+        const orderItemsToCreate = itemsWithQuantities.map(item => {
+            return {
+                itemId: item.id,
+                orderId: order.id,
+                quantity: item.quantity
+            }
+
+        }
+
+        )
+        const createOrderItems = await models.orderItems.bulkCreate(orderItemsToCreate, { transaction }); //passing transaction
+        await transaction.commit(); // Commit the transaction
+
+        // res.json('okay')
+        console.log(createOrderItems);
+        res.status(201).json(createOrderItems);
+    }
+    catch (err) {
+        await transaction.rollback(); // Rollback the transaction on error
+
+        console.log(err.message);
+        return res.json({
+            error: err.message,
+            message: 'Failed to place an order.'
+
+
+        })
+    }
+
+
+
+
+
 
 
 
