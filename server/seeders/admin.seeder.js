@@ -16,7 +16,7 @@ module.exports = {
                 phoneNumber: '9847098470',
                 address: 'NewYork,USA',
                 role: 'admin',
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87M74uZMnhNf_sZBXAm1pIIgKL9lznN_jNX1b7qfxgTz45trmOCYh5e1-6A53A4lynfGjOA&s',
+                // image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS87M74uZMnhNf_sZBXAm1pIIgKL9lznN_jNX1b7qfxgTz45trmOCYh5e1-6A53A4lynfGjOA&s',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -24,7 +24,7 @@ module.exports = {
     },
 
     down: async (queryInterface, Sequelize) => {
-        // Remove the inserted admin details
+        // Remove the inserted admin details    
         await queryInterface.bulkDelete('Admins', null, {});
     }
 };
