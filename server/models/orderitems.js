@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class orderItems extends Model {
 
     static associate(models) {
-      
+
     }
   }
   orderItems.init({
@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'CASCADE',
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
 
 
   }, {
