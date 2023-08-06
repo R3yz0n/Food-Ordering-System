@@ -227,8 +227,13 @@ const getCartItems = async (req, res) => {
                 attributes: ['itemId', 'quantity'],
             },
         });
+        console.log('--------------------------------');
+        // console.log(cart);
+        // if (!cart)
+        //     return res.status(200).json([])
 
         const cartItems = cart ? cart.cartItems : [];
+        console.log(cartItems);
 
         if (!cartItems.length) {
             return res.status(200).json(cartItems);
@@ -259,7 +264,10 @@ const getCartItems = async (req, res) => {
             quantity: item?.cartItems[0]?.quantity,
         }));
 
-        res.status(200).json(itemsWithQuantity);
+        res.status(200).json({
+            cartId: cart.id,
+            cartItems: itemsWithQuantity
+        });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({
