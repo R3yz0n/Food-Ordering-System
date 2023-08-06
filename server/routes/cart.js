@@ -5,7 +5,7 @@ const { addItemToCart, getCartItems, incrementQuantity, decrementQuantity } = re
 const router = express.Router();
 
 router.post('/', checkAuthentication, addItemToCart)
-router.get('/:userId', checkAuthentication, getCartItems)
+router.get('/:userId', getCartItems)
 router.put('/increment/:itemId', checkAuthentication, incrementQuantity)
 router.put('/decrement/:itemId', checkAuthentication, decrementQuantity)
 
