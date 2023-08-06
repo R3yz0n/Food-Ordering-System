@@ -7,9 +7,10 @@ const createOrder = async (req, res) => {
     const transaction = await models.sequelize.transaction(); // Start a transaction
     // console.log(transaction);
     try {
+        console.log(req.body);
         // Retrieve cart items
         const cartItems = await models.cartItem.findAll({
-            where: { cartId: 1 },
+            where: { cartId: req.body.cartId },
             // include: { model: models. },
             attributes: ['itemId', 'quantity']
         });
@@ -45,7 +46,7 @@ const createOrder = async (req, res) => {
 
         // res.json(orderItemsToCreate)
         const order = await models.orders.create({
-            userId: 1,
+            userId: req.body.userId,
             totalAmount: totalAmount,
             status: "Preparing"
 
@@ -62,11 +63,18 @@ const createOrder = async (req, res) => {
 
         )
         const createOrderItems = await models.orderItems.bulkCreate(orderItemsToCreate, { transaction }); //passing transaction
+        await models.cart.destroy({
+            where: {
+                id: req.body.cartId
+            }
+        })
         await transaction.commit(); // Commit the transaction
 
         // res.json('okay')
         console.log(createOrderItems);
-        res.status(201).json(createOrderItems);
+        res.status(201).json({
+            message: "Your order has been placed."
+        });
     }
     catch (err) {
         await transaction.rollback(); // Rollback the transaction on error
@@ -74,7 +82,7 @@ const createOrder = async (req, res) => {
         console.log(err.message);
         return res.json({
             error: err.message,
-            message: 'Failed to place an order.'
+            message: 'Failed to place  an order.'
 
 
         })
@@ -87,6 +95,34 @@ const createOrder = async (req, res) => {
 
 
 
+
+}
+
+const getUserAllOrder = async (req, res) => {
+
+    try {
+        const userOrders = await models.orders.findAll(
+            {
+                where: {
+                    userId: req.params.userId
+                },
+                attributes: ['id', 'totalAmount', 'status', 'createdAt']
+            }
+        )
+
+
+        res.status(200).json(userOrders)
+    }
+    catch (err) {
+        console.log(err.message);
+        return res.json({
+            error: err.message,
+            message: 'Failed to get orders.'
+
+
+        })
+
+    }
 
 }
 
@@ -107,6 +143,7 @@ const createOrder = async (req, res) => {
 
 
 module.exports = {
-    createOrder: createOrder
+    createOrder: createOrder,
+    getUserAllOrder: getUserAllOrder
 
 }
