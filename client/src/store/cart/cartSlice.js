@@ -9,6 +9,7 @@ const initialState = {
   cartItems: [],
   totalQuantity: 0,
   totalPrice: 0,
+  cartId: null
 };
 
 const cartSlice = createSlice({
@@ -23,6 +24,7 @@ const cartSlice = createSlice({
       state.error = null;
       state.loading = false;
       state.success = false;
+      state.cartId = null
       // localStorage.removeItem("cartItemsTotal");
     },
     clearFields: (state, { payload }) => {
@@ -36,6 +38,8 @@ const cartSlice = createSlice({
     },
 
     calculateTotalQuantity: (state, { payload }) => {
+      // console.log(payload);
+      // console.log(state.cartItems);
       if (payload && state.error === null) {
         // console.log(state.error);
         state.totalQuantity = state.totalQuantity + 1;
@@ -46,6 +50,7 @@ const cartSlice = createSlice({
           return total + item.quantity;
         }, 0);
       }
+
     },
     calculateTotalPrice: (state, { payload }) => {
       state.totalPrice = state.cartItems.reduce((accumulator, cartItem) => {
@@ -55,7 +60,12 @@ const cartSlice = createSlice({
       }, 0);
       console.log(state.totalPrice);
     },
+    clearCartItems: (state) => {
+      state.cartItems = []
+
+    },
   },
+
 
   extraReducers: {
     [addToCart.fulfilled]: (state, { payload }) => {
@@ -77,7 +87,8 @@ const cartSlice = createSlice({
     [getAllCartItems.fulfilled]: (state, { payload }) => {
       // console.log(payload);
       state.success = true;
-      state.cartItems = payload;
+      state.cartItems = payload.cartItems || payload;
+      state.cartId = payload.cartId;
       state.error = null;
       state.loading = false;
     },
@@ -101,4 +112,5 @@ export const {
   calculateTotalQuantity,
   clearCartData,
   calculateTotalPrice,
+  clearCartItems
 } = cartSlice.actions;
