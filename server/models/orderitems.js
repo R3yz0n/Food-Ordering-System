@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class orderItems extends Model {
 
     static associate(models) {
-
+      models.orderItems.belongsTo(models.orders)
+      models.orderItems.belongsTo(models.items)
     }
   }
   orderItems.init({
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'carts',
+        model: 'orders',
         key: 'id',
       },
       onDelete: 'CASCADE',

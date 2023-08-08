@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 
       orders.belongsToMany(models.items, { through: models.orderItems, onDelete: 'CASCADE' });
 
+      orders.hasMany(models.orderItems)
+
     }
   }
   orders.init({
@@ -27,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
 
     },
-    
+
 
     description: DataTypes.STRING,
     status: {

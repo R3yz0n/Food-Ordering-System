@@ -99,19 +99,32 @@ const createOrder = async (req, res) => {
 }
 
 const getUserAllOrder = async (req, res) => {
+    console.log('----------------------------------------------------------------');
 
     try {
-        const userOrders = await models.orders.findAll(
-            {
-                where: {
-                    userId: req.params.userId
-                },
-                attributes: ['id', 'totalAmount', 'status', 'createdAt']
+        // console.log(req.params);
+        // const userOrders = await models.orders.findAll(
+
+        //     {
+        //         where: {
+        //             userId: req.params.userId
+        //         },
+        //         attributes: ['id', 'totalAmount', 'status', 'createdAt']
+        //     }
+        // )
+
+
+        // res.status(200).json(userOrders)
+
+        //sujan styles ""
+        console.log('----------------------------------------------------------------');
+        const prodsup = await models.orderItems.findAll({
+            where: {
+                id: 1
             }
-        )
 
-
-        res.status(200).json(userOrders)
+        })
+        // console.log(prodsup);
     }
     catch (err) {
         console.log(err.message);
@@ -123,6 +136,76 @@ const getUserAllOrder = async (req, res) => {
         })
 
     }
+
+}
+
+
+const getAnOrder = async (req, res) => {
+
+    try {
+        const orderId = req.params.orderId
+        console.log(orderId);
+        const order = await models.orders.findAll({
+            where: {
+                id: orderId
+            },
+            include: {
+                model: models.orderItems
+            }
+        })
+        console.log('orderId', order)
+        res.json(order)
+        // console.log('hi');
+        // console.log(req.params);
+
+
+    }
+    catch (err) {
+        console.log(err);
+
+    }
+
+
+}
+
+const cancelOrder = async (req, res) => {
+
+    try {
+        console.log(req.params.orderId);
+
+        const doesExist = await models.orders.findOne({
+            where: { id: req.params.orderId }
+        })
+        console.log(doesExist);
+        if (!doesExist)
+            return res.status(404).json({
+                message: "Order not found."
+            })
+
+
+        const order = await models.orders.findByPk(req.params.orderId)
+        // console.log(order);
+        const updatedOrder = await models.orders.update({
+            status: "Cancelled"
+        }, {
+            where: {
+                id: req.params.orderId
+            }
+        })
+        console.log(updatedOrder)
+        if (updatedOrder[0])
+            res.status(200).json({
+                message: "Order cancelled."
+            })
+    }
+    catch (err) {
+        res.json(500).json({
+            error: err.message,
+            message: "Something went wrong."
+        })
+
+    }
+
 
 }
 
@@ -140,10 +223,10 @@ const getUserAllOrder = async (req, res) => {
 
 
 
-
-
 module.exports = {
     createOrder: createOrder,
-    getUserAllOrder: getUserAllOrder
+    getUserAllOrder: getUserAllOrder,
+    getAnOrder: getAnOrder,
+    cancelOrder: cancelOrder
 
 }

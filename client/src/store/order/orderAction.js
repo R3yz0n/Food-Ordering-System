@@ -35,10 +35,11 @@ export const getUserAllOrder = createAsyncThunk(
     async (values, { rejectWithValue }) => {
 
         try {
-            const res = await axios.get(`${APIURL}/order/${values.id}`, values, getToken());
+            // console.log(values);
+            const res = await axios.get(`${APIURL}/order/all/${values.userId}`, values, getToken());
             console.log(res);
-            toast.success(res.data.message)
-            return res.data.message;
+            // toast.success(res.data.message)
+            return res.data;
 
         } catch (error) {
             // console.log(error);

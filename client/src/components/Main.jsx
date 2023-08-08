@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { calculateTotalQuantity, clearFields } from "../store/cart/cartSlice";
 import { getAllCartItems } from "../store/cart/cartAction";
 import LoggedInUserRoute from "../helpers/LoggedInUserRoute";
-import Order from "./order/Order";
+import Orders from "./order/Orders";
 
 const Main = () => {
   const { isCartOn, cartItems } = useSelector((state) => state.cart);
@@ -31,7 +31,7 @@ const Main = () => {
   }, [cartItems, dispatch]);
 
   return (
-    <main className="w-full min-h-screen  bg-primary">
+    <main className="w-full min-h-screen  bg-primary ">
       <Navbar />
 
       {isCartOn && <Cart />}
@@ -47,7 +47,7 @@ const Main = () => {
           }
         />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/user-orders" element={<Order />} />
+        <Route path="/user-orders" element={<Orders />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </main>
