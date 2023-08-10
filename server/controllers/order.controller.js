@@ -99,32 +99,27 @@ const createOrder = async (req, res) => {
 }
 
 const getUserAllOrder = async (req, res) => {
-    console.log('----------------------------------------------------------------');
+
 
     try {
         // console.log(req.params);
-        // const userOrders = await models.orders.findAll(
+        const userOrders = await models.orders.findAll(
 
-        //     {
-        //         where: {
-        //             userId: req.params.userId
-        //         },
-        //         attributes: ['id', 'totalAmount', 'status', 'createdAt']
-        //     }
-        // )
+            {
+                where: {
+                    userId: req.params.userId
+                },
+                attributes: ['id', 'totalAmount', 'status', 'createdAt'],
+                order: [['createdAt', 'DESC']] // Add this line to order by createdAt in descending order
 
-
-        // res.status(200).json(userOrders)
-
-        //sujan styles ""
-        console.log('----------------------------------------------------------------');
-        const prodsup = await models.orderItems.findAll({
-            where: {
-                id: 1
             }
+        )
 
-        })
-        // console.log(prodsup);
+
+        res.status(200).json(userOrders)
+
+
+
     }
     catch (err) {
         console.log(err.message);
@@ -143,25 +138,60 @@ const getUserAllOrder = async (req, res) => {
 const getAnOrder = async (req, res) => {
 
     try {
-        const orderId = req.params.orderId
-        console.log(orderId);
-        const order = await models.orders.findAll({
+        const findOrder = await models.orders.findByPk(req.params.orderId)
+        const status = findOrder.status
+
+        const orders = await models.orderItems.findAll({
             where: {
-                id: orderId
+                orderId: req.params.orderId
+
             },
+            attributes: ['quantity'],
             include: {
-                model: models.orderItems
+                model: models.items,
+                attributes: ['name', 'price', 'category', 'image']
+
             }
         })
-        console.log('orderId', order)
-        res.json(order)
-        // console.log('hi');
-        // console.log(req.params);
+        // console.log(orders);
+        if (!orders.length)
+            return res.status(404).json({
+                message: "Order not found."
+            })
+
+
+
+        // return res.json(orders);
+        const refactoredOrder = orders.map((order) => {
+            const { quantity, item } = order;
+            const modifiedItem = {
+                ...item.toJSON(), // Convert the Sequelize instance to a plain object
+                quantity: quantity // Add the 'quantity' property
+            };
+            return modifiedItem;
+        });
+
+        const total = refactoredOrder.reduce((sum, item) => {
+            const itemTotal = item.price * item.quantity
+
+            return sum + itemTotal
+        }, 0)
+        // res.json(total)
+        const orderList = refactoredOrder
+
+        return res.status(201).json({
+            total, orderList, status
+        })
+
 
 
     }
     catch (err) {
-        console.log(err);
+        console.log(err.message);
+        res.json({
+            message: "Something went wrong.",
+            error: err
+        })
 
     }
 
@@ -171,15 +201,20 @@ const getAnOrder = async (req, res) => {
 const cancelOrder = async (req, res) => {
 
     try {
-        console.log(req.params.orderId);
 
-        const doesExist = await models.orders.findOne({
+        const orderDoesExist = await models.orders.findOne({
             where: { id: req.params.orderId }
         })
-        console.log(doesExist);
-        if (!doesExist)
+        console.log(orderDoesExist);
+        if (!orderDoesExist)
             return res.status(404).json({
                 message: "Order not found."
+            })
+
+
+        if (!(orderDoesExist === 'Preparing'))
+            return res.status(405).json({
+                message: "Order cannot be cancelled."
             })
 
 

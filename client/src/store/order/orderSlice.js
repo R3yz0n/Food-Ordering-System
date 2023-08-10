@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserAllOrder } from "./orderAction";
+import { getOrderById, getUserAllOrder } from "./orderAction";
 
 const initialState = {
     loading: false,
     error: null,
     success: false,
-    userOrders: []
+    userOrders: [],
+    orderInfoById: {}
 
 };
 
@@ -29,7 +30,6 @@ const orderSlice = createSlice({
     },
     extraReducers: {
         [getUserAllOrder.fulfilled]: (state, { payload }) => {
-            state.success = payload;
             state.error = null;
             state.loading = false;
             state.userOrders = payload
@@ -41,6 +41,24 @@ const orderSlice = createSlice({
             state.success = false;
         },
         [getUserAllOrder.rejected]: (state, { payload }) => {
+            state.error = payload;
+            state.loading = false;
+            state.success = false;
+        },
+
+        [getOrderById.fulfilled]: (state, { payload }) => {
+            state.error = null;
+            state.loading = false;
+            // state.userOrders = payload
+            state.orderInfoById = payload
+            // console.log(payload);
+        },
+        [getOrderById.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+        },
+        [getOrderById.rejected]: (state, { payload }) => {
             state.error = payload;
             state.loading = false;
             state.success = false;

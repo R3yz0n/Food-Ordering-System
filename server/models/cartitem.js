@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-      // cartItem.hasMany(models.cart);
-      // cartItem.hasMany(models.items)
+
     }
   }
   cartItem.init({

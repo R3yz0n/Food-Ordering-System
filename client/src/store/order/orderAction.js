@@ -55,3 +55,30 @@ export const getUserAllOrder = createAsyncThunk(
         }
     }
 );
+
+
+export const getOrderById = createAsyncThunk(
+    "Fetch an order by id",
+    async (values, { rejectWithValue }) => {
+
+        try {
+            console.log(values);
+            const res = await axios.get(`${APIURL}/order/${values}`, values, getToken());
+            console.log(res);
+            // toast.success(res.data.message)
+            return res.data;
+
+        } catch (error) {
+            // console.log(error);
+
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(error.response.data.message);
+            } else {
+                // console.log(error);
+                toast.error(error.message)
+                return rejectWithValue(error.message);
+            }
+        }
+    }
+);
