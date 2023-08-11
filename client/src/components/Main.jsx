@@ -12,6 +12,7 @@ import { calculateTotalQuantity, clearFields } from "../store/cart/cartSlice";
 import { getAllCartItems } from "../store/cart/cartAction";
 import LoggedInUserRoute from "../helpers/LoggedInUserRoute";
 import Orders from "./order/Orders";
+import Order from "./order/Order";
 
 const Main = () => {
   const { isCartOn, cartItems } = useSelector((state) => state.cart);
@@ -47,7 +48,23 @@ const Main = () => {
           }
         />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/user-orders" element={<Orders />} />
+        <Route
+          path="/order"
+          element={
+            <LoggedInUserRoute>
+              <Orders />
+            </LoggedInUserRoute>
+          }
+        />
+
+        <Route
+          path="/order/:id"
+          element={
+            <LoggedInUserRoute>
+              <Order />
+            </LoggedInUserRoute>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </main>
