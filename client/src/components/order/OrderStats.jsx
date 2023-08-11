@@ -5,6 +5,8 @@ import { VscVerifiedFilled } from "react-icons/vsc";
 import { GiCancel } from "react-icons/gi";
 import { AiFillFund } from "react-icons/ai";
 import { ImStatsDots } from "react-icons/im";
+import { motion } from "framer-motion";
+import { fadeInOut, pop } from "../../animations";
 
 const OrderStats = ({ userOrders }) => {
   const completedOrdersCount = userOrders.filter(
@@ -14,7 +16,6 @@ const OrderStats = ({ userOrders }) => {
   const cancelledOrdersCount = userOrders.filter(
     (order) => order.status === "Cancelled"
   ).length;
-
   const totalMoneySpent = userOrders.reduce((sum, order) => {
     return order.totalAmount + sum;
   }, 0);
@@ -25,7 +26,10 @@ const OrderStats = ({ userOrders }) => {
         <ImStatsDots className="text-indigo-700 text-2xl" />
         Order Statistics
       </h2>
-      <div className=" bg-[rgb(214,220,229)] px-4 sm:px-1  lg:px-2  rounded-b-md   text-headingColor font-semibold order-card border-gray-300 border font-sans flex flex-col gap-3 py-4 text-[14px] sm:text-[13px] lg:text-[15px] ">
+      <motion.div
+        {...pop}
+        className=" bg-[rgb(214,220,229)] px-4 sm:px-1  lg:px-2  rounded-b-md   text-headingColor font-semibold order-card border-gray-300 border font-sans flex flex-col gap-3 py-4 text-[14px] sm:text-[13px] lg:text-[15px] "
+      >
         <h3 className="flex py-1 opacity-80 gap-2 justify-center  bg-white rounded-md px-1 lg:px-0 items-center     ">
           <FaRupeeSign className="text-xl text-red-600" />
           <span className="w-40 sm:w-32 lg:w-40   ">Total Money Spent</span>
@@ -46,11 +50,14 @@ const OrderStats = ({ userOrders }) => {
           <span className="w-48 sm:w-36 lg:w-48">Total Orders</span>
           {userOrders?.length}
         </h3>
-      </div>
+      </motion.div>
       {/* Order Illustation      */}
-      <div className=" h-[320px] w-full bg-[rgb(211,219,231)] food-item-card border-gray-300 border rounded-lg  hidden sm:block">
+      <motion.div
+        {...fadeInOut}
+        className=" h-[320px] w-full bg-[rgb(211,219,231)] food-item-card border-gray-300 border rounded-lg  hidden sm:block"
+      >
         <img src={OrderIllustration} className="min-h-full w-full" alt="" />
-      </div>
+      </motion.div>
     </section>
   );
 };

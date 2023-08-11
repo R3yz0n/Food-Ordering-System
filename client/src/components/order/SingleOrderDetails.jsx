@@ -8,6 +8,8 @@ import {
 import { APIURL } from "../../utils/constants";
 import { TbListDetails } from "react-icons/tb";
 import { AiFillStar } from "react-icons/ai";
+import { straggerFadeInOut } from "../../animations";
+import { motion } from "framer-motion";
 
 const SingleOrderDetails = ({ selectedOrderId }) => {
   const dispatch = useDispatch();
@@ -98,7 +100,8 @@ const SingleOrderDetails = ({ selectedOrderId }) => {
       </aside>
       <aside className="grid lg:grid-cols-2  mt-4 px-3 rounded-md gap-3 overflow-y-auto max-h-[345px] ">
         {orderInfoById?.orderList?.map((orderItem, index) => (
-          <div
+          <motion.div
+            {...straggerFadeInOut(index)}
             className="flex items-center   bg-white rounded-md h-min"
             key={index}
           >
@@ -120,7 +123,7 @@ const SingleOrderDetails = ({ selectedOrderId }) => {
                 {orderItem.quantity}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </aside>
     </section>

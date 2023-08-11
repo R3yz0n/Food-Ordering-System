@@ -3,6 +3,8 @@ import { BsCartCheckFill } from "react-icons/bs";
 import moment from "moment";
 import { MdArticle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { fadeInOut, straggerFadeInOut } from "../../animations";
+import { motion } from "framer-motion";
 
 const OrderHistory = ({ userOrders, handleSelectOrderId, selectedOrderId }) => {
   const navigate = useNavigate();
@@ -13,8 +15,9 @@ const OrderHistory = ({ userOrders, handleSelectOrderId, selectedOrderId }) => {
         Order History
       </h1>
       <div className=" overflow-y-auto h-full max-h-[500px] ">
-        {userOrders?.map((order) => (
-          <div
+        {userOrders?.map((order, index) => (
+          <motion.div
+            {...fadeInOut}
             key={order.id}
             className=" py-2  flex text-[13px] font-sans font-medium px-1  "
           >
@@ -40,7 +43,7 @@ const OrderHistory = ({ userOrders, handleSelectOrderId, selectedOrderId }) => {
                 Placed on {moment(order.createdAt).format("MMMM Do YYYY")}
               </h1>
             </aside>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
