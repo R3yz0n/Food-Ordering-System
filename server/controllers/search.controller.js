@@ -19,7 +19,8 @@ const searchItems = async (req, res) => {
         if (req.query.category === 'all') {
             const searchResults = await items.findAll({
                 where: {
-                    name: { [Op.startsWith]: searchQuery },
+                    name: { [Op.like]: `%${searchQuery}%`, },
+
                 },
                 attributes: { exclude: ['createdAt', 'updatedAt'] }
 
@@ -35,8 +36,8 @@ const searchItems = async (req, res) => {
             where: {
                 name: {
                     //it search any letter that matches
-                    // [Op.like]: `%${searchQuery}%`,
-                    [Op.startsWith]: searchQuery
+                    [Op.like]: `%${searchQuery}%`,
+                    // [Op.startsWith]: searchQuery
                 },
                 category: category
             },

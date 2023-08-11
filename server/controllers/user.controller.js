@@ -9,11 +9,13 @@ const getAllUsers = async (req, res) => {
   const { userName } = req.query;
   const query = userName
     ? {
-        where: {
-          userName: { [Op.startsWith]: userName },
-        },
-        attributes: { exclude: ["createdAt", "updatedAt"] },
-      }
+      where: {
+        userName: { [Op.startsWith]: userName },
+        // [Op.like]: `%${req.query.userName}%`,
+
+      },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    }
     : {};
 
   try {
