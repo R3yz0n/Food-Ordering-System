@@ -35,14 +35,12 @@ export const getUserAllOrder = createAsyncThunk(
     async (values, { rejectWithValue }) => {
 
         try {
-            // console.log(values);
-            const res = await axios.get(`${APIURL}/order/all/${values.userId}`, values, getToken());
-            console.log(res);
+            const res = await axios.get(`${APIURL}/order/user-orders/${values.userId}`, getToken());
             // toast.success(res.data.message)
             return res.data;
 
         } catch (error) {
-            // console.log(error);
+            console.log(error);
 
             if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message)
@@ -62,9 +60,32 @@ export const getOrderById = createAsyncThunk(
     async (values, { rejectWithValue }) => {
 
         try {
-            console.log(values);
-            const res = await axios.get(`${APIURL}/order/${values}`, values, getToken());
-            console.log(res);
+            const res = await axios.get(`${APIURL}/order/${values}`, getToken());
+            // toast.success(res.data.message)
+            return res.data;
+
+        } catch (error) {
+            // console.log(error);
+
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(error.response.data.message);
+            } else {
+                // console.log(error);
+                toast.error(error.message)
+                return rejectWithValue(error.message);
+            }
+        }
+    }
+);
+
+
+export const cancelOrder = createAsyncThunk(
+    "Cancel an order",
+    async (values, { rejectWithValue }) => {
+
+        try {
+            const res = await axios.patch(`${APIURL}/order/cancel/${values}`, values, getToken());
             // toast.success(res.data.message)
             return res.data;
 

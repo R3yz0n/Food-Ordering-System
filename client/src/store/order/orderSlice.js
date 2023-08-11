@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getOrderById, getUserAllOrder } from "./orderAction";
+import { cancelOrder, getOrderById, getUserAllOrder } from "./orderAction";
 
 const initialState = {
     loading: false,
@@ -23,10 +23,13 @@ const orderSlice = createSlice({
         },
 
         clearOrderData: (state) => {
-            state.loading = false;
-            state.success = false;
             state.error = null;
+            state.userOrders = []
+            state.orderInfoById = {}
         },
+
+
+
     },
     extraReducers: {
         [getUserAllOrder.fulfilled]: (state, { payload }) => {
@@ -64,9 +67,26 @@ const orderSlice = createSlice({
             state.success = false;
         },
 
+        [cancelOrder.fulfilled]: (state, { payload }) => {
+            state.error = null;
+            state.loading = false;
+            // state.userOrders = payload
+            state.orderInfoById.status = "Cancelled"
+            // console.log(payload);
+        },
+        [cancelOrder.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+        },
+        [cancelOrder.rejected]: (state, { payload }) => {
+            state.error = payload;
+            state.loading = false;
+            state.success = false;
+        },
     },
 });
 
 export default orderSlice.reducer;
-export const { clearUserData, clearFields } = orderSlice.actions;
+export const { clearOrderData, clearFields } = orderSlice.actions;
 

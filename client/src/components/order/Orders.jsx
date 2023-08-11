@@ -28,7 +28,7 @@ const Order = () => {
   };
 
   return (
-    <section className="min w-full max-h-[750px]   pt-32   pb-6 flex gap-20  ">
+    <section className="min w-full  max-h-[950px] sm:max-h-[750px]  pt-28 md:pt-32 px-3   pb-6 flex flex-col sm:flex-row justify-around  gap-6 sm:gap-3 md:px-2  relative">
       <OrderStats userOrders={userOrders} />
       <SingleOrderDetails selectedOrderId={selectedOrderId} />
       <OrderHistory
