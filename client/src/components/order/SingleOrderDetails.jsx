@@ -47,7 +47,7 @@ const SingleOrderDetails = ({ selectedOrderId }) => {
   };
 
   return (
-    <section className=" md:w-[280px] hidden z-10 md:block  lg:w-[500px] bg-gray-200 rounded-md  pb-5  ">
+    <section className="  hidden  z-10 md:block md:w-[40%]  lg:w-[500px] bg-gray-200 rounded-md  pb-5   ">
       {/* No orders */}
       <h2 className="text-lg lg:text-2xl font-semibold text-headingColor px-5  py-2 flex gap-4 w-fit bg-white rounded-tl-md  rounded-br-lg order-card  items-center z-20  ">
         <TbListDetails className="text-gray-200 text-xl lg:text-2xl h-7 w-7 opacity-80 bg-red-600 rounded-sm p-[2px]  tracking-wider" />
@@ -98,16 +98,16 @@ const SingleOrderDetails = ({ selectedOrderId }) => {
           </h4>
         )}
       </aside>
-      <aside className="grid lg:grid-cols-2  mt-4 px-3 rounded-md gap-3 overflow-y-auto max-h-[345px] ">
+      <aside className="grid lg:grid-cols-2  mt-4 px-3 rounded-md gap-3 overflow-y-auto max-h-[345px]  ">
         {orderInfoById?.orderList?.map((orderItem, index) => (
           <motion.div
             {...straggerFadeInOut(index)}
-            className="flex items-center   bg-white rounded-md h-min"
+            className="flex items-center   bg-white rounded-md h-min  gap-2 p-[2px]"
             key={index}
           >
             <img
               src={`${APIURL}/file/${orderItem.image}`}
-              className=" h-24 object-contain  w-2/5"
+              className=" h-24 object-contain  w-2/5 "
               alt="meal"
             />
             <div className="text-sm font-semibold text-headingColor truncate w-3/5">

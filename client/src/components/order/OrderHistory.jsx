@@ -3,13 +3,13 @@ import { BsCartCheckFill } from "react-icons/bs";
 import moment from "moment";
 import { MdArticle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { fadeInOut, straggerFadeInOut } from "../../animations";
+import { fadeInOut } from "../../animations";
 import { motion } from "framer-motion";
 
 const OrderHistory = ({ userOrders, handleSelectOrderId, selectedOrderId }) => {
   const navigate = useNavigate();
   return (
-    <section className="h-[570px]  max-h-full    bg-[rgb(227,231,234)] w-[90%] mx-auto sm:w-1/2  lg:w-[400px]  scrollbar-track-black pb-2 rounded-b-lg ">
+    <section className="h-[570px]  max-h-full    bg-[rgb(227,231,234)] w-[90%] mx-auto sm:w-1/2 md:w-[30%]  lg:w-[400px]  scrollbar-track-black pb-2 rounded-b-lg ">
       <h1 className="font-bold text-center tracking-wide font-sans text-lg   lg:text-xl flex gap-2 items-center food-item-card border bg-white px-7 lg:px-14 rounded-t-md py-2 mb-3 text-headingColor w-full">
         <BsCartCheckFill className="text-blue-950 text-2xl lg:text-3xl  " /> My
         Order History

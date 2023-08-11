@@ -6,6 +6,8 @@ import { TbListDetails } from "react-icons/tb";
 import { AiFillBackward, AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { clearFields } from "../../store/order/orderSlice";
+import { motion } from "framer-motion";
+import { fadeInOut, straggerFadeInOut } from "../../animations";
 
 const Order = ({ selectedOrderId }) => {
   const dispatch = useDispatch();
@@ -57,7 +59,10 @@ const Order = ({ selectedOrderId }) => {
           Back
         </button>
       </h2>
-      <aside className="bg-white mt-4 px-4 w-[96%] rounded-lg mx-auto text-textColor font-medium opacity-95 font-sans pt-3 pb-4 text-[14px] lg:text-[15px] ">
+      <motion.aside
+        className="bg-white mt-4 px-4 w-[96%] rounded-lg mx-auto text-textColor font-medium opacity-95 font-sans pt-3 pb-4 text-[14px] lg:text-[15px] "
+        {...fadeInOut}
+      >
         <h5 className="w-full flex gap-1">
           <span className=" w-28 ">Order Number</span>
           #002023{selectedOrderId}
@@ -101,10 +106,11 @@ const Order = ({ selectedOrderId }) => {
             </span>
           </h4>
         )}
-      </aside>
+      </motion.aside>
       <aside className="grid xs:grid-cols-1 sm:grid-cols-2  mt-4 px-3 rounded-md gap-3  ">
         {orderInfoById?.orderList?.map((orderItem, index) => (
-          <div
+          <motion.div
+            {...straggerFadeInOut(index)}
             className="flex items-center   bg-white rounded-md h-min gap-4 xs:gap-5 p-1"
             key={index}
           >
@@ -126,7 +132,7 @@ const Order = ({ selectedOrderId }) => {
                 {orderItem.quantity}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </aside>
     </section>

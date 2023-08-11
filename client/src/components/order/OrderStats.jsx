@@ -21,7 +21,7 @@ const OrderStats = ({ userOrders }) => {
   }, 0);
 
   return (
-    <section className=" sm:text-base flex flex-col w-[90%] sm:w-1/2  md:w-[250px] lg:w-[350px]      mx-auto">
+    <section className=" sm:text-base flex flex-col w-[90%] sm:w-1/2  md:w-[30%] lg:w-[350px]      mx-auto">
       <h2 className="bg-white py-2  lg:px-5 px-8 font-sans  sm:px-4 tracking-wider font-bold text-xl sm:text-lg lg:text-xl order-card rounded-t-lg flex items-center gap-4 text-headingColor  border-gray-300 border-t border-l">
         <ImStatsDots className="text-indigo-700 text-2xl" />
         Order Statistics
