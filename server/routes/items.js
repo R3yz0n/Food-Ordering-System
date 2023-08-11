@@ -9,14 +9,13 @@ const { getLatestItems } = require('../controllers/latest.controller')
 
 const router = express.Router();
 
-router.post('/', checkAuthentication, checkRole, itemController.addItem)
-
 router.get('/', itemController.getAllItems)
-
-router.delete('/:id', checkAuthentication, checkRole, itemController.deleteItem)
-
-router.put('/:id', checkAuthentication, checkRole, itemController.updateItem)
 router.get('/search/', searchController.searchItems)
+
+router.post('/', checkAuthentication, checkRole, itemController.addItem)
+router.delete('/:id', checkAuthentication, checkRole, itemController.deleteItem)
+router.put('/:id', checkAuthentication, checkRole, itemController.updateItem)
+
 
 
 

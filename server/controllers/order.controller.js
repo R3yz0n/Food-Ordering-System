@@ -139,7 +139,13 @@ const getAnOrder = async (req, res) => {
 
     try {
         const findOrder = await models.orders.findByPk(req.params.orderId)
+        console.log(findOrder);
+        if (findOrder === null)
+            return res.status(404).json({
+                message: "Order not found."
+            })
         const status = findOrder.status
+        console.log('--------------------------------');
 
         const orders = await models.orderItems.findAll({
             where: {
@@ -171,16 +177,16 @@ const getAnOrder = async (req, res) => {
             return modifiedItem;
         });
 
-        const total = refactoredOrder.reduce((sum, item) => {
+        const totalAmount = refactoredOrder.reduce((sum, item) => {
             const itemTotal = item.price * item.quantity
 
             return sum + itemTotal
         }, 0)
-        // res.json(total)
+        // res.json(totalAmount)
         const orderList = refactoredOrder
 
         return res.status(201).json({
-            total, orderList, status
+            totalAmount, orderList, status
         })
 
 
@@ -188,7 +194,7 @@ const getAnOrder = async (req, res) => {
     }
     catch (err) {
         console.log(err.message);
-        res.json({
+        res.status(500).json({
             message: "Something went wrong.",
             error: err
         })
@@ -210,9 +216,9 @@ const cancelOrder = async (req, res) => {
             return res.status(404).json({
                 message: "Order not found."
             })
+        // console.log(orderDoesExist);
 
-
-        if (!(orderDoesExist === 'Preparing'))
+        if (!(orderDoesExist.status === 'Preparing'))
             return res.status(405).json({
                 message: "Order cannot be cancelled."
             })
