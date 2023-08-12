@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import FoodZone from "../../assests/FoodZone.png";
 import { isActiveStyles, isNotActiveStyles } from "../../utils/nav";
-
+import DashboardIllustration from "../../assests/DashboardIllustration.png";
 const DBLeft = () => {
   return (
     <section className="h-full bg-gradient-to-r from-gray-100 to-gray-300 py-12 hidden md:flex flex-col backdrop-blur-md shadow-md min-w-210 w-300 gap-3 px-[11px] ">
@@ -67,6 +67,11 @@ const DBLeft = () => {
           Users
         </NavLink>
       </ul>
+      <img
+        src={DashboardIllustration}
+        className="absolute bottom-0  w-full h-[40%]"
+        alt="Dashboard"
+      />
     </section>
   );
 };
