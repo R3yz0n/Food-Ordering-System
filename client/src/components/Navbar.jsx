@@ -3,20 +3,26 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import FoodZone from "../assests/FoodZone.png";
 import { isActiveStyles, isNotActiveStyles } from "../utils/nav";
 import { motion } from "framer-motion";
-import { btnClick, slideTop } from "../animations";
-import { MdLogout, MdShoppingCart } from "react-icons/md";
+import { btnClick, slideLeft, slideTop } from "../animations";
+import { MdContactPage, MdLogout, MdShoppingCart } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "../assests/Avatar.png";
-import { logout } from "../store/user/authSlice";
+import { logout, toggleBurgerMenu } from "../store/user/authSlice";
 import { clearUserData } from "../store/user/currUserSlice";
 import { clearCartData, showCart } from "../store/cart/cartSlice";
 import { APIURL } from "../utils/constants";
 import { clearOrderData } from "../store/order/orderSlice";
+import { FaHamburger } from "react-icons/fa";
+import { MdFoodBank } from "react-icons/md";
+import { AiFillCloseCircle, AiTwotoneHome } from "react-icons/ai";
+import { BsInfoSquareFill } from "react-icons/bs";
+import { NavBarOverlay } from "../common/Overlay";
 
 const Header = () => {
   const [isMenu, setIsMenu] = useState(false);
   const { totalQuantity } = useSelector((state) => state.cart);
   const { userData } = useSelector((state) => state.currUser);
+  const { toShowBurgerMenu } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,16 +34,20 @@ const Header = () => {
 
     navigate("/");
   };
+  const toggleMenu = () => {
+    setIsMenu(!isMenu);
+  };
 
   return (
-    <header className="fixed backdrop-blur-sm bg-gray-100 bg-opacity-80 z-40 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20  pt-2 w-full border-[1px] border-b-gray-300">
+    <header className="fixed backdrop-blur-sm bg-gray-100 bg-opacity-80 z-40 inset-x-0 top-0 flex items-center justify-between px-6 xs:px-8 sm:px-12 md:px-20  pt-2 w-full border-[1px] border-b-gray-300 ">
       <NavLink to="/" className="flex items justify-center gap-4 ">
         <img src={FoodZone} className="w-[70px] h-[70px]" alt="FoodZone" />
-        <p className="font-semibold text-xl">Foodie.</p>
+        <p className="font-semibold text-xl hidden xs:block">Foodie.</p>
       </NavLink>
 
-      <nav className="flex items-center justify-center gap-8">
-        <nav className="hidden md:flex items-center justify-center gap-16 font-sans">
+      {toShowBurgerMenu && <MobileNavBar />}
+      <nav className="flex items-center  justify-center gap-6 lg:gap-8 ">
+        <nav className="hidden md:flex items-center justify-center gap-8 lg:gap-16 font-sans ">
           <NavLink
             className={({ isActive }) =>
               isActive ? isActiveStyles : isNotActiveStyles
@@ -75,7 +85,7 @@ const Header = () => {
         {userData?.role && localStorage.getItem("userToken") && (
           <motion.div
             {...btnClick}
-            className="relative cursor-pointer"
+            className="relative cursor-pointer "
             onClick={() => dispatch(showCart())}
           >
             <p>
@@ -93,8 +103,9 @@ const Header = () => {
         {userData?.userName && localStorage.getItem("userToken") ? (
           <div
             className="relative cursor-pointer "
-            onMouseEnter={() => setIsMenu(true)}
-            onMouseLeave={() => setIsMenu(false)}
+            // onMouseEnter={() => setIsMenu(true)}
+            // onMouseLeave={() => setIsMenu(false)}
+            onClick={toggleMenu}
           >
             <div className="w-14 h-14 rounded-full shadow-md cursor-pointer overflow-hidden bg-green-200 flex items-center justify-center border-[1px] border-orange-700">
               <motion.img
@@ -109,12 +120,13 @@ const Header = () => {
 
             {isMenu && (
               <motion.div
-                className="px-6 py-4 bg-gray-200 backdrop-blur-md rounded-md absolute top-13 right-0 flex flex-col gap-4 w-48 "
+                className="px-6 py-4 bg-gray-200 backdrop-blur-md rounded-md absolute top-13 -right-24 sm:right-0 flex flex-col gap-4 w-48  "
                 {...slideTop}
               >
                 {userData.role === "admin" && (
                   <Link
-                    className="hover:text-red-500 text-xl text-textColor "
+                    onClick={toggleMenu}
+                    className="hover:text-red-500 text-xl text-textColor  "
                     to="/dashboard/home"
                   >
                     Dashboard
@@ -122,6 +134,7 @@ const Header = () => {
                 )}
 
                 <Link
+                  onClick={toggleMenu}
                   className="hover:text-red-500 text-xl text-textColor "
                   to="/profile"
                 >
@@ -129,6 +142,7 @@ const Header = () => {
                 </Link>
 
                 <Link
+                  onClick={toggleMenu}
                   className="hover:text-red-500 text-xl text-textColor "
                   to="/order"
                 >
@@ -160,9 +174,92 @@ const Header = () => {
             </motion.button>
           </NavLink>
         )}
+        {!toShowBurgerMenu ? (
+          <FaHamburger
+            className="text-[40px] md:hidden text-orange-700 cursor-pointer hover:text-orange-600 duration-200 "
+            onClick={() => dispatch(toggleBurgerMenu())}
+          />
+        ) : (
+          <AiFillCloseCircle
+            className="text-[40px] md:hidden text-red-600 cursor-pointer hover:text-orange-500 duration-200"
+            onClick={() => dispatch(toggleBurgerMenu())}
+          />
+        )}
       </nav>
     </header>
   );
 };
 
 export default Header;
+
+export const MobileNavBar = () => {
+  const dispatch = useDispatch();
+  return (
+    <NavBarOverlay>
+      <motion.nav
+        {...slideLeft}
+        name="mobile-nav-bar"
+        className=" flex-col flex  gap-8 lg:gap-16 font-sans  z-50 bg-white   py-8 h-fit w-[160px] rounded-bl-lg border border-gray-300 fixed top-20 right-0   "
+      >
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? isActiveStyles : isNotActiveStyles
+          }
+          to={"/"}
+        >
+          <div
+            onClick={() => dispatch(toggleBurgerMenu())}
+            className="flex cursor-pointer gap-3 items-center"
+          >
+            <AiTwotoneHome className="text-3xl" />
+            Home
+          </div>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? isActiveStyles : isNotActiveStyles
+          }
+          to={"/menu"}
+        >
+          <div
+            onClick={() => dispatch(toggleBurgerMenu())}
+            className=" flex gap-2 items-center cursor-pointer"
+          >
+            <MdFoodBank className="text-[32px]" />
+            Menu
+          </div>
+        </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? isActiveStyles : isNotActiveStyles
+          }
+          to={"/contact"}
+        >
+          <div
+            onClick={() => dispatch(toggleBurgerMenu())}
+            className="flex gap-2 items-center cursor-pointer "
+          >
+            <MdContactPage className="text-3xl" />
+            Contact
+          </div>
+        </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? isActiveStyles : isNotActiveStyles
+          }
+          to={"/about"}
+        >
+          <div
+            onClick={() => dispatch(toggleBurgerMenu())}
+            className="flex items-center gap-2 cursor-pointer ml-[3px]"
+          >
+            <BsInfoSquareFill className="text-[22px]" />
+            About
+          </div>
+        </NavLink>
+      </motion.nav>
+    </NavBarOverlay>
+  );
+};
