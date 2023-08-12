@@ -8,7 +8,7 @@ env.config({ path: ".env.local" });
 
 const register = async (req, res) => {
   try {
-   
+
 
 
 
