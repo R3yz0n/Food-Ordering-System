@@ -27,6 +27,7 @@ const orderSlice = createSlice({
             state.error = null;
             state.userOrders = []
             state.orderInfoById = {}
+            state.allOrders = []
         },
 
 
