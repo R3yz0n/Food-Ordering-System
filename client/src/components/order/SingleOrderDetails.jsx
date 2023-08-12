@@ -71,8 +71,8 @@ const SingleOrderDetails = ({ selectedOrderId }) => {
         </h5>
 
         <h5 className="w-full flex gap-1">
-          <span className="w-28">Sub Total Rs.</span>
-          {orderInfoById.totalAmount} /-
+          <span className="w-28">Total Amount</span>
+          Rs {orderInfoById.totalAmount} /-
         </h5>
 
         {orderInfoById?.status === "Preparing" ? (
