@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cancelOrder, getOrderById, getUserAllOrder } from "./orderAction";
+import { cancelOrder, completeOrder, getAllOrders, getOrderById, getUserAllOrder } from "./orderAction";
 
 const initialState = {
     loading: false,
     error: null,
     success: false,
     userOrders: [],
-    orderInfoById: {}
+    orderInfoById: {},
+    allOrders: []
 
 };
 
@@ -80,6 +81,40 @@ const orderSlice = createSlice({
             state.success = false;
         },
         [cancelOrder.rejected]: (state, { payload }) => {
+            state.error = payload;
+            state.loading = false;
+            state.success = false;
+        },
+        [completeOrder.fulfilled]: (state, { payload }) => {
+            state.error = null;
+            state.loading = false;
+            // state.userOrders = payload
+            state.orderInfoById.status = "Delivered"
+            // console.log(payload);
+        },
+        [completeOrder.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+        },
+        [completeOrder.rejected]: (state, { payload }) => {
+            state.error = payload;
+            state.loading = false;
+            state.success = false;
+        },
+        [getAllOrders.fulfilled]: (state, { payload }) => {
+            state.error = null;
+            state.loading = false;
+            // state.userOrders = payload
+            state.allOrders = payload
+            // console.log(payload);
+        },
+        [getAllOrders.pending]: (state) => {
+            state.loading = true;
+            state.error = null;
+            state.success = false;
+        },
+        [getAllOrders.rejected]: (state, { payload }) => {
             state.error = payload;
             state.loading = false;
             state.success = false;

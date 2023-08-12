@@ -138,13 +138,21 @@ const getUserAllOrder = async (req, res) => {
 const getAnOrder = async (req, res) => {
 
     try {
-        const findOrder = await models.orders.findByPk(req.params.orderId)
-        console.log(findOrder);
+        const findOrder = await models.orders.findByPk(req.params.orderId, {
+            include: {
+                model: models.users,
+                attributes: ['userName', 'phoneNumber']
+            }
+        })
+        // return res.json(findOrder)
+        // console.log(findOrder);
         if (findOrder === null)
             return res.status(404).json({
                 message: "Order not found."
             })
         const status = findOrder.status
+        const phoneNumber = findOrder.user.phoneNumber
+        const name = findOrder.user.userName
         console.log('--------------------------------');
 
         const orders = await models.orderItems.findAll({
@@ -186,7 +194,7 @@ const getAnOrder = async (req, res) => {
         const orderList = refactoredOrder
 
         return res.status(201).json({
-            totalAmount, orderList, status
+            totalAmount, orderList, status, phoneNumber, name
         })
 
 
@@ -250,7 +258,69 @@ const cancelOrder = async (req, res) => {
 
 }
 
+const completeOrder = async (req, res) => {
 
+    try {
+
+        const orderDoesExist = await models.orders.findOne({
+            where: { id: req.params.orderId }
+        })
+        console.log(orderDoesExist);
+        if (!orderDoesExist)
+            return res.status(404).json({
+                message: "Order not found."
+            })
+        // console.log(orderDoesExist);
+
+        if (!(orderDoesExist.status === 'Preparing'))
+            return res.status(405).json({
+                message: "Order cannot be completed."
+            })
+
+
+        const order = await models.orders.findByPk(req.params.orderId)
+        // console.log(order);
+        const updatedOrder = await models.orders.update({
+            status: "Delivered"
+        }, {
+            where: {
+                id: req.params.orderId
+            }
+        })
+        console.log(updatedOrder)
+        if (updatedOrder[0])
+            res.status(200).json({
+                message: "Order Delivered."
+            })
+    }
+    catch (err) {
+        res.json(500).json({
+            error: err.message,
+            message: "Something went wrong."
+        })
+
+    }
+
+
+}
+
+
+
+const getAllOrders = async (req, res) => {
+
+    const orders = await models.orders.findAll({
+        attributes: ['id', 'status', 'totalAmount'],
+        include: {
+            model: models.users,
+            attributes: ['userName', 'phoneNumber', 'image']
+        },
+        order: [['createdAt', 'DESC']] // Sort by createdAt in descending order
+
+    })
+    res.json(orders)
+
+
+}
 
 
 
@@ -268,6 +338,8 @@ module.exports = {
     createOrder: createOrder,
     getUserAllOrder: getUserAllOrder,
     getAnOrder: getAnOrder,
-    cancelOrder: cancelOrder
+    cancelOrder: cancelOrder,
+    getAllOrders: getAllOrders,
+    completeOrder: completeOrder
 
 }
