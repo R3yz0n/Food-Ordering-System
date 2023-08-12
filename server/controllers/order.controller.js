@@ -308,19 +308,28 @@ const completeOrder = async (req, res) => {
 
 const getAllOrders = async (req, res) => {
 
-    const orders = await models.orders.findAll({
-        attributes: ['id', 'status', 'totalAmount'],
-        include: {
-            model: models.users,
-            attributes: ['userName', 'phoneNumber', 'image']
-        },
-        order: [['createdAt', 'DESC']] // Sort by createdAt in descending order
+    try {
+        const orders = await models.orders.findAll({
+            attributes: ['id', 'status', 'totalAmount'],
+            include: {
+                model: models.users,
+                attributes: ['userName', 'phoneNumber', 'image']
+            },
+            order: [['createdAt', 'DESC']] // Sort by createdAt in descending order
 
-    })
-    res.json(orders)
+        })
+        res.status(200).json(orders)
+    }
+    catch (err) {
+        res.json(500).json({
+            error: err.message,
+            message: "Something went wrong."
+        })
 
+    }
 
 }
+
 
 
 
@@ -340,6 +349,7 @@ module.exports = {
     getAnOrder: getAnOrder,
     cancelOrder: cancelOrder,
     getAllOrders: getAllOrders,
-    completeOrder: completeOrder
+    completeOrder: completeOrder,
+
 
 }

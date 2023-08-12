@@ -4,10 +4,10 @@ const { Op } = require('sequelize');
 
 
 const getLatestItems = async (req, res) => {
-    console.log('getting');
+    // console.log('getting');
     try {
         const now = new Date();
-        const twelveHoursAgo = new Date(now.getTime() - 10 * 60 * 60 * 1000);
+        const twelveHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
         const totalItems = await models.items.count();
 
@@ -40,10 +40,10 @@ const getLatestItems = async (req, res) => {
 
 
 const getLatestUsers = async (req, res) => {
-    console.log('getting');
+    // console.log('getting');
     try {
         const now = new Date();
-        const twelveHoursAgo = new Date(now.getTime() - 10 * 60 * 60 * 1000);
+        const twelveHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
         const totalUsers = await models.users.count();
 
@@ -74,10 +74,46 @@ const getLatestUsers = async (req, res) => {
     }
 };
 
+const getLatestOrders = async (req, res) => {
+    // console.log('getting');
+    try {
+        const now = new Date();
+        const twelveHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+        const totalOrders = await models.orders.count();
+
+        const latestUsers = await models.orders.findAll({
+            where: {
+                createdAt: {
+                    [Op.gte]: twelveHoursAgo,
+                    [Op.lte]: now,
+
+                },
+            },
+        });
+
+        const latestOrderCount = latestUsers.length;
+        const percentage = (latestOrderCount / totalOrders) * 100;
+
+        return res.json({
+            totalOrders,
+            latestOrderCount,
+            percentage,
+        });
+    } catch (err) {
+        console.log(err.message);
+        if (err.name === 'SequelizeDatabaseError') {
+            return res.status(400).json({ message: 'Invalid query parameter' });
+        }
+        res.status(500).json({ message: 'Something went wrong.' });
+    }
+};
+
 
 
 
 module.exports = {
     getLatestItems: getLatestItems,
-    getLatestUsers: getLatestUsers
+    getLatestUsers: getLatestUsers,
+    getLatestOrders: getLatestOrders
 }
