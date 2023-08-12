@@ -4,12 +4,16 @@ import { APIURL } from "../../../utils/constants";
 import { motion } from "framer-motion";
 import { straggerFadeInOut } from "../../../animations";
 import { toast } from "react-hot-toast";
+import { getToken } from "../../../store/getToken";
 
 const PopularFoods = () => {
   const [foodData, setFoodData] = useState([]);
   const fetchPopularFoods = async () => {
     try {
-      const response = await axios.get(`${APIURL}/report/most-ordered`);
+      const response = await axios.get(
+        `${APIURL}/report/most-ordered`,
+        getToken()
+      );
       setFoodData(response.data);
       console.log(response);
     } catch (error) {

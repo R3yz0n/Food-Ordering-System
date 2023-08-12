@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { APIURL } from "../../../utils/constants";
 import { toast } from "react-hot-toast";
+import { getToken } from "../../../store/getToken";
 
 const Sales = () => {
   const [salesData, setSalesData] = useState([]);
@@ -21,7 +22,7 @@ const Sales = () => {
 
   const fetchSalesData = async () => {
     try {
-      const response = await axios.get(`${APIURL}/report/order`);
+      const response = await axios.get(`${APIURL}/report/order`, getToken());
       setSalesData(response.data);
     } catch (error) {
       toast.error(error.message);

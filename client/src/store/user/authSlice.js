@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import jwt from "jwt-decode";
 import { userLogin, userRegister } from "./authAction";
 
 
@@ -15,9 +14,9 @@ const userToken = localStorage.getItem("userToken")
     ? localStorage.getItem("userToken")
     : null;
 
-const userId = localStorage.getItem("userId")
-    ? localStorage.getItem("userId")
-    : null;
+// const userId = localStorage.getItem("userId")
+//     ? localStorage.getItem("userId")
+//     : null;
 
 
 const initialState = {
@@ -26,6 +25,7 @@ const initialState = {
     error: null,
     success: false,
     userToken,
+    toShowBurgerMenu: false
 };
 
 const authSlice = createSlice({
@@ -48,6 +48,10 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = null;
         },
+        toggleBurgerMenu: (state) => {
+            state.toShowBurgerMenu = !state.toShowBurgerMenu
+
+        }
 
 
     },
@@ -117,4 +121,4 @@ const authSlice = createSlice({
 
 // export const {}
 export default authSlice.reducer;
-export const { setError, logout, clearFields } = authSlice.actions;
+export const { setError, logout, clearFields, toggleBurgerMenu } = authSlice.actions;
