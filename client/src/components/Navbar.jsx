@@ -176,12 +176,12 @@ const Header = () => {
         )}
         {!toShowBurgerMenu ? (
           <FaHamburger
-            className="text-[40px] md:hidden text-orange-700 cursor-pointer hover:text-orange-600 duration-200 "
+            className="text-[40px] md:hidden text-orange-700 cursor-pointer sm:hover:text-orange-600 duration-200 "
             onClick={() => dispatch(toggleBurgerMenu())}
           />
         ) : (
           <AiFillCloseCircle
-            className="text-[40px] md:hidden text-red-600 cursor-pointer hover:text-orange-500 duration-200"
+            className="text-[40px] md:hidden text-red-600 cursor-pointer sm:hover:text-orange-500 duration-200"
             onClick={() => dispatch(toggleBurgerMenu())}
           />
         )}
