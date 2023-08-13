@@ -69,7 +69,7 @@ const DBLeft = () => {
       </ul>
       <img
         src={DashboardIllustration}
-        className="absolute bottom-0  w-full h-[40%]"
+        className="absolute bottom-0 left-0  w-full h-[35%] "
         alt="Dashboard"
       />
     </section>
