@@ -33,11 +33,11 @@ const App = () => {
 
   useEffect(() => {
     console.log(currUser.error);
-    // if (currUser.error) {
-    //   dispatch(logout());
-    //   dispatch(clearUserData());
-    //   navigate("/login");
-    // }
+    if (currUser.error) {
+      dispatch(logout());
+      dispatch(clearUserData());
+      navigate("/login");
+    }
   }, [currUser.error, dispatch, navigate]);
 
   useEffect(() => {
