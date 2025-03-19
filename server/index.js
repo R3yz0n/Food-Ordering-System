@@ -9,7 +9,7 @@ const { isColString } = require("sequelize/lib/utils");
 
 // Log current environment configuration
 const env = process.env.NODE_ENV || "development";
-console.log(process.env);
+console.log(process.env.NODE_ENV);
 console.log("Environment:", env);
 console.log("Database Configuration:", config[env]);
 
