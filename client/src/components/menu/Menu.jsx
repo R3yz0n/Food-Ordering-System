@@ -67,9 +67,7 @@ const Menu = () => {
             className="text-xl ml-10 -mt-2 w-72 font-semibold lg:-mt-12 lg:ml-20"
           >
             {!loading &&
-              (search.searchValue.length > 0
-                ? "No Searched Meal Found"
-                : "No Meal Available")}
+              (search.searchValue.length > 0 ? "No Searched Meal Found" : "No Meal Available")}
           </motion.li>
         )}
       </ul>
