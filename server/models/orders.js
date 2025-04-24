@@ -1,44 +1,47 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class orders extends Model {
+    class orders extends Model {
+        static associate(models) {
+            orders.belongsTo(models.users);
 
-    static associate(models) {
-      orders.belongsTo(models.users);
+            orders.belongsToMany(models.items, {
+                through: models.orderItems,
+                onDelete: "CASCADE",
+            });
 
-      orders.belongsToMany(models.items, { through: models.orderItems, onDelete: 'CASCADE' });
-
-      orders.hasMany(models.orderItems)
-
+            orders.hasMany(models.orderItems);
+        }
     }
-  }
-  orders.init({
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'users',
-        key: 'id'
+    orders.init(
+        {
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: {
+                    model: "users",
+                    key: "id",
+                },
+            },
+            totalAmount: {
+                type: DataTypes.FLOAT,
+                allowNull: false,
+            },
 
-      }
-    },
-    totalAmount: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-
-    },
-
-
-    description: DataTypes.STRING,
-    status: {
-      type: DataTypes.ENUM('Preparing', 'Cancelled', 'Delivered'),
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'orders',
-  });
-  return orders;
+            description: DataTypes.STRING,
+            status: {
+                type: DataTypes.ENUM("Preparing", "Cancelled", "Delivered"),
+                allowNull: false,
+            },
+            transactionHash: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+        },
+        {
+            sequelize,
+            modelName: "orders",
+        }
+    );
+    return orders;
 };
