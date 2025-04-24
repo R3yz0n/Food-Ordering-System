@@ -8,10 +8,10 @@ const { sequelize } = require("./models");
 const { isColString } = require("sequelize/lib/utils");
 
 // Log current environment configuration
-const env = process.env.NODE_ENV || "development";
-console.log(process.env.NODE_ENV);
-console.log("Environment:", env);
-console.log("Database Configuration:", config[env]);
+// const env = process.env.NODE_ENV || "development";
+// console.log(process.env.NODE_ENV);
+// console.log("Environment:", env);
+// console.log("Database Configuration:", config[env]);
 
 server.listen(port, () => {
   console.log(`Server running at port ${port}`);
