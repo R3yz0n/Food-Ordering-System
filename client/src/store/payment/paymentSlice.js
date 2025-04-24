@@ -1,33 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isPaymentModalOpen: false,
-  paymentMethod: null,
-  paymentStatus: "idle",
+    isPaymentModalOpen: false,
+    isTransactionModalOpen: false,
+    isTransactionSelectionModalOpen: false,
+    isTransactionConfirmationModalOpen: false,
+    paymentMethod: null,
+    paymentStatus: "idle",
 };
 
 const paymentSlice = createSlice({
-  name: "payment",
-  initialState,
-  reducers: {
-    openPaymentModal: (state) => {
-      state.isPaymentModalOpen = true;
+    name: "payment",
+    initialState,
+    reducers: {
+        setPaymentMethod: (state, action) => {
+            state.paymentMethod = action.payload;
+        },
+        resetPayment: (state) => {
+            state.isPaymentModalOpen = false;
+            state.paymentMethod = null;
+            state.paymentStatus = "idle";
+        },
+
+        openTransactionSelectionModal: (state) => {
+            state.isTransactionSelectionModalOpen = true;
+        },
+        closeTransactionSelectionModal: (state) => {
+            state.isTransactionSelectionModalOpen = false;
+        },
+        openTransactionConfirmationModal: (state) => {
+            state.isTransactionConfirmationModalOpen = true;
+        },
+        closeTransactionConfirmationModal: (state) => {
+            state.isTransactionConfirmationModalOpen = false;
+        },
     },
-    closePaymentModal: (state) => {
-      state.isPaymentModalOpen = false;
-    },
-    setPaymentMethod: (state, action) => {
-      state.paymentMethod = action.payload;
-    },
-    resetPayment: (state) => {
-      state.isPaymentModalOpen = false;
-      state.paymentMethod = null;
-      state.paymentStatus = "idle";
-    },
-  },
 });
 
-export const { openPaymentModal, closePaymentModal, setPaymentMethod, resetPayment } =
-  paymentSlice.actions;
+export const {
+    setPaymentMethod,
+    resetPayment,
+
+    // Export the new actions
+    openTransactionSelectionModal,
+    closeTransactionSelectionModal,
+    openTransactionConfirmationModal,
+    closeTransactionConfirmationModal,
+} = paymentSlice.actions;
 
 export default paymentSlice.reducer;
