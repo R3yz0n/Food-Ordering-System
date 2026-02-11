@@ -15,7 +15,14 @@ export const createAnOrder = createAsyncThunk(
         } catch (error) {
             // console.log(error);
 
-            if (error.response && error.response.data.message) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+                toast.error("You must be logged in.");
+                return rejectWithValue("Unauthorized");
+            } else if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
                 return rejectWithValue(error.response.data.message);
             } else {
@@ -24,7 +31,7 @@ export const createAnOrder = createAsyncThunk(
                 return rejectWithValue(error.message);
             }
         }
-    }
+    },
 );
 
 export const getUserAllOrder = createAsyncThunk(
@@ -33,14 +40,21 @@ export const getUserAllOrder = createAsyncThunk(
         try {
             const res = await axios.get(
                 `${APIURL}/order/user-orders/${values.userId}`,
-                getToken()
+                getToken(),
             );
             // toast.success(res.data.message)
             return res.data;
         } catch (error) {
             console.log(error);
 
-            if (error.response && error.response.data.message) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+                toast.error("You must be logged in.");
+                return rejectWithValue("Unauthorized");
+            } else if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
                 return rejectWithValue(error.response.data.message);
             } else {
@@ -49,7 +63,7 @@ export const getUserAllOrder = createAsyncThunk(
                 return rejectWithValue(error.message);
             }
         }
-    }
+    },
 );
 
 export const getOrderById = createAsyncThunk(
@@ -58,14 +72,21 @@ export const getOrderById = createAsyncThunk(
         try {
             const res = await axios.get(
                 `${APIURL}/order/${values}`,
-                getToken()
+                getToken(),
             );
             // toast.success(res.data.message)
             return res.data;
         } catch (error) {
             // console.log(error);
 
-            if (error.response && error.response.data.message) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+                toast.error("You must be logged in.");
+                return rejectWithValue("Unauthorized");
+            } else if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
                 return rejectWithValue(error.response.data.message);
             } else {
@@ -74,7 +95,7 @@ export const getOrderById = createAsyncThunk(
                 return rejectWithValue(error.message);
             }
         }
-    }
+    },
 );
 
 export const cancelOrder = createAsyncThunk(
@@ -84,14 +105,21 @@ export const cancelOrder = createAsyncThunk(
             const res = await axios.patch(
                 `${APIURL}/order/cancel/${values}`,
                 values,
-                getToken()
+                getToken(),
             );
             toast.success(res.data.message);
             return res.data;
         } catch (error) {
             // console.log(error);
 
-            if (error.response && error.response.data.message) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+                toast.error("You must be logged in.");
+                return rejectWithValue("Unauthorized");
+            } else if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
                 return rejectWithValue(error.response.data.message);
             } else {
@@ -100,7 +128,7 @@ export const cancelOrder = createAsyncThunk(
                 return rejectWithValue(error.message);
             }
         }
-    }
+    },
 );
 
 export const completeOrder = createAsyncThunk(
@@ -110,14 +138,21 @@ export const completeOrder = createAsyncThunk(
             const res = await axios.patch(
                 `${APIURL}/order/complete/${values}`,
                 values,
-                getToken()
+                getToken(),
             );
             toast.success(res.data.message);
             return res.data;
         } catch (error) {
             // console.log(error);
 
-            if (error.response && error.response.data.message) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+                toast.error("You must be logged in.");
+                return rejectWithValue("Unauthorized");
+            } else if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
                 return rejectWithValue(error.response.data.message);
             } else {
@@ -126,7 +161,7 @@ export const completeOrder = createAsyncThunk(
                 return rejectWithValue(error.message);
             }
         }
-    }
+    },
 );
 
 export const getAllOrders = createAsyncThunk(
@@ -139,7 +174,14 @@ export const getAllOrders = createAsyncThunk(
         } catch (error) {
             // console.log(error);
 
-            if (error.response && error.response.data.message) {
+            if (error.response && error.response.status === 401) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("userId");
+
+                window.location.href = "/login";
+                toast.error("You must be logged in.");
+                return rejectWithValue("Unauthorized");
+            } else if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
                 return rejectWithValue(error.response.data.message);
             } else {
@@ -148,5 +190,5 @@ export const getAllOrders = createAsyncThunk(
                 return rejectWithValue(error.message);
             }
         }
-    }
+    },
 );

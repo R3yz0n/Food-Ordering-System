@@ -25,7 +25,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
     const [isLoadingRate, setIsLoadingRate] = useState(true);
     const [transactionHash, setTransactionHash] = useState(null);
     const { isTransactionConfirmationModalOpen } = useSelector(
-        (state) => state.payment
+        (state) => state.payment,
     );
 
     // Fetch real-time conversion rate and wallet info
@@ -33,7 +33,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
         const fetchConversionRate = async () => {
             try {
                 const response = await fetch(
-                    "https://api.exchangerate-api.com/v4/latest/NPR"
+                    "https://api.exchangerate-api.com/v4/latest/NPR",
                 );
                 const data = await response.json();
                 const usdRate = data.rates.USD;
@@ -55,7 +55,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                         params: [{ chainId: chainDetails.chainId }],
                     });
                     const provider = new ethers.providers.Web3Provider(
-                        window.ethereum
+                        window.ethereum,
                     );
                     const signer = provider.getSigner();
                     const address = await signer.getAddress();
@@ -64,7 +64,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                     const usdtContract = new ethers.Contract(
                         usdtContractAddress,
                         usdtAbi,
-                        provider
+                        provider,
                     );
 
                     const decimals = await usdtContract.decimals();
@@ -94,7 +94,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
             if (window.ethereum !== undefined) {
                 setIsTransactionLoading(true);
                 const provider = new ethers.providers.Web3Provider(
-                    window.ethereum
+                    window.ethereum,
                 );
                 const signer = provider.getSigner();
 
@@ -102,31 +102,30 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                 const usdtContract = new ethers.Contract(
                     usdtContractAddress,
                     usdtAbi,
-                    signer
+                    signer,
                 );
 
                 // Convert USD amount to USDT amount with proper decimals
                 const decimals = await usdtContract.decimals();
                 const amountToSend = ethers.utils.parseUnits(
                     usdAmount.toString(),
-                    decimals
+                    decimals,
                 );
 
                 // Send the transaction
                 const tx = await usdtContract.transfer(
                     receiverAddress,
-                    amountToSend
+                    amountToSend,
                 );
                 setTransactionHash(tx.hash);
                 console.log(tx);
 
                 // Wait for transaction confirmation
                 const transactionDetails = await tx.wait(1);
-                debugger;
                 try {
                     let transactionHash = tx.hash;
                     const order = await dispatch(
-                        createAnOrder({ cartId, userId, transactionHash })
+                        createAnOrder({ cartId, userId, transactionHash }),
                     ).unwrap();
                     dispatch(clearCartItems());
                     dispatch(showCart());
@@ -150,7 +149,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                     </span>,
                     {
                         duration: 8000,
-                    }
+                    },
                 );
 
                 setIsTransactionLoading(false);
@@ -196,9 +195,9 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                             {walletAddress
                                 ? `${walletAddress.substring(
                                       0,
-                                      8
+                                      8,
                                   )}....${walletAddress.substring(
-                                      walletAddress.length - 6
+                                      walletAddress.length - 6,
                                   )}`
                                 : "Not connected"}
                         </span>

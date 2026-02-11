@@ -80,7 +80,7 @@ const login = async (req, res) => {
 
         const checkPassword = await bcrypt.compareSync(
             req.body.password,
-            user.password
+            user.password,
         );
         // console.log(checkPassword);
         if (!checkPassword)
@@ -96,7 +96,7 @@ const login = async (req, res) => {
                 role: user.role,
             },
             process.env.JWT_SECRET,
-            { expiresIn: "1000h" }
+            { expiresIn: "10s" },
         );
 
         // console.log(user.dataValues);
