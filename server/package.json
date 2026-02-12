@@ -25,5 +25,8 @@
     },
     "devDependencies": {
         "sequelize-cli": "^6.6.1"
+    },
+    "engines": {
+        "node": "24.x"
     }
 }
