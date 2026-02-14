@@ -127,16 +127,15 @@ export const SocialData = [
     },
 ];
 
-export const usdtContractAddress = process.env.REACT_APP_USDT_CONTRACT_ADDRESS;
 export const chainDetails = {
-    chainId: "0x14A34",
-    chainName: "Base Sepolia",
+    chainId: "0xaa36a7", // Chain ID for Sepolia in hex
+    chainName: "Sepolia",
     nativeCurrency: {
-        name: "ETH",
+        name: "SepoliaETH",
         symbol: "ETH",
         decimals: 18,
     },
-    rpcUrls: ["https://sepolia.base.org"],
-    blockExplorerUrls: ["https://sepolia.basescan.org"],
+    rpcUrls: ["https://sepolia.infura.io/"], // Replace with your Infura project ID
+    blockExplorerUrls: ["https://sepolia.etherscan.io"],
 };
 export const receiverAddress = process.env.REACT_APP_RECEIVER_ADDRESS;

@@ -15,7 +15,7 @@ import { ethers } from "ethers";
 const TransactionSelectionModal = () => {
     const dispatch = useDispatch();
     const { isTransactionSelectionModalOpen, paymentMethod } = useSelector(
-        (state) => state.payment
+        (state) => state.payment,
     );
     const [isMetaMaskLoading, setIsMetaMaskLoading] = React.useState(false);
 
@@ -35,7 +35,7 @@ const TransactionSelectionModal = () => {
         try {
             if (window.ethereum !== undefined) {
                 const provider = new ethers.providers.Web3Provider(
-                    window.ethereum
+                    window.ethereum,
                 );
                 await provider.send("eth_requestAccounts", []);
 
@@ -47,11 +47,12 @@ const TransactionSelectionModal = () => {
                 dispatch(openTransactionConfirmationModal()); // Open transaction modal after successful connection
             } else {
                 toast.error("Please install MetaMask!");
+                setIsMetaMaskLoading(false);
             }
         } catch (error) {
             console.error("Error connecting wallet:", error);
             toast.error("Failed to connect wallet");
-            // setIsMetaMaskLoading(false);
+            setIsMetaMaskLoading(false);
         }
     };
     console.log(isMetaMaskLoading);
@@ -106,10 +107,10 @@ const TransactionSelectionModal = () => {
                     {paymentMethod === "card"
                         ? "Pay with Card"
                         : paymentMethod === "metamask"
-                        ? isMetaMaskLoading
-                            ? "Connecting MetaMask..."
-                            : "Connect MetaMask"
-                        : "Continue"}
+                          ? isMetaMaskLoading
+                              ? "Connecting MetaMask..."
+                              : "Connect MetaMask"
+                          : "Continue"}
                 </motion.button>
             </div>
         </div>
