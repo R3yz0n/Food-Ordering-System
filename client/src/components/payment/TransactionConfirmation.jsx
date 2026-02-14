@@ -6,12 +6,7 @@ import { btnClick } from "../../animations";
 import { toast } from "react-hot-toast";
 import { ethers } from "ethers";
 import { closeTransactionConfirmationModal } from "../../store/payment/paymentSlice";
-import usdtAbi from "../../abis/usdtAbi";
-import {
-    chainDetails,
-    receiverAddress,
-    usdtContractAddress,
-} from "../../utils/constants";
+import { chainDetails, receiverAddress } from "../../utils/constants";
 import { Link } from "react-router-dom";
 import { clearCartItems, showCart } from "../../store/cart/cartSlice";
 import { createAnOrder } from "../../store/order/orderAction";
@@ -20,28 +15,40 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
     const dispatch = useDispatch();
     const [isTransactionLoading, setIsTransactionLoading] = useState(false);
     const [walletAddress, setWalletAddress] = useState("");
-    const [usdtBalance, setUsdtBalance] = useState("0");
-    const [conversionRate, setConversionRate] = useState(null);
+    const [ethBalance, setEthBalance] = useState("0");
+    const [conversionRate, setConversionRate] = useState(null); // NPR -> USD
+    const [ethPriceInUsd, setEthPriceInUsd] = useState(null); // 1 ETH in USD
     const [isLoadingRate, setIsLoadingRate] = useState(true);
     const [transactionHash, setTransactionHash] = useState(null);
     const { isTransactionConfirmationModalOpen } = useSelector(
         (state) => state.payment,
     );
 
-    // Fetch real-time conversion rate and wallet info
+    // Fetch real-time FX + ETH price and wallet info
     useEffect(() => {
-        const fetchConversionRate = async () => {
+        const fetchRates = async () => {
             try {
+                // Fetch NPR -> USD conversion rate
                 const response = await fetch(
                     "https://api.exchangerate-api.com/v4/latest/NPR",
                 );
                 const data = await response.json();
                 const usdRate = data.rates.USD;
                 setConversionRate(usdRate);
+
+                // Fetch ETH price in USD
+                const ethRes = await fetch(
+                    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd",
+                );
+                const ethData = await ethRes.json();
+                setEthPriceInUsd(ethData.ethereum.usd);
+
                 setIsLoadingRate(false);
             } catch (error) {
-                console.error("Error fetching conversion rate:", error);
+                console.error("Error fetching rates:", error);
+                // Fallback approximate rates (NPR -> USD and ETH price in USD)
                 setConversionRate(1 / 133);
+                setEthPriceInUsd(3000); // fallback ETH price in USD
                 setIsLoadingRate(false);
                 toast.error("Using approximate conversion rate");
             }
@@ -61,15 +68,8 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                     const address = await signer.getAddress();
                     setWalletAddress(address);
 
-                    const usdtContract = new ethers.Contract(
-                        usdtContractAddress,
-                        usdtAbi,
-                        provider,
-                    );
-
-                    const decimals = await usdtContract.decimals();
-                    const balance = await usdtContract.balanceOf(address);
-                    setUsdtBalance(ethers.utils.formatUnits(balance, decimals));
+                    const balance = await provider.getBalance(address);
+                    setEthBalance(ethers.utils.formatEther(balance));
                 } catch (error) {
                     console.error("Error fetching wallet info:", error);
                     toast.error("Failed to connect to wallet");
@@ -78,7 +78,7 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
         };
 
         if (isTransactionConfirmationModalOpen) {
-            fetchConversionRate();
+            fetchRates();
             fetchWalletInfo();
         }
     }, [isTransactionConfirmationModalOpen]);
@@ -98,25 +98,11 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                 );
                 const signer = provider.getSigner();
 
-                // Get the USDT contract instance with signer
-                const usdtContract = new ethers.Contract(
-                    usdtContractAddress,
-                    usdtAbi,
-                    signer,
-                );
-
-                // Convert USD amount to USDT amount with proper decimals
-                const decimals = await usdtContract.decimals();
-                const amountToSend = ethers.utils.parseUnits(
-                    usdAmount.toString(),
-                    decimals,
-                );
-
-                // Send the transaction
-                const tx = await usdtContract.transfer(
-                    receiverAddress,
-                    amountToSend,
-                );
+                // Send 1/100th of the total amount in native ETH
+                const tx = await signer.sendTransaction({
+                    to: receiverAddress,
+                    value: ethers.utils.parseEther(ethAmountToPay.toString()),
+                });
                 setTransactionHash(tx.hash);
                 console.log(tx);
 
@@ -163,13 +149,19 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
         }
     };
 
-    // Convert NPR to USD using real-time rate
-    const convertToUSD = (nprAmount) => {
-        if (!conversionRate) return "0.00";
-        return (nprAmount * conversionRate).toFixed(2);
+    // Convert total price in NPR to ETH using USD as intermediary
+    const convertToETH = (nprAmount) => {
+        if (!conversionRate || !ethPriceInUsd) return "0.000000";
+        const usdValue = nprAmount * conversionRate;
+        const ethValue = usdValue / ethPriceInUsd;
+        return ethValue.toFixed(6);
     };
+    // Full amounts for display
+    const ethAmount = convertToETH(totalPrice);
 
-    const usdAmount = convertToUSD(totalPrice);
+    // Only charge 1/100th of the total amount when executing
+    const fractionToPay = 0.01;
+    const ethAmountToPay = convertToETH(totalPrice * fractionToPay);
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
@@ -204,10 +196,10 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                     </div>
                     <div className="flex justify-between mt-2">
                         <span className="text-sm text-gray-500">
-                            USDT Balance:
+                            ETH Balance:
                         </span>
                         <span className="text-sm font-medium">
-                            {usdtBalance} (USDT)
+                            {Number(ethBalance || 0).toFixed(6)} (ETH)
                         </span>
                     </div>
                 </div>
@@ -224,18 +216,36 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                             </span>
                         </div>
                         <div className="flex justify-between mb-2">
-                            <span>Amount to pay (USD):</span>
+                            <span>Amount to pay (ETH):</span>
                             <span className="font-medium">
                                 {isLoadingRate
                                     ? "Loading..."
-                                    : `${usdAmount} USDT`}
+                                    : `${Number(ethAmount || 0).toFixed(6)} ETH`}
+                            </span>
+                        </div>
+                        <div className="flex justify-between mb-2">
+                            <span>Only 1% will be charged</span>
+                            <span className="font-medium">
+                                {isLoadingRate
+                                    ? "Loading..."
+                                    : `${Number(ethAmountToPay || 0).toFixed(6)} ETH`}
                             </span>
                         </div>
                         {!isLoadingRate &&
-                            Number.parseFloat(usdtBalance) <
-                                Number.parseFloat(usdAmount) && (
-                                <p className="text-red-500">
-                                    Insufficient balance
+                            Number.parseFloat(ethBalance) <
+                                Number.parseFloat(ethAmountToPay) && (
+                                <p className="text-red-500 text-sm">
+                                    Insufficient balance.
+                                    <br />
+                                    <a
+                                        className="underline text-blue-500"
+                                        href="https://cloud.google.com/application/web3/faucet/ethereum/sepolia"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Get Eth here
+                                    </a>
+                                    .
                                 </p>
                             )}
                         {isLoadingRate && (
@@ -251,12 +261,12 @@ const TransactionConfirmation = ({ totalPrice, cartId, userId }) => {
                     onClick={handleTransaction}
                     disabled={
                         isTransactionLoading ||
-                        Number.parseFloat(usdtBalance) <
-                            Number.parseFloat(usdAmount) ||
+                        Number.parseFloat(ethBalance) <
+                            Number.parseFloat(ethAmountToPay) ||
                         isLoadingRate
                     }
                 >
-                    {isTransactionLoading ? "Processing..." : "Pay with USDT"}
+                    {isTransactionLoading ? "Processing..." : "Pay with ETH"}
                 </motion.button>
             </div>
         </div>

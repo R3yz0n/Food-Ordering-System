@@ -96,7 +96,7 @@ const login = async (req, res) => {
                 role: user.role,
             },
             process.env.JWT_SECRET,
-            { expiresIn: "10s" },
+            { expiresIn: "1000s" },
         );
 
         // console.log(user.dataValues);
