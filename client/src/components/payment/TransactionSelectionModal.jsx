@@ -8,6 +8,8 @@ import {
     openStripePaymentModal,
 } from "../../store/payment/paymentSlice";
 import { IoMdClose } from "react-icons/io";
+import { SiStripe } from "react-icons/si";
+import { FaEthereum } from "react-icons/fa";
 import { btnClick } from "../../animations";
 import { toast } from "react-hot-toast";
 import { ethers } from "ethers";
@@ -73,31 +75,91 @@ const TransactionSelectionModal = () => {
                 >
                     <IoMdClose size={28} />
                 </motion.button>
-                <h2 className="text-2xl font-bold mb-4 text-headingColor">
+                <h2 className="text-2xl font-bold mb-6 text-headingColor">
                     Select Payment Method
                 </h2>
                 <div className="space-y-4 pt-4">
-                    <button
-                        className={`w-full p-3 text-left  bg-gray-100 shadow border rounded-lg transition-colors ${
+                    {/* Stripe Card Payment Option */}
+                    <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`w-full p-4 rounded-lg transition-all transform ${
                             paymentMethod === "card"
-                                ? " border-2 border-red-500 text-headingColor"
-                                : "text-textColor hover:border-red-500 hover:transition-all hover:scale-105 border-gray-800"
+                                ? "border-2 border-red-500 bg-red-50 shadow-lg"
+                                : "border-2 border-gray-200 bg-white hover:border-red-500 hover:shadow-md"
                         }`}
                         onClick={() => dispatch(setPaymentMethod("card"))}
                     >
-                        Card (Stripe)
-                    </button>
+                        <div className="flex items-center gap-4">
+                            <div
+                                className={`p-3 rounded-lg ${
+                                    paymentMethod === "card"
+                                        ? "bg-red-500 text-white"
+                                        : "bg-gray-100 text-gray-700"
+                                }`}
+                            >
+                                <SiStripe size={15} />
+                            </div>
+                            <div className="text-left flex-1">
+                                <p
+                                    className={`font-semibold text-lg ${
+                                        paymentMethod === "card"
+                                            ? "text-red-600"
+                                            : "text-headingColor"
+                                    }`}
+                                >
+                                    Card
+                                    <span className="text-sm text-gray-500 ml-1">
+                                        (Visa, Mastercard, Amex)
+                                    </span>
+                                </p>
+                            </div>
+                            {paymentMethod === "card" && (
+                                <div className="text-red-500">✓</div>
+                            )}
+                        </div>
+                    </motion.button>
 
-                    <button
-                        className={`w-full p-3 text-left  bg-gray-100 shadow border rounded-lg transition-colors ${
+                    {/* MetaMask Wallet Payment Option */}
+                    <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`w-full p-4 rounded-lg transition-all transform ${
                             paymentMethod === "metamask"
-                                ? " border-2 border-red-500 text-headingColor"
-                                : "text-textColor hover:border-red-500 hover:transition-all hover:scale-105 border-gray-800"
+                                ? "border-2 border-orange-500 bg-orange-50 shadow-lg"
+                                : "border-2 border-gray-200 bg-white hover:border-orange-500 hover:shadow-md"
                         }`}
                         onClick={() => dispatch(setPaymentMethod("metamask"))}
                     >
-                        MetaMask (Recommended)
-                    </button>
+                        <div className="flex items-center gap-4">
+                            <div
+                                className={`p-3 rounded-lg ${
+                                    paymentMethod === "metamask"
+                                        ? "bg-orange-500 text-white"
+                                        : "bg-gray-100 text-gray-700"
+                                }`}
+                            >
+                                <FaEthereum size={15} />
+                            </div>
+                            <div className="text-left flex-1">
+                                <p
+                                    className={`font-semibold text-lg ${
+                                        paymentMethod === "metamask"
+                                            ? "text-orange-600"
+                                            : "text-headingColor"
+                                    }`}
+                                >
+                                    MetaMask
+                                    <span className="text-sm text-gray-500 ml-1">
+                                        (Crypto Wallet)
+                                    </span>
+                                </p>
+                            </div>
+                            {paymentMethod === "metamask" && (
+                                <div className="text-orange-500">✓</div>
+                            )}
+                        </div>
+                    </motion.button>
                 </div>
                 <motion.button
                     {...btnClick}
