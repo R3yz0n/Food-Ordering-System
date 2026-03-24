@@ -49,7 +49,7 @@ const register = async (req, res) => {
 
     try {
         const user = await models.users.create(userData);
-        console.log(user);
+        // console.log(user);
         return res.status(200).json({
             message: "Signup sucessfully !",
             user: user.dataValues,
@@ -108,7 +108,6 @@ const login = async (req, res) => {
             id: user.id,
         });
     } catch (err) {
-        console.log(err);
         res.status(500).json({
             message: "Something went wrong !",
             error: err,

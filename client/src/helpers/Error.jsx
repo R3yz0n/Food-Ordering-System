@@ -1,6 +1,6 @@
 const Error = ({ children, ...props }) => {
-    console.log(props);
-    console.log(children);
+    // console.log(props);
+    // console.log(children);
     return (
         <>
             {/* <div className="z-50 b fixed"
@@ -10,7 +10,6 @@ const Error = ({ children, ...props }) => {
             {children}
         </div> */}
         </>
-
     );
 };
 

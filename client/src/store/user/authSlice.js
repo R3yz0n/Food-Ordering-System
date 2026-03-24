@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, userRegister } from "./authAction";
 
-
 // backend api /user/id token frontend ma decode garera id pathani ni get user
 //aashish ko jastai  page not found rakhnaxa
 //skeleton
 //lazy loading in map
-
-
 
 // initialize userToken from local storage
 const userToken = localStorage.getItem("userToken")
@@ -18,14 +15,12 @@ const userToken = localStorage.getItem("userToken")
 //     ? localStorage.getItem("userId")
 //     : null;
 
-
 const initialState = {
-
     loading: false,
     error: null,
     success: false,
     userToken,
-    toShowBurgerMenu: false
+    toShowBurgerMenu: false,
 };
 
 const authSlice = createSlice({
@@ -33,14 +28,12 @@ const authSlice = createSlice({
     initialState: initialState,
 
     reducers: {
-
         logout: (state, { payload }) => {
             localStorage.removeItem("userToken");
-            localStorage.removeItem('userId')
+            localStorage.removeItem("userId");
             state.loading = false;
             state.userToken = null;
             state.error = null;
-
         },
 
         clearFields: (state, { payload }) => {
@@ -49,15 +42,9 @@ const authSlice = createSlice({
             state.error = null;
         },
         toggleBurgerMenu: (state) => {
-            state.toShowBurgerMenu = !state.toShowBurgerMenu
-
-        }
-
-
+            state.toShowBurgerMenu = !state.toShowBurgerMenu;
+        },
     },
-
-
-
 
     extraReducers: {
         //token ni pathauni user fetch garda since it's a protected with middleware
@@ -67,58 +54,44 @@ const authSlice = createSlice({
             // console.log(state);
             state.success = payload.message;
             state.error = null;
-            state.userToken = payload.token
-            state.loading = false
+            state.userToken = payload.token;
+            state.loading = false;
             localStorage.setItem("userToken", payload.token);
-            localStorage.setItem("userId", payload.id)
-
-
-
-
-
-
+            localStorage.setItem("userId", payload.id);
         },
         [userLogin.pending]: (state) => {
-
             state.loading = true;
             state.error = null;
-            state.success = false
-
-
+            state.success = false;
         },
         [userLogin.rejected]: (state, { payload }) => {
-            console.log(payload);
-            state.error = payload
-            state.loading = false
+            // console.log(payload);
+            state.error = payload;
+            state.loading = false;
             // console.log(state);
             state.success = false;
-
-
         },
 
         //user Signup
         [userRegister.pending]: (state) => {
             state.loading = true;
             state.error = null;
-            state.success = false
+            state.success = false;
         },
         [userRegister.fulfilled]: (state, { payload }) => {
             state.loading = false;
-            state.error = null
+            state.error = null;
             state.success = payload.message;
-
-
         },
         [userRegister.rejected]: (state, { payload }) => {
             state.loading = false;
             state.error = payload;
-            state.success = false
+            state.success = false;
         },
-
-    }
-
-})
+    },
+});
 
 // export const {}
 export default authSlice.reducer;
-export const { setError, logout, clearFields, toggleBurgerMenu } = authSlice.actions;
+export const { setError, logout, clearFields, toggleBurgerMenu } =
+    authSlice.actions;

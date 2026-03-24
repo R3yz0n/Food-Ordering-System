@@ -5,6 +5,7 @@ const initialState = {
     isTransactionModalOpen: false,
     isTransactionSelectionModalOpen: false,
     isTransactionConfirmationModalOpen: false,
+    isStripePaymentModalOpen: false,
     paymentMethod: null,
     paymentStatus: "idle",
 };
@@ -34,6 +35,12 @@ const paymentSlice = createSlice({
         closeTransactionConfirmationModal: (state) => {
             state.isTransactionConfirmationModalOpen = false;
         },
+        openStripePaymentModal: (state) => {
+            state.isStripePaymentModalOpen = true;
+        },
+        closeStripePaymentModal: (state) => {
+            state.isStripePaymentModalOpen = false;
+        },
     },
 });
 
@@ -46,6 +53,8 @@ export const {
     closeTransactionSelectionModal,
     openTransactionConfirmationModal,
     closeTransactionConfirmationModal,
+    openStripePaymentModal,
+    closeStripePaymentModal,
 } = paymentSlice.actions;
 
 export default paymentSlice.reducer;

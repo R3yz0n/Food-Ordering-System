@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     closeTransactionSelectionModal,
     setPaymentMethod,
-    openTransactionSelectionModal,
     openTransactionConfirmationModal,
+    openStripePaymentModal,
 } from "../../store/payment/paymentSlice";
 import { IoMdClose } from "react-icons/io";
 import { btnClick } from "../../animations";
@@ -28,7 +28,8 @@ const TransactionSelectionModal = () => {
     }
 
     const handleCartPayment = () => {
-        toast.error("Card payment is not available");
+        dispatch(closeTransactionSelectionModal());
+        dispatch(openStripePaymentModal());
     };
     const handleConnectMetaMask = async () => {
         setIsMetaMaskLoading(true);
@@ -39,7 +40,7 @@ const TransactionSelectionModal = () => {
                 );
                 await provider.send("eth_requestAccounts", []);
 
-                const signer = await provider.getSigner();
+                const signer = provider.getSigner();
                 await signer.getAddress();
 
                 setIsMetaMaskLoading(false);
@@ -84,7 +85,7 @@ const TransactionSelectionModal = () => {
                         }`}
                         onClick={() => dispatch(setPaymentMethod("card"))}
                     >
-                        Card (Not available ❌ )
+                        Card (Stripe)
                     </button>
 
                     <button

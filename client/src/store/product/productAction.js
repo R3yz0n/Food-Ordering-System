@@ -8,11 +8,11 @@ const token = localStorage.getItem("userToken");
 export const createItem = createAsyncThunk(
     "Create An Item",
     async (values, { rejectWithValue }) => {
-        console.log(values);
+        // console.log(values);
 
-        console.log(token);
+        // console.log(token);
         try {
-            console.log(values.file);
+            // console.log(values.file);
             const formData = new FormData();
             formData.append("file", values.file);
             // console.log(authHeaders);
@@ -169,7 +169,7 @@ export const updateItem = createAsyncThunk(
     "Update An Item",
     async (values, { rejectWithValue }) => {
         try {
-            console.log(values);
+            // console.log(values);
             if (typeof values.file === "string") {
                 const res = await axios.put(
                     `${APIURL}/item/${values.id}`,
@@ -186,7 +186,7 @@ export const updateItem = createAsyncThunk(
                 formData,
                 getToken(),
             );
-            console.log(fileRes);
+            // console.log(fileRes);
             values.image = fileRes.data.url;
             const { file, ...others } = values;
 

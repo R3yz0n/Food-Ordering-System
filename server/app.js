@@ -29,10 +29,13 @@ app.use("/latest", latestRoutes);
 app.use("/order", orderRoutes);
 app.use("/report", reportRoutes);
 
-// sequelize.sync({ force: true }).then((result) => {
-//     console.log("migration successful");
-// }).catch(err => {
-//     console.log(err.message);
-// });
+// sequelize
+//     .sync({ force: true })
+//     .then((result) => {
+//         console.log("migration successful");
+//     })
+//     .catch((err) => {
+//         console.log(err.message);
+//     });
 
 module.exports = app;
