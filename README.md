@@ -1,6 +1,6 @@
 # Food Ordering System
 
-Full‑stack food ordering platform with customer ordering, real‑time order tracking, and an admin dashboard – plus optional Web3 payments on Ethereum Sepolia.
+Full-stack food ordering platform with customer ordering, real-time order tracking, and an admin dashboard. Supports **Stripe card payments** and **optional Web3 payments** on Ethereum Sepolia.
 
 ---
 
@@ -12,7 +12,8 @@ Full‑stack food ordering platform with customer ordering, real‑time order tr
 - Browse food items grouped by category
 - Search for specific dishes
 - Add items to a cart and update quantities
-- Place orders and track their status in real time
+- Place orders using **Stripe card payments** or **Web3 (Ethereum)**
+- Track order status in real time
 - View full order history with status updates
 
 ### For Admins
@@ -35,6 +36,7 @@ Full‑stack food ordering platform with customer ordering, real‑time order tr
 - Framer Motion (animations)
 - React Router (navigation)
 - Axios (API client)
+- **Stripe.js & React-Stripe.js** (card payments)
 
 ### Backend
 
@@ -43,10 +45,11 @@ Full‑stack food ordering platform with customer ordering, real‑time order tr
 - MySQL with Sequelize ORM
 - JWT (authentication)
 - Multer (file uploads)
+- **Stripe API** (payment processing)
 
 ---
 
-## 3. Project Structure (High‑Level)
+## 3. Project Structure (High-Level)
 
 ```bash
 .
@@ -75,6 +78,7 @@ Full‑stack food ordering platform with customer ordering, real‑time order tr
 - Node.js (LTS version recommended)
 - npm (comes with Node.js)
 - MySQL server running locally or accessible remotely
+- **Stripe account** (for card payments) – [Sign up free](https://stripe.com)
 - Optional: MetaMask browser extension (for Web3 payments)
 
 ### 4.2 Clone the Repository
@@ -104,10 +108,11 @@ npm install
 
 ### 5.1 Configure Environment Variables
 
-Create a `.env` file inside the `server/` folder and provide your MySQL credentials. The Sequelize config in
+Create a `.env` file inside the `server/` folder and provide your MySQL and Stripe credentials. The Sequelize config in
 `server/config/config.js` expects variables like:
 
 - `DB_USERNAME_DEV`, `DB_PASSWORD_DEV`, `DB_DATABASE_DEV`, `DB_HOST_DEV`, `DB_PORT_DEV`
+- `STRIPE_SECRET_KEY` (from your Stripe dashboard)
 
 You can open `server/config/config.js` to see the full list of variables used for development and production and set them accordingly.
 
@@ -141,9 +146,14 @@ By default, the API usually runs on `http://localhost:<port>` (check `server/ind
 
 ## 6. Frontend Setup (Client)
 
-### 6.1 Configure Environment (If Needed)
+### 6.1 Configure Environment
 
-If the frontend needs custom API URLs or keys, create a `.env` file in `client/` (e.g. `REACT_APP_API_URL`) based on how the Axios client is configured in `client/src`.
+Create a `.env` file in `client/` with:
+
+```
+REACT_APP_STRIPE_PUBLIC_KEY=pk_test_your_publishable_key_here
+REACT_APP_API_URL=http://localhost:5000
+```
 
 ### 6.2 Start the React App
 
@@ -161,11 +171,49 @@ The development server typically runs at `http://localhost:3000`.
 
 ---
 
-## 7. Web3 Integration Guide (Sepolia Testnet)
+## 7. Stripe Setup (Card Payments)
+
+This application supports Stripe for secure card payments. Follow these steps to enable card payments.
+
+For backend-only details, see [server/STRIPE_SETUP.md](server/STRIPE_SETUP.md).
+
+### 7.1 Get Your Stripe Keys
+
+1. Sign up or log in at [Stripe Dashboard](https://dashboard.stripe.com).
+2. Go to **Developers** > **API Keys** in the left sidebar.
+3. Copy your **Publishable Key** (starts with `pk_test_`) and **Secret Key** (starts with `sk_test_`).
+
+### 7.2 Configure Stripe Keys
+
+**Backend (`server/.env`):**
+
+```
+STRIPE_SECRET_KEY=sk_test_your_secret_key_here
+```
+
+**Frontend (`client/.env`):**
+
+```
+REACT_APP_STRIPE_PUBLIC_KEY=pk_test_your_publishable_key_here
+```
+
+### 7.3 Making a Test Payment
+
+1. Add items to your cart and proceed to checkout.
+2. Click **"Pay with Card"** on the payment method selection screen.
+3. Use Stripe's test card: `4242 4242 4242 4242`
+4. Enter any future expiry date (e.g., `12/25`) and any 3-digit CVC.
+5. Complete the payment and confirm your order.
+
+For detailed frontend setup, see [client/STRIPE_FRONTEND_SETUP.md](client/STRIPE_FRONTEND_SETUP.md).
+
+---
+
+## 8. Web3 Integration Guide (Sepolia Testnet)
 
 This application supports native ETH as a payment method on the Ethereum Sepolia testnet. Follow these steps to set up your wallet and make test payments.
 
-### 7.1 Prerequisites
+### 8.1 Prerequisites
 
 1. **Install MetaMask**
     - Download and install MetaMask from the [official website](https://metamask.io/).
@@ -181,27 +229,27 @@ This application supports native ETH as a payment method on the Ethereum Sepolia
     - Request test ETH to your Sepolia wallet address.
     - Wait for the faucet transaction to confirm.
 
-### 7.2 Making a Test Payment
+### 8.2 Making a Test Payment
 
 1. Ensure your Sepolia wallet has enough test ETH.
 2. In the app, add items to your cart and proceed to checkout.
-3. Choose the Web3/crypto payment option if available.
+3. Choose the **"Pay with Ethereum"** payment option.
 4. When MetaMask pops up, review and confirm the transaction.
-5. Wait for on‑chain confirmation.
+5. Wait for on-chain confirmation.
 6. Once confirmed, the order status in the app will update and the order will be processed.
 
-### 7.3 Important Notes
+### 8.3 Important Notes
 
-- This is a **testnet‑only** integration using test ETH.
+- This is a **testnet-only** integration using test ETH.
 - Do **not** send real/mainnet cryptocurrency to testnet addresses.
 - Keep your wallet seed phrase and private keys secure.
 - Confirmation times depend on Sepolia network conditions and your chosen gas settings.
 
 ---
 
-## 8. Next Steps & Customization
+## 9. Next Steps & Customization
 
 - Extend the admin dashboard with new analytics or reports.
-- Add more payment methods (e.g., traditional card/UPI integrations).
+- Add more payment methods (e.g., UPI, PayPal, Apple Pay).
 - Customize the UI theme and branding in the React components and Tailwind config.
 - Harden security (rate limiting, input validation, stricter auth policies) before any production deployment.
