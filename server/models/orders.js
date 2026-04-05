@@ -37,11 +37,33 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
+            paymentIntentId: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            paymentStatus: {
+                type: DataTypes.ENUM(
+                    "pending",
+                    "succeeded",
+                    "failed",
+                    "canceled",
+                ),
+                defaultValue: "pending",
+                allowNull: false,
+            },
+            paymentMethod: {
+                type: DataTypes.ENUM("stripe", "metamask"),
+                allowNull: true,
+            },
+            stripeCustomerId: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
         },
         {
             sequelize,
             modelName: "orders",
-        }
+        },
     );
     return orders;
 };

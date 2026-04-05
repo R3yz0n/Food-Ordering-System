@@ -124,7 +124,10 @@ const Home = () => {
 export default Home;
 
 export const Card = ({ title, latest, bg, icon, count, per }) => {
-    // console.log(per);
+    const safeCount = Number.isFinite(Number(count)) ? Number(count) : 0;
+    const safeLatest = Number.isFinite(Number(latest)) ? Number(latest) : 0;
+    const safePer = Number.isFinite(Number(per)) ? Number(per) : 0;
+
     return (
         <div
             className={`px-2 pt-3 pb-2 w-52 rounded-xl  ${bg} text-gray-900 flex justify-around  shadow-lg h-28 items-center`}
@@ -132,11 +135,14 @@ export const Card = ({ title, latest, bg, icon, count, per }) => {
             <aside className="">
                 <p className="text-xl text-gray-900 flex gap-3 items-center  cursor-pointer">
                     {icon}
-                    <CountUp
-                        className="font-semibold text-2xl cursor-pointer"
-                        start={0}
-                        end={count}
-                    />
+                    <CountUp start={0} end={safeCount} redraw>
+                        {({ countUpRef }) => (
+                            <span
+                                ref={countUpRef}
+                                className="font-semibold text-2xl cursor-pointer"
+                            />
+                        )}
+                    </CountUp>
                 </p>
 
                 <p className="font-semibold mt-4 text-headingColor">{title}</p>
@@ -145,7 +151,7 @@ export const Card = ({ title, latest, bg, icon, count, per }) => {
             <aside className="flex flex-col gap-3">
                 <CircularProgressbar
                     strokeWidth={15}
-                    value={per}
+                    value={safePer}
                     className="w-8 h-8  "
                     color="red"
                     styles={buildStyles({
@@ -157,7 +163,7 @@ export const Card = ({ title, latest, bg, icon, count, per }) => {
                     className="font-bold text-lg cursor-pointer"
                     title="Recenly added"
                 >
-                    +{latest}
+                    +{safeLatest}
                 </p>
             </aside>
         </div>

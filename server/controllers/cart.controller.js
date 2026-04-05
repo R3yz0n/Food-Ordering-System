@@ -1,26 +1,28 @@
-const express = require('express')
-const models = require('../models')
-
-
+const express = require("express");
+const models = require("../models");
 
 const addItemToCart = async (req, res) => {
     const { userId, itemId } = req.body;
     try {
         let cartExists = await models.cart.findOne({
             where: {
-                userId: userId
-            }
+                userId: userId,
+            },
         });
-        const getItem = await models.items.findByPk(itemId, { attributes: ['name'] })
+        const getItem = await models.items.findByPk(itemId, {
+            attributes: ["name"],
+        });
         // console.log(getItem);
 
         // console.log(cartExists);
 
-
         if (!cartExists) {
             await models.sequelize.transaction(async (transaction) => {
                 // Create a new cart
-                const newCart = await models.cart.create({ userId: userId }, { transaction });
+                const newCart = await models.cart.create(
+                    { userId: userId },
+                    { transaction },
+                );
 
                 // Create a new cartItem entry
                 const createCartItem = await models.cartItem.create(
@@ -29,23 +31,20 @@ const addItemToCart = async (req, res) => {
                         itemId: itemId,
                         quantity: 1,
                     },
-                    { transaction }
+                    { transaction },
                 );
 
                 // const getItem = await models.items.findByPk(itemId, { attributes: ['name'] })
                 // console.log(getItem);
 
                 return res.status(201).json({
-                    item: getItem.name
-                })
+                    item: getItem.name,
+                });
             });
-        }
-        else {
+        } else {
             const itemInCart = await models.cartItem.findOne({
                 where: { cartId: cartExists.id, itemId: itemId },
-
-            })
-
+            });
 
             // console.log(itemInCart);
             // return res.json(itemInCart)
@@ -53,68 +52,52 @@ const addItemToCart = async (req, res) => {
             if (itemInCart) {
                 // console.log('here');
 
-                return incrementQuantity(req, res)
+                return incrementQuantity(req, res);
             } else {
-                console.log('here');
-                await models.cartItem.create(
-                    {
-                        cartId: cartExists.id,
-                        itemId: itemId,
-                        quantity: 1,
-                    }
-                );
+                await models.cartItem.create({
+                    cartId: cartExists.id,
+                    itemId: itemId,
+                    quantity: 1,
+                });
 
-                return res.status(201).json(
-                    {
-                        item: getItem.name
-                    }
-                );
+                return res.status(201).json({
+                    item: getItem.name,
+                });
             }
-
         }
-    }
-
-
-    catch (error) {
+    } catch (error) {
         // console.log(error.message);
         res.status(500).json({
-            message: 'Failed to create cart.',
-            error: error
+            message: "Failed to create cart.",
+            error: error,
         });
     }
-
 };
-
-
-
 
 const incrementQuantity = async (req, res) => {
     const { userId } = req.body;
-    const itemId = req.params.itemId || req.body.itemId
-
+    const itemId = req.params.itemId || req.body.itemId;
 
     try {
         let cartExists = await models.cart.findOne({
             where: {
-                userId: userId
-            }
+                userId: userId,
+            },
         });
 
         if (!cartExists) {
-            return res.status(404).json({ message: 'Cart not found.' });
+            return res.status(404).json({ message: "Cart not found." });
         }
 
-
-
-
         const cartItem = await models.cartItem.findOne({
-            where: { cartId: cartExists.id, itemId: itemId }
+            where: { cartId: cartExists.id, itemId: itemId },
         });
 
-        console.log(cartItem);
-
         if (cartItem) {
-            const updatedCartItem = { ...cartItem, quantity: cartItem.quantity + 1 };
+            const updatedCartItem = {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+            };
 
             await models.cartItem.update(updatedCartItem, {
                 where: {
@@ -123,52 +106,42 @@ const incrementQuantity = async (req, res) => {
                 },
             });
             return res.status(200).json({
-                message: "Quantity updated successfully."
-            })
+                message: "Quantity updated successfully.",
+            });
         } else {
-
-            return res.status(404).json(
-
-                { message: 'Item not found in the cart.' }
-            );
+            return res
+                .status(404)
+                .json({ message: "Item not found in the cart." });
         }
     } catch (error) {
         console.log(error.message);
 
-        res.status(500).json(
-            {
-                message: 'Error updating quantity.',
-                error: error
-            }
-        );
+        res.status(500).json({
+            message: "Error updating quantity.",
+            error: error,
+        });
     }
-
-}
+};
 
 const decrementQuantity = async (req, res) => {
     const { userId } = req.body;
-    const itemId = req.params.itemId || req.body.itemId
-
+    const itemId = req.params.itemId || req.body.itemId;
 
     try {
         let cartExists = await models.cart.findOne({
             where: {
-                userId: userId
-            }
+                userId: userId,
+            },
         });
 
         if (!cartExists) {
-            return res.status(404).json({ message: 'Cart not found.' });
+            return res.status(404).json({ message: "Cart not found." });
         }
 
-
-
-
         const cartItem = await models.cartItem.findOne({
-            where: { cartId: cartExists.id, itemId: itemId }
+            where: { cartId: cartExists.id, itemId: itemId },
         });
 
-        console.log(cartItem);
         if (cartItem.quantity === 1) {
             await models.cartItem.destroy({
                 where: {
@@ -177,12 +150,15 @@ const decrementQuantity = async (req, res) => {
                 },
             });
             return res.status(200).json({
-                message: "Item removed from cart successfully."
-            })
+                message: "Item removed from cart successfully.",
+            });
         }
 
         if (cartItem) {
-            const updatedCartItem = { ...cartItem, quantity: cartItem.quantity - 1 };
+            const updatedCartItem = {
+                ...cartItem,
+                quantity: cartItem.quantity - 1,
+            };
 
             await models.cartItem.update(updatedCartItem, {
                 where: {
@@ -191,29 +167,22 @@ const decrementQuantity = async (req, res) => {
                 },
             });
             return res.status(200).json({
-                message: "Quantity updated successfully."
-            })
+                message: "Quantity updated successfully.",
+            });
         } else {
-
-            return res.status(404).json(
-
-                { message: 'Item not found in the cart.' }
-            );
+            return res
+                .status(404)
+                .json({ message: "Item not found in the cart." });
         }
     } catch (error) {
         console.log(error.message);
 
-        res.status(500).json(
-            {
-                message: 'Error updating quantity.',
-                error: error
-            }
-        );
+        res.status(500).json({
+            message: "Error updating quantity.",
+            error: error,
+        });
     }
-
-}
-
-
+};
 
 const getCartItems = async (req, res) => {
     try {
@@ -221,38 +190,36 @@ const getCartItems = async (req, res) => {
             where: {
                 userId: req.params.userId,
             },
-            attributes: ['id'],
+            attributes: ["id"],
             include: {
                 model: models.cartItem,
-                attributes: ['itemId', 'quantity'],
+                attributes: ["itemId", "quantity"],
             },
         });
 
-
         const cartItems = cart ? cart.cartItems : [];
-        console.log(cartItems);
 
         if (!cartItems.length) {
             return res.status(200).json(cartItems);
         }
 
-        const itemIds = cartItems?.map(cartItem => cartItem.itemId);
+        const itemIds = cartItems?.map((cartItem) => cartItem.itemId);
 
         const items = await models.items.findAll({
             where: {
                 id: itemIds,
             },
-            attributes: ['id', 'price', 'name', 'image', 'category'],
+            attributes: ["id", "price", "name", "image", "category"],
             include: {
                 model: models.cartItem,
-                attributes: ['quantity'],
+                attributes: ["quantity"],
                 where: {
                     cartId: cart.id,
                 },
             },
         });
 
-        const itemsWithQuantity = items?.map(item => ({
+        const itemsWithQuantity = items?.map((item) => ({
             id: item.id,
             name: item.name,
             price: item.price,
@@ -263,44 +230,20 @@ const getCartItems = async (req, res) => {
 
         res.status(200).json({
             cartId: cart.id,
-            cartItems: itemsWithQuantity
+            cartItems: itemsWithQuantity,
         });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({
-            message: 'Failed to get cart items',
+            message: "Failed to get cart items",
             error: error,
         });
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = {
     addItemToCart: addItemToCart,
     getCartItems: getCartItems,
     incrementQuantity: incrementQuantity,
     decrementQuantity: decrementQuantity,
-
-}
+};

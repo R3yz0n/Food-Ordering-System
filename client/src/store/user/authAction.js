@@ -1,27 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { APIURL } from '../../utils/constants';
+import { APIURL } from "../../utils/constants";
 
-
-export const userLogin = createAsyncThunk('user/login',
+export const userLogin = createAsyncThunk(
+    "user/login",
     async (values, { rejectWithValue }) => {
-        console.log(values);
-
-
+        // console.log(values);
 
         try {
+            const res = await axios.post(`${APIURL}/auth/login`, values);
 
-            const res = await axios.post(`${APIURL}/auth/login`, values)
-            
-            console.log(res);
+            // console.log(res);
             // console.log(res.data.token);
             // setResponse(res.data.message)
 
-            return res.data
-
-        }
-
-        catch (error) {
+            return res.data;
+        } catch (error) {
             // console.log(error);
 
             if (error.response && error.response.data.message) {
@@ -30,30 +24,21 @@ export const userLogin = createAsyncThunk('user/login',
                 console.log(error);
                 return rejectWithValue(error.message);
             }
-
         }
+    },
+);
 
-    }
-
-
-)
-
-export const userRegister = createAsyncThunk('user/sign-up',
+export const userRegister = createAsyncThunk(
+    "user/sign-up",
     async (values, { rejectWithValue }) => {
-        console.log(values);
-
-
+        // console.log(values);
 
         try {
+            const res = await axios.post(`${APIURL}/auth/register`, values);
+            // console.log(res);
 
-            const res = await axios.post(`${APIURL}/auth/register`, values)
-            console.log(res);
-
-            return res.data
-
-        }
-
-        catch (error) {
+            return res.data;
+        } catch (error) {
             console.log(error);
 
             if (error.response && error.response.data.message) {
@@ -62,10 +47,6 @@ export const userRegister = createAsyncThunk('user/sign-up',
                 console.log(error);
                 return rejectWithValue(error.message);
             }
-
         }
-
-    }
-
-
-)
+    },
+);

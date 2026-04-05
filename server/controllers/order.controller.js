@@ -6,7 +6,6 @@ const createOrder = async (req, res) => {
     const transaction = await models.sequelize.transaction(); // Start a transaction
     // console.log(transaction);
     try {
-        console.log(req.body);
         // Retrieve cart items
         const cartItems = await models.cartItem.findAll({
             where: { cartId: req.body.cartId },
@@ -24,7 +23,7 @@ const createOrder = async (req, res) => {
 
         const itemsWithQuantities = allItems.map((item) => {
             const cartItem = cartItems.find(
-                (cartItem) => cartItem.itemId === item.id
+                (cartItem) => cartItem.itemId === item.id,
             );
             return {
                 id: item.id,
@@ -42,8 +41,6 @@ const createOrder = async (req, res) => {
         // console.log(`Total Amount: ${totalAmount}`);
 
         // res.json(orderItemsToCreate)
-        console.log("----------------------------- hash");
-        console.log(req.body);
         const order = await models.orders.create(
             {
                 userId: req.body.userId,
@@ -51,7 +48,7 @@ const createOrder = async (req, res) => {
                 status: "Preparing",
                 transactionHash: req.body.transactionHash,
             },
-            { transaction }
+            { transaction },
         );
 
         const orderItemsToCreate = itemsWithQuantities.map((item) => {
@@ -63,7 +60,7 @@ const createOrder = async (req, res) => {
         });
         const createOrderItems = await models.orderItems.bulkCreate(
             orderItemsToCreate,
-            { transaction }
+            { transaction },
         ); //passing transaction
         await models.cart.destroy({
             where: {
@@ -73,7 +70,6 @@ const createOrder = async (req, res) => {
         await transaction.commit(); // Commit the transaction
 
         // res.json('okay')
-        console.log(createOrderItems);
         res.status(201).json({
             message: "Your order has been placed.",
         });
@@ -117,8 +113,6 @@ const getAnOrder = async (req, res) => {
                 attributes: ["userName", "phoneNumber"],
             },
         });
-        console.log(findOrder);
-        console.log("-------------found order");
         // return res.json(findOrder)
         // console.log(findOrder);
         if (findOrder === null)
@@ -129,7 +123,6 @@ const getAnOrder = async (req, res) => {
         const phoneNumber = findOrder.user.phoneNumber;
         const name = findOrder.user.userName;
         const transactionHash = findOrder.transactionHash;
-        console.log("--------------------------------");
 
         const orders = await models.orderItems.findAll({
             where: {
@@ -187,7 +180,6 @@ const cancelOrder = async (req, res) => {
         const orderDoesExist = await models.orders.findOne({
             where: { id: req.params.orderId },
         });
-        console.log(orderDoesExist);
         if (!orderDoesExist)
             return res.status(404).json({
                 message: "Order not found.",
@@ -209,9 +201,8 @@ const cancelOrder = async (req, res) => {
                 where: {
                     id: req.params.orderId,
                 },
-            }
+            },
         );
-        console.log(updatedOrder);
         if (updatedOrder[0])
             res.status(200).json({
                 message: "Order cancelled.",
@@ -229,7 +220,6 @@ const completeOrder = async (req, res) => {
         const orderDoesExist = await models.orders.findOne({
             where: { id: req.params.orderId },
         });
-        console.log(orderDoesExist);
         if (!orderDoesExist)
             return res.status(404).json({
                 message: "Order not found.",
@@ -251,9 +241,8 @@ const completeOrder = async (req, res) => {
                 where: {
                     id: req.params.orderId,
                 },
-            }
+            },
         );
-        console.log(updatedOrder);
         if (updatedOrder[0])
             res.status(200).json({
                 message: "Order Delivered.",

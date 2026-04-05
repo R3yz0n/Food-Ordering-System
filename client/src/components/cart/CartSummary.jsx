@@ -12,11 +12,12 @@ import { toast } from "react-hot-toast";
 import { createAnOrder } from "../../store/order/orderAction";
 import TransactionSelectionModal from "../payment/TransactionSelectionModal";
 import TransactionConfirmation from "../payment/TransactionConfirmation";
+import StripePaymentModal from "../payment/StripePaymentModal";
 import { openTransactionSelectionModal } from "../../store/payment/paymentSlice";
 
 const CartSummary = ({ shopMealNow }) => {
     const { totalPrice, totalQuantity, cartItems, cartId } = useSelector(
-        (state) => state.cart
+        (state) => state.cart,
     );
     const { userData } = useSelector((state) => state.currUser);
 
@@ -43,6 +44,11 @@ const CartSummary = ({ shopMealNow }) => {
         <>
             <TransactionSelectionModal />
             <TransactionConfirmation
+                cartId={cartId}
+                userId={userData?.id}
+                totalPrice={totalPrice}
+            />
+            <StripePaymentModal
                 cartId={cartId}
                 userId={userData?.id}
                 totalPrice={totalPrice}

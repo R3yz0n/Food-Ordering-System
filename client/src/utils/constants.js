@@ -22,6 +22,10 @@ import H4 from "../assests/H4.png";
 
 export const APIURL = process.env.REACT_APP_API_URL;
 
+// Stripe Configuration
+export const STRIPE_PUBLIC_KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+export const STRIPE_API_URL = `${APIURL}/payment`;
+
 export const PopularFood = [
     {
         id: "f1",

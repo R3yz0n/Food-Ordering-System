@@ -6,6 +6,8 @@
         "@babel/plugin-proposal-private-property-in-object": "^7.16.0",
         "@emailjs/browser": "^3.11.0",
         "@reduxjs/toolkit": "^1.9.5",
+        "@stripe/stripe-js": "^3.0.7",
+        "@stripe/react-stripe-js": "^2.4.0",
         "@svgr/plugin-svgo": "^8.0.1",
         "@svgr/webpack": "^8.0.1",
         "@testing-library/jest-dom": "^5.16.5",
